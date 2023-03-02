@@ -15,14 +15,15 @@ export default function App() {
   const paymentMethodsWidgetRef = useRef<ReturnType<
     PaymentWidgetInstance["renderPaymentMethods"]
   > | null>(null);
-  const price = 100_000;
+  const [price, setPrice] = useState(100_000);
 
   useEffect(() => {
     (async () => {
       const paymentWidget = await loadPaymentWidget(clientKey, customerKey);
+
       const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
         selector,
-        price
+        0
       );
 
       paymentWidgetRef.current = paymentWidget;
@@ -30,30 +31,35 @@ export default function App() {
     })();
   }, []);
 
+  useEffect(() => {
+    const paymentMethodsWidget = paymentMethodsWidgetRef.current;
+
+    if (paymentMethodsWidget == null) {
+      return;
+    }
+
+    paymentMethodsWidget.updateAmount(
+      price,
+      paymentMethodsWidget.UPDATE_REASON.COUPON
+    );
+  }, [price]);
+
   return (
     <div>
       <h1>주문서</h1>
-      <div id="payment-widget" />
+      <span>{`${price.toLocaleString()}원`}</span>
       <div>
-        <input
-          type="checkbox"
-          onChange={(event) => {
-            const paymentMethodsWidget = paymentMethodsWidgetRef.current;
-
-            if (paymentMethodsWidget == null) {
-              throw new Error("결제위젯 인스턴스가 없습니다.");
-            }
-
-            const finalPrice = event.target.checked ? price - 5_000 : price;
-
-            paymentMethodsWidget.updateAmount(
-              finalPrice,
-              paymentMethodsWidget.UPDATE_REASON.COUPON
-            );
-          }}
-        />
-        <label>5,000원 할인 쿠폰 적용</label>
+        <label>
+          <input
+            type="checkbox"
+            onChange={(event) => {
+              setPrice(event.target.checked ? price - 5_000 : price + 5_000);
+            }}
+          />
+          5,000원 할인 쿠폰 적용
+        </label>
       </div>
+      <div id="payment-widget" />
       <button
         onClick={async () => {
           const paymentWidget = paymentWidgetRef.current;
