@@ -64,12 +64,8 @@ export default function App() {
         onClick={async () => {
           const paymentWidget = paymentWidgetRef.current;
 
-          if (paymentWidget == null) {
-            throw new Error("결제위젯 인스턴스가 없습니다.");
-          }
-
           try {
-            await paymentWidget.requestPayment({
+            await paymentWidget?.requestPayment({
               orderId: "AD8aZDpbzXs4EQa-UkIX6",
               orderName: "토스 티셔츠 외 2건",
               customerName: "김토스",
