@@ -5,13 +5,13 @@ import {
 } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 
-import "./App.css";
+import "../App.css";
 
 const selector = "#payment-widget";
 const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
 const customerKey = "YbX2HuSlsC9uVJW6NMRMj";
 
-export default function App() {
+export function CheckoutPage() {
   const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
   const paymentMethodsWidgetRef = useRef<ReturnType<
     PaymentWidgetInstance["renderPaymentMethods"]
@@ -73,6 +73,7 @@ export default function App() {
               customerEmail: "customer123@gmail.com",
               successUrl: "http://localhost:5173/success",
               failUrl: "http://localhost:5173/fail",
+              _skipAuth: "FORCE_SUCCESS",
             });
           } catch (error) {
             // handle error
