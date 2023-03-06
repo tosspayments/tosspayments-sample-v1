@@ -16,7 +16,7 @@ export default function App() {
   const paymentMethodsWidgetRef = useRef<ReturnType<
     PaymentWidgetInstance["renderPaymentMethods"]
   > | null>(null);
-  const [price, setPrice] = useState(100_000);
+  const [price, setPrice] = useState(50_000);
 
   useEffect(() => {
     (async () => {
