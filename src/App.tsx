@@ -23,7 +23,7 @@ export default function App() {
 
       const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
         selector,
-        0
+        price
       );
 
       paymentWidgetRef.current = paymentWidget;
