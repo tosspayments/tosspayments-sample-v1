@@ -73,7 +73,6 @@ export function CheckoutPage() {
               customerEmail: "customer123@gmail.com",
               successUrl: "http://localhost:5173/success",
               failUrl: "http://localhost:5173/fail",
-              _skipAuth: "FORCE_SUCCESS",
             });
           } catch (error) {
             // handle error
