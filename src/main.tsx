@@ -1,12 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { CheckoutPage } from "./pages/Checkout";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { SuccessPage } from "./pages/Success";
 import { FailPage } from "./pages/Fail";
 
