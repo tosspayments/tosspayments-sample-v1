@@ -3,6 +3,7 @@ import {
   PaymentWidgetInstance,
   loadPaymentWidget,
 } from "@tosspayments/payment-widget-sdk";
+import { nanoid } from "nanoid";
 
 import "./App.css";
 
@@ -66,7 +67,7 @@ export default function App() {
 
           try {
             await paymentWidget?.requestPayment({
-              orderId: "AD8aZDpbzXs4EQa-UkIX6",
+              orderId: nanoid(),
               orderName: "토스 티셔츠 외 2건",
               customerName: "김토스",
               customerEmail: "customer123@gmail.com",
