@@ -4,7 +4,7 @@
 
 연동을 빠르게 시작할 수 있는 결제위젯 샘플 프로젝트입니다. 
 
-- [React]()
+- [React](https://github.com/tosspayments/payment-widget-sample/tree/main/react)
 
 토스페이먼츠 공식 문서 👉 [결제위젯 이해하기](https://docs.tosspayments.com/guides/payment-widget/overview) | [결제위젯 연동 문서](https://docs.tosspayments.com/guides/payment-widget/integration)
 
