@@ -71,8 +71,8 @@ export function CheckoutPage() {
               orderName: "토스 티셔츠 외 2건",
               customerName: "김토스",
               customerEmail: "customer123@gmail.com",
-              successUrl: "http://localhost:5173/success",
-              failUrl: "http://localhost:5173/fail",
+              successUrl: `${window.location.origin}/success`,
+              failUrl: `${window.location.origin}/fail`,
             });
           } catch (error) {
             // handle error
