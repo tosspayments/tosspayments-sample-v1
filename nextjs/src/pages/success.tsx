@@ -2,6 +2,7 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import { format } from "date-fns";
 
+// https://docs.tosspayments.com/reference#payment-객체
 interface Payment {
   orderName: string;
   approvedAt: string;
