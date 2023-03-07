@@ -1,4 +1,4 @@
-# 결제위젯 SDK 연동 샘플 프로젝트(Node.js)
+# 결제위젯 Node.js 샘플 프로젝트
 
 결제위젯 JavaScript SDK를 이용해 자체 간편결제를 구축할 수 있는 Node.js 샘플 프로젝트입니다.
 
