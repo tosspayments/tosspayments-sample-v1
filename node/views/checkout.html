@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>결제위젯 샘플 프로젝트</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/index.css">
+    
+    <!-- 결제위젯 SDK script 추가 -->
+    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <!-- 상품 정보 영역-->
+    <div class="wrapper vertical">
+      <div class="title">상품 정보</div>
+      <img src="/static/image/t-short.png" width="200">
+      <p>토스 티셔츠</p>
+      <p>결제 금액: 50,000원</p>
+      <form id="discount-coupon">
+        <input type="checkbox" id="coupon"/>5,000원 할인받기 
+      </form>
+      <hr>
+  
+      <!-- 결제 방법 영역-->
+      <div class="title">결제 방법</div>
+      <div id="payment-method"></div>
+      <div id="agreement"></div> 
+      <button class="button" type="primary"  id="payment-button">결제하기</button>
+    </div>
+  </body>
+  
+  <script>
+    const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq' // 상점을 특정하는 키
+    const customerKey = 'YbX2HuSlsC9uVJW6NMRMj' // 결제 고객을 특정하는 키
+    const amount = 50_000 // 결제 금액
+    const couponAmount = 5_000 // 할인 쿠폰 금액
+    const orderId = Math.floor(0|Math.random()*9e10).toString(36) // 주문을 특정하는 키
+  
+    /*결제위젯 영역 렌더링*/
+    const paymentWidget = PaymentWidget(clientKey, customerKey) // 회원 결제
+    // const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS) // 비회원 결제
+    paymentMethods = paymentWidget.renderPaymentMethods('#payment-method', amount)
+    
+    /*약관 영역 렌더링*/
+    const paymentAgreement = paymentWidget.renderAgreement('#agreement')
+    
+    /*결제창 열기*/
+    document.querySelector("#payment-button").addEventListener("click",()=>{
+      paymentWidget.requestPayment({
+        orderId: orderId,
+        orderName: '토스 티셔츠',
+        successUrl: 'http://localhost:3000/success',
+        failUrl: 'http://localhost:3000/fail',
+        customerEmail: 'customer123@gmail.com', 
+        customerName: '김토스'
+        })
+        .catch((err) => {
+          if (err.code == 'USER_CANCEL') {
+            console.log('사용자 취소')
+          } else {
+            console.log('기타 에러 상황', err.code, err.message)
+          }
+        })
+  })
+  
+    /*할인 쿠폰 적용*/
+    document.querySelector("#coupon").addEventListener("click", applyDiscount)
+    
+    function applyDiscount(e) {
+      if (e.target.checked) {
+        paymentMethods.updateAmount(amount - couponAmount, "쿠폰")
+      } else {
+        paymentMethods.updateAmount(amount)
+      }
+    }
+  </script>
+  
+</html>
+
