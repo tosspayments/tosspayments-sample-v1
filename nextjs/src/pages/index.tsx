@@ -4,7 +4,7 @@ import {
   loadPaymentWidget,
 } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
-import { useRouter } from "next/router";
+import { useAsync } from "react-use";
 
 const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
 const customerKey = "YbX2HuSlsC9uVJW6NMRMj";
@@ -15,20 +15,17 @@ export default function Home() {
     PaymentWidgetInstance["renderPaymentMethods"]
   > | null>(null);
   const [price, setPrice] = useState(50_000);
-  const router = useRouter();
 
-  useEffect(() => {
-    (async () => {
-      const paymentWidget = await loadPaymentWidget(clientKey, customerKey);
+  useAsync(async () => {
+    const paymentWidget = await loadPaymentWidget(clientKey, customerKey);
 
-      const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
-        "#payment-widget",
-        price
-      );
+    const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
+      "#payment-widget",
+      price
+    );
 
-      paymentWidgetRef.current = paymentWidget;
-      paymentMethodsWidgetRef.current = paymentMethodsWidget;
-    })();
+    paymentWidgetRef.current = paymentWidget;
+    paymentMethodsWidgetRef.current = paymentMethodsWidget;
   }, []);
 
   useEffect(() => {
