@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <section>
+      <h1>구매하기</h1>
+      <h3><%= orderName %></h3>
+      <span><%= price.toLocaleString() %>원</span>
+      <div id="payment-widget"></div>
+      <button id="payment-button">결제하기</button>
+    </section>
+    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+    <script>
+      const paymentWidget = PaymentWidget(
+        "test_ck_OEP59LybZ8Bdv6A1JxkV6GYo7pRe",
+        PaymentWidget.ANONYMOUS
+      );
+
+      paymentWidget.renderPaymentMethods("#payment-widget", "<%= price %>");
+
+      const button = document.getElementById("payment-button");
+
+      button.addEventListener("click", function () {
+        paymentWidget.requestPayment({
+          amount: "<%= price %>",
+          orderId: "<%= orderId %>",
+          orderName: "<%= orderName %>",
+          customerName: "<%= customerName %>",
+          successUrl: window.location.origin + "/success",
+          failUrl: window.location.origin + "/fail",
+        });
+      });
+    </script>
+  </body>
+</html>
