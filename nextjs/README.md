@@ -33,7 +33,9 @@ $ npm run dev # 서버 실행
 
 ## 인증하기
 
-`.env` 파일을 만들고 `.env.sample`을 참고해 시크릿 키를 설정하세요. [상점의 테스트 API 키](https://developers.tosspayments.com/my/api-keys)는 개발자센터에서 확인할 수 있습니다. 더 자세한 내용은 [API 키 가이드](https://docs.tosspayments.com/reference/using-api/api-keys)를 참고하세요.
+`.env` 파일을 만들고 `.env.sample`을 참고해서 내 시크릿 키로 설정하세요. [상점의 테스트 API 키](https://developers.tosspayments.com/my/api-keys)는 개발자센터에서 확인할 수 있습니다. 더 자세한 내용은 [API 키 가이드](https://docs.tosspayments.com/reference/using-api/api-keys)를 참고하세요.
+
+**시크릿 키는 외부에 노출되면 안 됩니다.**
 
 ## 더 알아보기
 
