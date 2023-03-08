@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <section>
+      <h1>구매하기</h1>
+      <img src="/images/toss-tee.png" style="max-width: 100%" />
+      <h3><%= orderName %></h3>
+      <span><%= price.toLocaleString() %>원</span>
+      <button id="payment-button">결제하기</button>
+    </section>
+    <script src="https://js.tosspayments.com/v1"></script>
+    <script>
+      var tossPayments = TossPayments("test_ck_OEP59LybZ8Bdv6A1JxkV6GYo7pRe");
+
+      var button = document.getElementById("payment-button");
+
+      button.addEventListener("click", function () {
+        tossPayments.requestPayment("카드", {
+          amount: "<%= price %>",
+          orderId: "<%= orderId %>",
+          orderName: "<%= orderName %>",
+          customerName: "<%= customerName %>",
+          successUrl: window.location.origin + "/success",
+          failUrl: window.location.origin + "/fail",
+        });
+      });
+    </script>
+  </body>
+</html>
