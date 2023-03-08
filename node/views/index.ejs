@@ -15,16 +15,22 @@
       <img src="/images/toss-tee.png" style="max-width: 100%" />
       <h3><%= orderName %></h3>
       <span><%= price.toLocaleString() %>원</span>
+      <div id="payment-widget"></div>
       <button id="payment-button">결제하기</button>
     </section>
-    <script src="https://js.tosspayments.com/v1"></script>
+    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
     <script>
-      const tossPayments = TossPayments("test_ck_OEP59LybZ8Bdv6A1JxkV6GYo7pRe");
+      const paymentWidget = PaymentWidget(
+        "test_ck_OEP59LybZ8Bdv6A1JxkV6GYo7pRe",
+        PaymentWidget.ANONYMOUS
+      );
+
+      paymentWidget.renderPaymentMethods("#payment-widget", "<%= price %>");
 
       const button = document.getElementById("payment-button");
 
       button.addEventListener("click", function () {
-        tossPayments.requestPayment("카드", {
+        paymentWidget.requestPayment({
           amount: "<%= price %>",
           orderId: "<%= orderId %>",
           orderName: "<%= orderName %>",
