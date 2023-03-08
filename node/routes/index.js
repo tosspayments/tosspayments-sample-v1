@@ -13,6 +13,7 @@ router.get("/", function (req, res) {
     orderName: "토스 티셔츠",
     price: 50000,
     customerName: "김토스",
+    customerKey: uuid(),
   });
 });
 
