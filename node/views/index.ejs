@@ -19,9 +19,9 @@
     </section>
     <script src="https://js.tosspayments.com/v1"></script>
     <script>
-      var tossPayments = TossPayments("test_ck_OEP59LybZ8Bdv6A1JxkV6GYo7pRe");
+      const tossPayments = TossPayments("test_ck_OEP59LybZ8Bdv6A1JxkV6GYo7pRe");
 
-      var button = document.getElementById("payment-button");
+      const button = document.getElementById("payment-button");
 
       button.addEventListener("click", function () {
         tossPayments.requestPayment("카드", {
