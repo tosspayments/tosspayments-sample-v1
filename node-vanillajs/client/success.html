@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>결제위젯 샘플</title>
+    <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+  </head>
+  <body>
+    <section>
+      <h1>구매 완료</h1>
+      <img src="/images/toss-tee.png" style="max-width: 100%" />
+      <h3>토스 티셔츠</h3>
+    </section>
+    <script>
+      const queryParams = new URLSearchParams(window.location.search);
+
+      console.log("paymentKey", queryParams.get("paymentKey"));
+      console.log("orderId", queryParams.get("orderId"));
+      console.log("amount:", queryParams.get("amount"));
+    </script>
+  </body>
+</html>
