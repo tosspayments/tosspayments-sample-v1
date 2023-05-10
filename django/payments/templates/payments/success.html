@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>결제위젯 샘플페이지-결제결과</title>
+  </head>
+
+  <body>
+    <div class="col-md-6">
+      <!-- 결제 성공 시 -->
+      <h2 style="margin-top: 10px; padding: 20px 0px 10px 0px">
+        <img
+          width="45px"
+          src="https://static.toss.im/3d-emojis/u1F911-apng.png"
+        />
+        결제 성공
+      </h2>
+      <div class="gray">
+        <p>paymentKey = {{ respaymentKey }}</p>
+        <p>orderId = {{ resorderId }}</p>
+      </div>
+
+      <div class="gray">
+        <b>Response Data :</b>
+        <pre>
+              {{ res }}              
+            </pre
+        >
+      </div>
+    </div>
+  </body>
+</html>
