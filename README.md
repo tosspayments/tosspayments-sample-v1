@@ -6,6 +6,7 @@
 
 - [Next.js](https://github.com/tosspayments/payment-widget-sample/tree/main/nextjs)
 - [React](https://github.com/tosspayments/payment-widget-sample/tree/main/react)
+- [Vue](https://github.com/tosspayments/payment-widget-sample/tree/main/vue)
 - [Node + EJS](https://github.com/tosspayments/payment-widget-sample/tree/main/node-ejs)
 - [Node + JQuery](https://github.com/tosspayments/payment-widget-sample/tree/main/node-jquery)
 - [Node + Vanilla JS](https://github.com/tosspayments/payment-widget-sample/tree/main/node-vanillajs)
