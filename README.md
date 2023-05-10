@@ -5,8 +5,13 @@
 사용하는 언어를 선택해서 샘플 프로젝트로 빠르게 결제 연동을 시작하세요.
 
 - [Next.js](https://github.com/tosspayments/payment-widget-sample/tree/main/nextjs)
-- [Node](https://github.com/tosspayments/payment-widget-sample/tree/main/node)
 - [React](https://github.com/tosspayments/payment-widget-sample/tree/main/react)
+- [Node + EJS](https://github.com/tosspayments/payment-widget-sample/tree/main/node-ejs)
+- [Node + JQuery](https://github.com/tosspayments/payment-widget-sample/tree/main/node-jquery)
+- [Node + Vanilla JS](https://github.com/tosspayments/payment-widget-sample/tree/main/node-vanillajs)
+- [PHP](https://github.com/tosspayments/payment-widget-sample/tree/main/php)
+- [JSP](https://github.com/tosspayments/payment-widget-sample/tree/main/jsp)
+- [Django](https://github.com/tosspayments/payment-widget-sample/tree/main/django)
 
 ## 더 알아보기
 
