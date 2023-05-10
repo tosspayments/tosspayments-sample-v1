@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>결제에 실패했어요</title>
+    <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+  </head>
+  <body>
+    <section>
+      <h1>결제에 실패했어요</h1>
+    </section>
+  </body>
+  <script>
+    const queryParams = new URLSearchParams(window.location.search);
+
+    console.log("error code:", queryParams.get("code"));
+    console.log("error message:", queryParams.get("message"));
+  </script>
+</html>
