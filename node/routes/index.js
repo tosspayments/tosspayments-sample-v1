@@ -19,7 +19,7 @@ router.get("/", function (req, res) {
 
 router.get("/success", function (req, res) {
   got
-    .post("https://api.tosspayments.com/v1/payments/" + req.query.paymentKey, {
+    .post("https://api.tosspayments.com/v1/payments/confirm", {
       headers: {
         Authorization:
           "Basic " + Buffer.from(secretKey + ":").toString("base64"),
@@ -28,6 +28,7 @@ router.get("/success", function (req, res) {
       json: {
         orderId: req.query.orderId,
         amount: req.query.amount,
+        paymentKey: req.query.paymentKey,
       },
       responseType: "json",
     })
