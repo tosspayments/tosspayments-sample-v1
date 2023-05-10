@@ -2,6 +2,10 @@
 
 결제위젯 JavaScript SDK를 이용해 결제과정을 구현한 Next.js 샘플 프로젝트입니다.
 
+## 데모
+
+[자바스크립트 데모](https://codesandbox.io/p/sandbox/payment-widget-nextjs-sample-t2lf3x) | [타입스크립트 데모](https://codesandbox.io/p/sandbox/payment-widget-nextjs-ts-sample-u0kfmj)
+
 ## 준비하기
 
 샘플 프로젝트를 사용하려면 [Node.js](https://nodejs.org/ko/)가 필요합니다. 먼저 내 컴퓨터의 Node.js 버전을 확인하세요.
