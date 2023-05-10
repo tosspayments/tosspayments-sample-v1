@@ -4,17 +4,17 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: import("@/views/homePage.vue"),
+    component: () => import("@/views/homePage.vue"),
   },
   {
     path: "/success",
     name: "Success",
-    component: import("@/views/successPage.vue"),
+    component: () => import("@/views/successPage.vue"),
   },
   {
     path: "/fail",
     name: "Fail",
-    component: import("@/views/failPage.vue"),
+    component: () => import("@/views/failPage.vue"),
   },
 ];
 
