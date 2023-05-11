@@ -20,4 +20,4 @@
 
 ## 문의
 
-기능 및 구현에 대해 궁금한 점이 있다면 [1:1 채팅](https://discord.com/invite/VdkfJnknD9)이나 [토스페이먼츠 기술지원 팀 이메일](techsupport@tosspayments.com)로 문의해주세요.
+기능 및 구현에 대해 궁금한 점이 있다면 [1:1 채팅](https://discord.com/invite/VdkfJnknD9)이나 [토스페이먼츠 기술지원 팀 이메일](mailto:techsupport@tosspayments.com)로 문의해주세요.
