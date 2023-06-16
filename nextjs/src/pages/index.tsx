@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   PaymentWidgetInstance,
   loadPaymentWidget,
+  ANONYMOUS
 } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 import { useAsync } from "react-use";
@@ -17,12 +18,21 @@ export default function Home() {
   const [price, setPrice] = useState(50_000);
 
   useAsync(async () => {
-    const paymentWidget = await loadPaymentWidget(clientKey, customerKey);
+    // ------  결제위젯 초기화 ------ 
+    // 비회원 결제에는 customerKey 대신 ANONYMOUS를 사용하세요.
+    const paymentWidget = await loadPaymentWidget(clientKey, customerKey);  // 회원 결제
+    // const paymentWidget = await loadPaymentWidget(clientKey, ANONYMOUS); // 비회원 결제
 
+    // ------  결제위젯 렌더링 ------ 
+    // https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
     const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
       "#payment-widget",
       price
     );
+
+    // ------  이용약관 렌더링 ------
+    // https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자
+    paymentWidget.renderAgreement('#agreement');
 
     paymentWidgetRef.current = paymentWidget;
     paymentMethodsWidgetRef.current = paymentMethodsWidget;
@@ -35,9 +45,10 @@ export default function Home() {
       return;
     }
 
+    // ------ 금액 업데이트 ------
+    // https://docs.tosspayments.com/reference/widget-sdk#updateamount결제-금액
     paymentMethodsWidget.updateAmount(
-      price,
-      paymentMethodsWidget.UPDATE_REASON.COUPON
+      price
     );
   }, [price]);
 
@@ -59,11 +70,14 @@ export default function Home() {
         </label>
       </div>
       <div id="payment-widget" />
+      <div id="agreement" />
       <button
         onClick={async () => {
           const paymentWidget = paymentWidgetRef.current;
 
           try {
+            // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+            // https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
             await paymentWidget?.requestPayment({
               orderId: nanoid(),
               orderName: "토스 티셔츠 외 2건",
@@ -73,7 +87,7 @@ export default function Home() {
               failUrl: `${window.location.origin}/fail`,
             });
           } catch (error) {
-            // handle error
+            // 에러 처리하기
           }
         }}
       >
