@@ -24,13 +24,15 @@
         PaymentWidget.ANONYMOUS
       );
 
-      paymentWidget.renderPaymentMethods("#payment-widget", "<%= price %>");
+      paymentWidget.renderPaymentMethods(
+        "#payment-widget",
+        "<%= Number(price) %>"
+      );
 
       const button = document.getElementById("payment-button");
 
       button.addEventListener("click", function () {
         paymentWidget.requestPayment({
-          amount: "<%= price %>",
           orderId: "<%= orderId %>",
           orderName: "<%= orderName %>",
           customerName: "<%= customerName %>",
