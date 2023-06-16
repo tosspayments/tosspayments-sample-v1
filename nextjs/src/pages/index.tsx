@@ -55,7 +55,11 @@ export default function Home() {
 
   return (
     <main
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
     >
       <h1>주문서</h1>
       <span>{`${price.toLocaleString()}원`}</span>
@@ -70,8 +74,8 @@ export default function Home() {
           5,000원 할인 쿠폰 적용
         </label>
       </div>
-      <div id="payment-widget" />
-      <div id="agreement" />
+      <div id="payment-widget" style={{ width: "100%" }} />
+      <div id="agreement" style={{ width: "100%" }} />
       <button
         onClick={async () => {
           const paymentWidget = paymentWidgetRef.current;
