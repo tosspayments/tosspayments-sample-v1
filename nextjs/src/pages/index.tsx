@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   PaymentWidgetInstance,
   loadPaymentWidget,
-  ANONYMOUS
+  ANONYMOUS,
 } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
 import { useAsync } from "react-use";
@@ -18,12 +18,12 @@ export default function Home() {
   const [price, setPrice] = useState(50_000);
 
   useAsync(async () => {
-    // ------  결제위젯 초기화 ------ 
+    // ------  결제위젯 초기화 ------
     // 비회원 결제에는 customerKey 대신 ANONYMOUS를 사용하세요.
-    const paymentWidget = await loadPaymentWidget(clientKey, customerKey);  // 회원 결제
+    const paymentWidget = await loadPaymentWidget(clientKey, customerKey); // 회원 결제
     // const paymentWidget = await loadPaymentWidget(clientKey, ANONYMOUS); // 비회원 결제
 
-    // ------  결제위젯 렌더링 ------ 
+    // ------  결제위젯 렌더링 ------
     // https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
     const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
       "#payment-widget",
@@ -32,7 +32,7 @@ export default function Home() {
 
     // ------  이용약관 렌더링 ------
     // https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자
-    paymentWidget.renderAgreement('#agreement');
+    paymentWidget.renderAgreement("#agreement");
 
     paymentWidgetRef.current = paymentWidget;
     paymentMethodsWidgetRef.current = paymentMethodsWidget;
@@ -48,7 +48,8 @@ export default function Home() {
     // ------ 금액 업데이트 ------
     // https://docs.tosspayments.com/reference/widget-sdk#updateamount결제-금액
     paymentMethodsWidget.updateAmount(
-      price
+      price,
+      paymentMethodsWidget.UPDATE_REASON.COUPON
     );
   }, [price]);
 
@@ -88,6 +89,7 @@ export default function Home() {
             });
           } catch (error) {
             // 에러 처리하기
+            console.error(error);
           }
         }}
       >
