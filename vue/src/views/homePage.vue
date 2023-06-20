@@ -14,7 +14,7 @@ const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS);
 
 export default {
   mounted() {
-    paymentWidget.renderPaymentMethods("#payment-method", 50_000);
+    paymentWidget.renderPaymentMethods("#payment-method", { value: 50_000 });
   },
   methods: {
     clickPaymentButton() {
