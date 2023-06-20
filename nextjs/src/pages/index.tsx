@@ -27,7 +27,7 @@ export default function Home() {
     // https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
     const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
       "#payment-widget",
-      price
+      { value: price }
     );
 
     // ------  이용약관 렌더링 ------

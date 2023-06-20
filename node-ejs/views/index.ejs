@@ -24,10 +24,9 @@
         PaymentWidget.ANONYMOUS
       );
 
-      paymentWidget.renderPaymentMethods(
-        "#payment-widget",
-        "<%= Number(price) %>"
-      );
+      paymentWidget.renderPaymentMethods("#payment-widget", {
+        value: "<%= price %>",
+      });
 
       const button = document.getElementById("payment-button");
 
