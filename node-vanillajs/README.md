@@ -2,7 +2,7 @@
 
 TossPayments 결제연동 Node.js 샘플 코드입니다. 서버는 Express로 구성되었습니다.
 
-##데모
+## 데모
 
 [데모](https://codesandbox.io/p/sandbox/payment-widget-vanilla-js-sample-3ehy1x)
 
