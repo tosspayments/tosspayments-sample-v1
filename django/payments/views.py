@@ -5,7 +5,7 @@ import requests, json, base64, time
 def index(request):
   return render(
     request,
-    'payments/window.html',
+    'payments/index.html',
   )
 
 def success(request):
