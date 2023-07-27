@@ -1,4 +1,4 @@
-# 결제위젯 Vue 샘플 프로젝트
+# 결제위젯 Vue.js 샘플 프로젝트
 
 결제위젯 JavaScript SDK를 이용해서 간단한 주문서 페이지를 만들어 보는 샘플 프로젝트입니다. 자세한 연동 방법과 결제 과정은 [공식 연동 문서](https://docs.tosspayments.com/guides/payment-widget/integration)에서 확인하세요.
 
