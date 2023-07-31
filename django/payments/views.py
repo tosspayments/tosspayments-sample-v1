@@ -5,7 +5,7 @@ import requests, json, base64, time
 def index(request):
   return render(
     request,
-    'payments/window.html',
+    'payments/index.html',
   )
 
 def success(request):
@@ -19,7 +19,7 @@ def success(request):
     비밀번호가 없다는 것을 알리기 위해 시크릿 키 뒤에 콜론을 추가합니다.
     @see https://docs.tosspayments.com/reference/using-api/authorization#%EC%9D%B8%EC%A6%9D
   """
-  secretKey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R"
+  secretKey = "test_sk_secret_key"
   userpass = secretKey + ':'
   encoded_u = base64.b64encode(userpass.encode()).decode()
   
@@ -40,7 +40,6 @@ def success(request):
 
   respaymentKey = resjson["paymentKey"]
   resorderId = resjson["orderId"]
-  rescardcom = resjson["card"]["company"]
   
 
   return render(
@@ -50,7 +49,6 @@ def success(request):
       "res" : pretty,
       "respaymentKey" : respaymentKey,
       "resorderId" : resorderId,
-      "rescardcom" : rescardcom,
 
     }
   )
