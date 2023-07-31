@@ -12,8 +12,7 @@
     <button id="payment-request-button">결제하기</button>
     <script>
       const paymentWidget = PaymentWidget(
-        "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq",
-        // 비회원 customerKey
+        "test_ck_client_key",
         PaymentWidget.ANONYMOUS
       );
 
@@ -33,8 +32,8 @@
         paymentWidget.requestPayment({
           orderId: generateRandomString(),
           orderName: "토스 티셔츠 외 2건",
-          successUrl: window.location.origin + "/success.php",
-          failUrl: window.location.origin + "/fail.php",
+          successUrl: window.location.origin + "/success",
+          failUrl: window.location.origin + "/fail",
         });
       });
 
