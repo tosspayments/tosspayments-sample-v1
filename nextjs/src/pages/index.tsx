@@ -47,10 +47,7 @@ export default function Home() {
 
     // ------ 금액 업데이트 ------
     // https://docs.tosspayments.com/reference/widget-sdk#updateamount결제-금액
-    paymentMethodsWidget.updateAmount(
-      price,
-      paymentMethodsWidget.UPDATE_REASON.COUPON
-    );
+    paymentMethodsWidget.updateAmount(price);
   }, [price]);
 
   return (
