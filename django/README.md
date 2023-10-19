@@ -20,6 +20,10 @@ Python - Django 환경을 먼저 준비 해주세요.
 
 `payments/views.py` 파일에 있는 `secretKey`를 내 시크릿 키로 수정하세요. [상점의 테스트 API 키](https://developers.tosspayments.com/my/api-keys)는 개발자센터에서 확인할 수 있습니다. 더 자세한 내용은 [API 키 가이드](https://docs.tosspayments.com/reference/using-api/api-keys)를 참고하세요.
 
+## Q. 결제 요청 후 계속 로딩 중인 화면이 보인다면?
+
+아직 결제 요청 중이에요. 이어서 요청 결과를 확인한 뒤, 결제 승인 API 호출까지 해야 결제가 완료돼요. iframe을 사용하면 요청 결과 페이지(`successUrl`, `failUrl`)로 이동할 수가 없으니 유의하세요.
+
 **시크릿 키는 외부에 노출되면 안 됩니다.**
 
 ## 더 알아보기
