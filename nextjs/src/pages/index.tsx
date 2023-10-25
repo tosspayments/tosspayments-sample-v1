@@ -7,7 +7,7 @@ import {
 import { nanoid } from "nanoid";
 import { useAsync } from "react-use";
 
-const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
+const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = "YbX2HuSlsC9uVJW6NMRMj";
 
 export default function Home() {
