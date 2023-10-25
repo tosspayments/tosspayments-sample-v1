@@ -3,7 +3,7 @@ var app = express();
 var { resolve } = require("path");
 var got = require("got");
 
-var secretKey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R";
+var secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6";
 
 app.use(express.static("./client"));
 
