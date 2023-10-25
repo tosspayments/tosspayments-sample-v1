@@ -1,5 +1,5 @@
 var paymentWidget = PaymentWidget(
-  "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq",
+  "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm",
   PaymentWidget.ANONYMOUS
 );
 
