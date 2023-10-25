@@ -1,6 +1,6 @@
-# 결제위젯 JSP 샘플
+# 결제위젯 JSP 샘플 프로젝트
 
-결제위젯 JavaScript SDK로 결제 과정을 구현한 JSP 샘플 프로젝트입니다.
+결제위젯 JavaScript SDK로 결제 과정을 구현한 JSP 샘플 프로젝트입니다. 자세한 연동 방법과 결제 과정은 [공식 연동 문서](https://docs.tosspayments.com/guides/payment-widget/integration)에서 확인하세요.
 
 ## 실행하기
 
