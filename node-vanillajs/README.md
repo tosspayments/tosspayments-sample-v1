@@ -1,10 +1,11 @@
 # 결제위젯 Node.js + VanillaJS 샘플 프로젝트
 
-TossPayments 결제연동 Node.js 샘플 코드입니다. 서버는 Express로 구성되었습니다.
+결제위젯 JavaScript SDK로 결제 과정을 구현한 Node.js 샘플 프로젝트입니다. 서버는 Express로 구성되었습니다. 자세한 연동 방법과 결제 과정은 [공식 연동 문서](https://docs.tosspayments.com/guides/payment-widget/integration)에서 확인하세요.
+
 
 ## 데모
 
-[데모](https://codesandbox.io/p/sandbox/payment-widget-vanilla-js-sample-3ehy1x)
+[데모](https://codesandbox.io/p/sandbox/payment-widget-js-sample-zr9vkt)
 
 ## 준비하기
 

@@ -1,10 +1,11 @@
 # 결제위젯 Next.js 샘플 프로젝트
 
-결제위젯 JavaScript SDK를 이용해 결제과정을 구현한 Next.js 샘플 프로젝트입니다.
+결제위젯 JavaScript SDK로 결제 과정을 구현한 Next.js 샘플 프로젝트입니다. 자세한 연동 방법과 결제 과정은 [공식 연동 문서](https://docs.tosspayments.com/guides/payment-widget/integration)에서 확인하세요.
+
 
 ## 데모
 
-[자바스크립트 데모](https://codesandbox.io/p/sandbox/payment-widget-nextjs-sample-t2lf3x) | [타입스크립트 데모](https://codesandbox.io/p/sandbox/payment-widget-nextjs-ts-sample-u0kfmj)
+[자바스크립트 데모](https://codesandbox.io/p/sandbox/payment-widget-nextjs-smaple-85l2dg) | [타입스크립트 데모](https://codesandbox.io/p/sandbox/payment-widget-nextjs-ts-sample-9yv4vx)
 
 ## 준비하기
 

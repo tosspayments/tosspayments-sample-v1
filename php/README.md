@@ -1,12 +1,12 @@
-# 결제위젯 PHP 샘플
+# 결제위젯 PHP 샘플 프로젝트
 
-PHP 를 이용한 결제위젯 샘플입니다.
+결제위젯 JavaScript SDK로 결제 과정을 구현한 PHP 샘플 프로젝트입니다. 자세한 연동 방법과 결제 과정은 [공식 연동 문서](https://docs.tosspayments.com/guides/payment-widget/integration)에서 확인하세요.
 
 ## 데모
 
-[데모](https://codesandbox.io/p/sandbox/inspiring-feistel-veey21)
+[데모](https://codesandbox.io/p/sandbox/payment-widget-php-sample-qtkwjn)
 
-## 테스트
+## 실행하기
 
 로컬에 웹서버 및 php 관련 설정을 완료한 후
 
