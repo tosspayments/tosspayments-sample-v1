@@ -22,10 +22,9 @@
   String orderId = request.getParameter("orderId");
   String paymentKey = request.getParameter("paymentKey");
   String amount = request.getParameter("amount");
-  
   // 개발자센터에 로그인해서 내 결제위젯 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
   // @docs https://docs.tosspayments.com/reference/using-api/api-keys
-  String secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6:";
+  String secretKey = "test_ak_ZORzdMaqN3wQd5k6ygr5AkYXQGwy:";
   
   Encoder encoder = Base64.getEncoder(); 
   byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));

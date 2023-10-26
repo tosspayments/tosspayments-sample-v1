@@ -2,11 +2,22 @@
 
 결제위젯 JavaScript SDK로 결제 과정을 구현한 JSP 샘플 프로젝트입니다. 자세한 연동 방법과 결제 과정은 [공식 연동 문서](https://docs.tosspayments.com/guides/payment-widget/integration)에서 확인하세요.
 
+## 준비하기
+
+- [Java](https://www.oracle.com/kr/java/technologies/downloads/)
+- [Apache Tomcat](https://tomcat.apache.org/download-90.cgi)
+
 ## 실행하기
 
-로컬 환경에서 Tomcat 등을 설치하고 JSP 관련 설정을 완료한 후 샘플을 Tomcat의 root 폴더에 복사하세요.
+1. 결제위젯 샘플 프로젝트 레포지토리를 클론(Clone)하세요.
 
-http://127.0.0.1/index.html 주소에서 테스트 가능합니다.
+    ```sh
+    $ git clone https://github.com/tosspayments/payment-widget-sample # 샘플 프로젝트 클론
+    ```
+
+2. 클론한 레포지토리의 `jsp` 폴더를 Tomcat의 `webapp` 폴더에 넣어주세요.
+
+3. Tomcat을 실행하고 http://localhost:{PORT_NUMBER}/jsp/ 에서 샘플 프로젝트를 확인하세요.
 
 ## 인증하기
 
