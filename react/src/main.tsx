@@ -53,7 +53,6 @@ function SuccessPageWithApiCall() {
       .then((response) => {
         console.log(response.body);
         // TODO: 구매 완료 비즈니스 로직 구현
-        navigate("/success")
       })
       .catch((error) => {
         // TODO: 구매 실패 비즈니스 로직 구현
