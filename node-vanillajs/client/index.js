@@ -1,3 +1,5 @@
+// TODO: 개발자센터에 로그인해서 내 결제위젯 클라이언트 키를 입력하세요
+// @docs https://docs.tosspayments.com/reference/using-api/api-keys
 const paymentWidget = PaymentWidget(
   "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm",
   // 비회원 customerKey
