@@ -3,7 +3,9 @@ var app = express();
 var { resolve } = require("path");
 var got = require("got");
 
-var secretKey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R";
+// TODO: 개발자센터에 로그인해서 내 결제위젯 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
+// https://docs.tosspayments.com/reference/using-api/api-keys
+var secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6";
 
 app.use(express.static("./client"));
 
@@ -44,6 +46,7 @@ app.get("/success", function (req, res) {
       res.sendFile(path);
     })
     .catch(function (error) {
+      // TODO: 구매 실패 비즈니스 로직 구현
       res.redirect(
         `/fail?code=${error.response?.body?.code}&message=${error.response?.body?.message}`
       );

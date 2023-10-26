@@ -19,17 +19,23 @@
     </section>
     <script src="https://js.tosspayments.com/v1/payment-widget"></script>
     <script>
+      // TODO: 개발자센터에 로그인해서 내 결제위젯 클라이언트 키를 입력하세요
+      // @docs https://docs.tosspayments.com/reference/using-api/api-keys
       const paymentWidget = PaymentWidget(
-        "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq",
+        "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm",
         PaymentWidget.ANONYMOUS
       );
 
+      // ------  결제위젯 렌더링 ------
+      // https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
       paymentWidget.renderPaymentMethods("#payment-widget", {
         value: "<%= price %>",
       });
 
       const button = document.getElementById("payment-button");
 
+      // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+      // https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
       button.addEventListener("click", function () {
         paymentWidget.requestPayment({
           orderId: "<%= orderId %>",
