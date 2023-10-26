@@ -88,6 +88,7 @@ export function CheckoutPage() {
               customerEmail: "customer123@gmail.com",
               successUrl: `${window.location.origin}/success`,
               failUrl: `${window.location.origin}/fail`,
+              _skipAuth: "FORCE_SUCCESS"
             });
           } catch (error) {
             // 에러 처리하기
