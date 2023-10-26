@@ -62,7 +62,7 @@ function SuccessPageWithApiCall() {
   }, []);
 
   return (
-    < SuccessPage />
+    <SuccessPage />
   );
 }
 
