@@ -19,7 +19,7 @@
 2. 의존성 패키지를 다운로드하고 서버를 실행합니다.
 
     ```sh
-    $ pip install -r requirements # 의존성 패키지 다운로드
+    $ pip install -r requirements.txt # 의존성 패키지 다운로드
     $ python manage.py runserver  # 서버 실행
     ```
 
