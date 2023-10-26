@@ -6,9 +6,30 @@
 
 [데모](https://codesandbox.io/p/sandbox/payment-widget-php-sample-qtkwjn)
 
+## 준비하기
+
+환경에 맞춰 [php를 설치하세요](https://www.php.net/manual/en/install.php).
+
+```
+brew install php
+```
+
 ## 실행하기
 
-로컬에 웹서버 및 php 관련 설정을 완료하고 샘플을 웹서버의 root 폴더에 복사하세요. http://127.0.0.1/index.html 주소에서 테스트 가능합니다.
+1. 결제위젯 샘플 프로젝트 레포지토리를 클론(Clone)하고 php 폴더로 진입하세요.
+
+    ```sh
+    $ git clone https://github.com/tosspayments/payment-widget-sample # 샘플 프로젝트 클론
+    $ cd payment-widget-sample/php
+    ```
+
+2. php 서버를 실행합니다.
+
+    ```sh
+    $ php -S localhost:3000 # 서버 실행
+    ```
+
+3. http://localhost:3000/ 에서 샘플 프로젝트를 확인하세요.
 
 ## 인증하기
 
