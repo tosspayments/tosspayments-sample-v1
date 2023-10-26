@@ -42,23 +42,29 @@ function SuccessPageWithApiCall() {
      */
     const encryptedSecretKey = `Basic ${btoa(secretKey + ":")}`;
 
-    fetch("https://api.tosspayments.com/v1/payments/confirm", {
-      method: "POST",
-      headers: {
-        "Authorization": encryptedSecretKey,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestData),
-    })
-      .then((response) => {
-        // TODO: 구매 완료 비즈니스 로직 구현
-        console.log(response.body);
+    async function confirm() {
+      const response = await fetch("https://api.tosspayments.com/v1/payments/confirm", {
+        method: "POST",
+        headers: {
+          "Authorization": encryptedSecretKey,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
       })
-      .catch((error) => {
+
+      const json = await response.json();
+
+      if (!response.ok) {
         // TODO: 구매 실패 비즈니스 로직 구현
-        console.log(error);
-        navigate("/fail")
-      });
+        console.log(json);
+        navigate(`/fail?message=${json.message}`)    
+        return;
+      }
+
+      // TODO: 구매 완료 비즈니스 로직 구현
+      console.log(json);
+    }
+    confirm();
   }, []);
 
   return (
