@@ -20,7 +20,7 @@
 
     ```sh
     $ pip install -r requirements # 의존성 패키지 다운로드
-    $ python3 manage.py runserver  # 서버 실행
+    $ python manage.py runserver  # 서버 실행
     ```
 
 3. http://localhost:8080/ 에서 샘플 프로젝트를 확인하세요.
