@@ -51,8 +51,8 @@ function SuccessPageWithApiCall() {
       body: JSON.stringify(requestData),
     })
       .then((response) => {
-        console.log(response.body);
         // TODO: 구매 완료 비즈니스 로직 구현
+        console.log(response.body);
       })
       .catch((error) => {
         // TODO: 구매 실패 비즈니스 로직 구현
