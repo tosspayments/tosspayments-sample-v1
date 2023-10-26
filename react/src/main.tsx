@@ -59,7 +59,7 @@ function SuccessPageWithApiCall() {
         console.log(error);
         navigate("/fail")
       });
-  },);
+  }, []);
 
   return (
     < SuccessPage />
