@@ -9,7 +9,9 @@ $amount = $_GET['amount'];
 $url = 'https://api.tosspayments.com/v1/payments/confirm';
 $data = ['paymentKey' => $paymentKey, 'orderId' => $orderId, 'amount' => $amount];
 
-$secretKey = 'test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R';
+// TODO: 개발자센터에 로그인해서 내 결제위젯 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
+// https://docs.tosspayments.com/reference/using-api/api-keys
+$secretKey = 'test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6';
 
 
 /**
