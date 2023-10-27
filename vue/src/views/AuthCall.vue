@@ -16,7 +16,7 @@ export default {
 
       async function confirm() {
         try {
-          const response = await fetch(apiUrl + "/api/confirm", {
+          const response = await fetch("/api/confirm", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
