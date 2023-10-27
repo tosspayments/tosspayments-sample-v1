@@ -13,7 +13,11 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  define: {
-    apiUrl: JSON.stringify('http://localhost:3000')
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000'
+      }
+    }
   }
 })
