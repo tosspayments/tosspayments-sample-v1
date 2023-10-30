@@ -11,19 +11,13 @@ const router = createRouter({
     {
       path: '/success',
       name: 'success',
-      component: () => import('../views/AuthCall.vue')
+      component: () => import('../views/SuccessView.vue')
     },
     {
       path: '/fail',
       name: 'fail',
       component: () => import('../views/FailView.vue')
-    },
-    {
-      path: '/success-view',
-      name: 'success-view',
-      component: () => import('../views/SuccessView.vue')
-    },
-
+    }
   ]
 })
 
