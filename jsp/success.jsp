@@ -18,7 +18,7 @@
 <%
  // 결제 승인 API 호출하기 
  // @docs https://docs.tosspayments.com/guides/payment-widget/integration#3-결제-승인하기
- 
+
   String orderId = request.getParameter("orderId");
   String paymentKey = request.getParameter("paymentKey");
   String amount = request.getParameter("amount");
