@@ -1,11 +1,11 @@
 from django.shortcuts import render
  
-import requests, json, base64, time
+import requests, json, base64
 
 def index(request):
   return render(
     request,
-    'payments/index.html',
+    'index.html',
   )
 
 def success(request):
@@ -50,7 +50,7 @@ def success(request):
 
   return render(
     request,
-    "payments/success.html",
+    "success.html",
     {
       "res" : pretty,
       "respaymentKey" : respaymentKey,
@@ -65,9 +65,10 @@ def fail(request):
   
   return render(
     request,
-    "payments/fail.html",
+    "fail.html",
     {
       "code" : code,
       "message" : message,
     }
   )
+
