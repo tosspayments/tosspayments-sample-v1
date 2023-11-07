@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="box_section"
-    style="padding: 40px 30px 50px 30px; margin-top:30px; margin-bottom:50px">
+    <div class="box_section">
       <!-- 결제 UI -->
       <div id="payment-method"></div>
       <!-- 이용약관 UI -->

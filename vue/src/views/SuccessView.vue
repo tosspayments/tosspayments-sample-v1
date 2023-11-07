@@ -1,8 +1,7 @@
 <template>
   <section v-if="confirmed">
     <div class="result wrapper">
-    <div class="box_section"
-    style="padding: 40px 30px 50px 30px; margin-bottom:50px;color: #333D4B">  
+    <div class="box_section">  
     <!-- 결제 성공 시 -->
       <h2 style="padding: 20px 0px 10px 0px">
         <img
