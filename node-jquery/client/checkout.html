@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <!-- 결제위젯 SDK 추가 -->
   <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png" />
   <link rel="stylesheet" type="text/css" href="style.css" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -40,9 +41,8 @@
   // customeKey는 구매자의 고유 ID 값입니다.
   // 서버에서 customerKey를 불러오는 로직을 추가하세요.
   const customerKey = "JvwdufhlqnFlo_c1H63GC";
-  const button = document.getElementById("payment-button");
-  const coupon = document.getElementById("coupon-box");
   var amount = 50000;
+  var coupon = $("#coupon-box");
 
   // ------  결제위젯 초기화 ------
   const paymentWidget = PaymentWidget(clientKey, customerKey);
@@ -64,16 +64,17 @@
     "#agreement",
     // { variantKey: "AGREEMENT" } // 기본 이용약관 렌더링
   );
-  coupon.addEventListener("change", function () {
-    if (coupon.checked) {
+  coupon.on("change", function () {
+    if (coupon.is(":checked")) {
       paymentMethodWidget.updateAmount(amount - 5000);
+      console.log("checked")
     } else {
       paymentMethodWidget.updateAmount(amount);
     }
   });
 
   // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
-  button.addEventListener("click", function () {
+  $("#payment-button").on("click", function () {
     paymentWidget.requestPayment({
       orderId: generateRandomString(),
       orderName: "토스 티셔츠 외 2건",
