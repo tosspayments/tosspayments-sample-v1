@@ -7,10 +7,10 @@ var got = require("got");
 // https://docs.tosspayments.com/reference/using-api/api-keys
 var secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6";
 
-app.use(express.static("./client"));
+app.use(express.static(__dirname + '/public'));
 
 app.get("/", function (req, res) {
-  var path = resolve("./client/index.html");
+  var path = resolve("./client/checkout.html");
   res.sendFile(path);
 });
 
