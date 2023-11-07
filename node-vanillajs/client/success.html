@@ -23,12 +23,10 @@
         결제 성공
       </h2>
 
-      <p>paymentKey = {{ respaymentKey }}</p>
-      <p>orderId = {{ resorderId }}</p>
-      <p>totalAmount = {{ restotalAmount }}</p>
+      <p id="paymentKey"></p>
+      <p id="orderId"></p>
+      <p id="amount"></p>
 
-      <b>Response Data :</b>
-        {{ res }}    
       <div class="result wrapper">
         <button class="button" onclick="location.href='https://docs.tosspayments.com/guides/payment-widget/integration';"
         style="margin-top:30px; ">연동 문서</button>
@@ -41,7 +39,14 @@
 </html>
 
 <script>
-  const pTag = document.querySelector('p');
-  pTag.textContent = pTag.textContent.replace(/\\u[\dA-Fa-f]{4}/g, match => String.fromCharCode(parseInt(match.substr(2), 16)));
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const paymentKeyElement = document.getElementById("paymentKey");
+  const orderIdElement = document.getElementById("orderId");
+  const amountElement = document.getElementById("amount");
+
+  paymentKeyElement.textContent = "paymentKey = " + urlParams.get("paymentKey");
+  orderIdElement.textContent = "orderId = " + urlParams.get("orderId");
+  amountElement.textContent = "amount = " + urlParams.get("amount");
 </script>
   

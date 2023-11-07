@@ -22,9 +22,8 @@
         />
         결제 실패
       </h2>
-      <p>code = <%= code %></p>
-      <p>message = <%= message %></p>
-      <p id="parameterList"></p>
+      <p id="code"></p>
+      <p id="message"></p>
       <div class="result wrapper">
         <button class="button" onclick="location.href='https://docs.tosspayments.com/guides/payment-widget/integration';"
         style="margin-top:30px; ">연동 문서</button>
@@ -37,22 +36,13 @@
 </html>
 
 <script>
-    function getQueryParameters() {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams;
-  }
-  function displayQueryParameters() {
-      const parameterList = document.getElementById("parameterList");
-      const queryParameters = getQueryParameters();
 
-      queryParameters.forEach((value, key) => {
-          const listItem = document.createElement("li");
-          listItem.textContent = `${key}: ${value}`;
-          parameterList.appendChild(listItem);
-      });
-  }
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  const codeElement = document.getElementById("code");
+  const messageElement = document.getElementById("message");
 
-  // Call the function to display query parameters when the page loads
-  displayQueryParameters();
+  codeElement.textContent = "code = " + urlParams.get("code");
+  messageElement.textContent = "message = " + urlParams.get("message");
 
 </script>
