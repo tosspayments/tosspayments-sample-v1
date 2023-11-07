@@ -59,6 +59,10 @@ body {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgb(0 0 0 / 1%), 0 6px 6px rgb(0 0 0 / 6%);
+    padding: 40px 30px 50px 30px; 
+    margin-top:30px; 
+    margin-bottom:50px; 
+    color: #333D4B
 }
 :root {
     --checkable-size: 20px;
