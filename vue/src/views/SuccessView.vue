@@ -1,19 +1,23 @@
 <template>
-  <h1>결제위젯 결제 성공</h1>
-  <br />
-  <p>paymentKey: {{ this.$route.query.paymentKey }}</p>
-  <p>orderId: {{ this.$route.query.orderId }}</p>
-  <p>amount: {{ this.$route.query.amount }}</p>
+  <section v-if="confirmed">
+    <h1>결제위젯 결제 성공</h1>
+    <br />
+    <p>paymentKey: {{ this.$route.query.paymentKey }}</p>
+    <p>orderId: {{ this.$route.query.orderId }}</p>
+    <p>amount: {{ this.$route.query.amount }}</p>
+  </section>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { confirmPayment } from "@/confirmPayment";
 
 export default {
   setup() {
     const route = useRoute();
     const router = useRouter();
+    const confirmed = ref(false);
 
     onMounted(async () => {
       const requestData = {
@@ -24,32 +28,22 @@ export default {
 
       async function confirm() {
         try {
-          const response = await fetch("/api/confirm", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestData),
-          });
-
-          const json = await response.json();
-
+          const { response, json } = await confirmPayment(requestData)
           if (!response.ok) {
-            console.log(json);
             router.push(`/fail?message=${json.message}&code=${json.code}`);
           } else {
-            console.log(json);
-            router.push(`/success?paymentKey=${json.paymentKey}&orderId=${json.orderId}&amount=${json.totalAmount}`)
+            confirmed.value = true;
           }
         } catch (error) {
-          console.error(error);
         }
       }
 
       confirm();
     });
 
-    return {};
+    return {
+      confirmed
+    };
   },
 };
 </script>

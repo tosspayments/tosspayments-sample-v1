@@ -19,7 +19,7 @@
 
     ```sh
     $ npm install # 의존성 패키지 다운로드
-    $ npm run start # 서버 실행
+    $ npm run dev # 서버 실행
     ```
 
 3. 로컬 환경에서 샘플 프로젝트를 확인하세요.
