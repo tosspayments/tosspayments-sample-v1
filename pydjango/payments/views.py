@@ -2,10 +2,10 @@ from django.shortcuts import render
  
 import requests, json, base64
 
-def index(request):
+def checkout(request):
   return render(
     request,
-    'index.html',
+    'checkout.html',
   )
 
 def success(request):

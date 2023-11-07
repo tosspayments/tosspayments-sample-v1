@@ -29,7 +29,7 @@
 
 샘플에 있는 키로 연동이 가능하지만, 내 테스트 연동 키를 사용하면 테스트 결제내역, 웹훅 기능을 사용할 수 있어요. 내 테스트 연동 키는 [개발자센터](https://developers.tosspayments.com/my/api-keys)에서 확인할 수 있습니다. 더 자세한 내용은 [API 키 가이드](https://docs.tosspayments.com/reference/using-api/api-keys)를 참고하세요.
 
-- **클라이언트 키**: `payments/templates/index.html` 파일에 있는 `clientKey`를 내 결제위젯 클라이언트 키로 수정하세요.
+- **클라이언트 키**: `payments/templates/checkout.html` 파일에 있는 `clientKey`를 내 결제위젯 클라이언트 키로 수정하세요.
 - **시크릿 키**: `payments/views.py` 파일에 있는 `secretKey`를 내 결제위젯 시크릿 키로 수정하세요. **시크릿 키는 외부에 노출되면 안 됩니다.**
 
 ## Q. 결제 요청 후 계속 로딩 중인 화면이 보인다면?
