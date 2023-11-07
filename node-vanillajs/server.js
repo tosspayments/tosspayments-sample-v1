@@ -3,7 +3,7 @@ var app = express();
 var { resolve } = require("path");
 var got = require("got");
 
-app.use(express.static("./client"));
+app.use(express.static(__dirname + '/public'));
 
 app.get("/", function (req, res) {
   var path = resolve("./client/checkout.html");
