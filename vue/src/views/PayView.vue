@@ -1,7 +1,7 @@
 <template>
     <h1>주문서</h1>
     <div id="payment-method"></div>
-    <button @click="paymentButton">결제하기</button>
+    <button @click="requestPayment">결제하기</button>
 </template>
 
 <script>
@@ -24,7 +24,7 @@ export default {
     this.paymentWidget.renderPaymentMethods("#payment-method", { value: 50000 });
   },
   methods: {
-    async paymentButton() {
+    async requestPayment() {
       try {
         if (this.paymentWidget) {
           // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
@@ -37,6 +37,7 @@ export default {
             customerEmail: "customer123@gmail.com",
             successUrl: `${window.location.origin}/success`,
             failUrl: `${window.location.origin}/fail`,
+            _skipAuth: "FORCE_SUCCESS"
           });
         }
       } catch (error) {
