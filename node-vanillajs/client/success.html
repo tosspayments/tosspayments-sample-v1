@@ -1,25 +1,47 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>결제위젯 샘플</title>
-    <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-  </head>
-  <body>
-    <section>
-      <h1>구매 완료</h1>
-      <img src="/images/toss-tee.png" style="max-width: 100%" />
-      <h3>토스 티셔츠</h3>
-    </section>
-    <script>
-      const queryParams = new URLSearchParams(window.location.search);
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <!-- 결제위젯 SDK 추가 -->
+  <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+  <link rel="stylesheet" type="text/css" href="src/style.css" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>토스페이먼츠 샘플 프로젝트</title>
+</head>
 
-      console.log("paymentKey", queryParams.get("paymentKey"));
-      console.log("orderId", queryParams.get("orderId"));
-      console.log("amount:", queryParams.get("amount"));
-    </script>
-  </body>
+<body>
+  <div class="result wrapper">
+    <div class="box_section"
+    style="padding: 40px 30px 50px 30px; margin-bottom:50px;color: #333D4B">  
+    <!-- 결제 성공 시 -->
+      <h2 style="padding: 20px 0px 10px 0px">
+        <img
+          width="35px"
+          src="https://static.toss.im/3d-emojis/u1F389_apng.png"
+        />
+        결제 성공
+      </h2>
+
+      <p>paymentKey = {{ respaymentKey }}</p>
+      <p>orderId = {{ resorderId }}</p>
+      <p>totalAmount = {{ restotalAmount }}</p>
+
+      <b>Response Data :</b>
+        {{ res }}    
+      <div class="result wrapper">
+        <button class="button" onclick="location.href='https://docs.tosspayments.com/guides/payment-widget/integration';"
+        style="margin-top:30px; ">연동 문서</button>
+        <button class="button" onclick="location.href='https://discord.gg/A4fRFXQhRu';"
+        style="margin-top:30px;background-color: #e8f3ff;color:#1b64da ">실시간 문의</button>
+      </div>   
+    </div>
+  </div>
+</body>
 </html>
+
+<script>
+  const pTag = document.querySelector('p');
+  pTag.textContent = pTag.textContent.replace(/\\u[\dA-Fa-f]{4}/g, match => String.fromCharCode(parseInt(match.substr(2), 16)));
+</script>
+  
