@@ -36,8 +36,7 @@ export default {
             customerName: "김토스",
             customerEmail: "customer123@gmail.com",
             successUrl: `${window.location.origin}/success`,
-            failUrl: `${window.location.origin}/fail`,
-            _skipAuth: "FORCE_SUCCESS"
+            failUrl: `${window.location.origin}/fail`
           });
         }
       } catch (error) {
