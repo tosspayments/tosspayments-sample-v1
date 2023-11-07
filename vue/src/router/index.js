@@ -1,26 +1,24 @@
-import { createRouter, createWebHistory } from "vue-router";
-
-const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: () => import("@/views/homePage.vue"),
-  },
-  {
-    path: "/success",
-    name: "Success",
-    component: () => import("@/views/successPage.vue"),
-  },
-  {
-    path: "/fail",
-    name: "Fail",
-    component: () => import("@/views/failPage.vue"),
-  },
-];
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'pay',
+      component: () => import('../views/PayView.vue')
+    },
+    {
+      path: '/success',
+      name: 'success',
+      component: () => import('../views/SuccessView.vue')
+    },
+    {
+      path: '/fail',
+      name: 'fail',
+      component: () => import('../views/FailView.vue')
+    }
+  ]
+})
 
-export default router;
+export default router
