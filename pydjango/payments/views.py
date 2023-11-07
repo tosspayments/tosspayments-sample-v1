@@ -44,20 +44,32 @@ def success(request):
   resjson = res.json()
   pretty = json.dumps(resjson, indent=4)
 
-  respaymentKey = resjson["paymentKey"]
-  resorderId = resjson["orderId"]
-  
-
-  return render(
-    request,
-    "success.html",
-    {
-      "res" : pretty,
-      "respaymentKey" : respaymentKey,
-      "resorderId" : resorderId,
-
-    }
-  )
+  if res.status_code == 200:
+    respaymentKey = resjson["paymentKey"]
+    resorderId = resjson["orderId"]
+    restotalAmount = resjson["totalAmount"]
+    
+    return render(
+      request,
+      "success.html",
+      {
+        "res" : pretty,
+        "respaymentKey" : respaymentKey,
+        "resorderId" : resorderId,
+        "restotalAmount": restotalAmount,
+      }
+    )
+  else:
+    rescode = resjson["code"]
+    resmessage = resjson["message"]
+    return render(
+      request,
+      "fail.html",
+      {
+        "code": rescode,
+        "message": resmessage
+      }
+    )
 
 def fail(request):
   code = request.GET.get('code')
