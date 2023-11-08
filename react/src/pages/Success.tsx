@@ -49,12 +49,19 @@ export function SuccessPage() {
   }, []);
 
   return (
-    <div>
-      <h1>결제 성공</h1>
-      <div>{`주문 아이디: ${searchParams.get("orderId")}`}</div>
-      <div>{`결제 금액: ${Number(
-        searchParams.get("amount")
-      ).toLocaleString()}원`}</div>
+    <div className="result wrapper">
+    <div className="box_section">  
+      <h2 style={{padding: "20px 0px 10px 0px"}}>
+          <img
+            width="35px"
+            src="https://static.toss.im/3d-emojis/u1F389_apng.png"
+          />
+          결제 성공
+      </h2>
+      <p>{`paymentKey = ${searchParams.get("paymentKey")}`}</p>
+      <p>{`orderId = ${searchParams.get("orderId")}`}</p>
+      <p>{`amount = ${Number(searchParams.get("amount")).toLocaleString()}원`}</p>
     </div>
+  </div>
   );
 }
