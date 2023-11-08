@@ -39,7 +39,7 @@ app.use(function (err, req, res, next) {
   });
 });
 
-const PORT = 8080;
+const PORT = 4242;
 
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT} 으로 샘플 앱이 실행되었습니다.`);
