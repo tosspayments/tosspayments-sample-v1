@@ -44,11 +44,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: { payment },
     };
   } catch (err: any) {
-    console.error("err", err);
+    console.error("err", err.response.data);
 
     return {
       redirect: {
-        destination: `/fail?code=${err.code}&message=${err.message}`,
+        destination: `/fail?code=${err.response.data.code}&message=${encodeURIComponent(err.response.data.message)}`,
         permanent: false,
       },
     };
