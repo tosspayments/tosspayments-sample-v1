@@ -1,6 +1,6 @@
 import axios from "axios";
 import { GetServerSideProps } from "next";
-import { format } from "date-fns";
+import Link from 'next/link';
 
 // Payment 객체
 // https://docs.tosspayments.com/reference#payment-객체
@@ -12,6 +12,8 @@ interface Payment {
   };
   totalAmount: number;
   method: "카드" | "가상계좌" | "계좌이체";
+  paymentKey: string;
+  orderId: string;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -59,19 +61,31 @@ interface Props {
 
 export default function SuccessPage({ payment }: Props) {
   return (
-    <main
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <h1>결제 성공</h1>
-      <p>주문: {payment.orderName}</p>
-      <p>결제 수단: {payment.method}</p>
-      <p>결제 금액: {payment.totalAmount.toLocaleString()}원</p>
-      <p>
-        결제 일시: {format(new Date(payment.approvedAt), "yyyy/MM/dd HH:mm:ss")}
-      </p>
-      <p>
-        <a href={payment.receipt.url}>영수증</a>
-      </p>
+    <main>
+      <div className="result wrapper">
+        <div className="box_section">  
+          <h2 style={{padding: "20px 0px 10px 0px"}}>
+              <img
+                width="35px"
+                src="https://static.toss.im/3d-emojis/u1F389_apng.png"
+              />
+              결제 성공
+          </h2>
+          <p>paymentKey = {payment.paymentKey}</p>
+          <p>orderId =  {payment.orderId}</p>
+          <p>amount = {payment.totalAmount.toLocaleString()}원</p>
+
+          <div>
+            <Link href="https://docs.tosspayments.com/guides/payment-widget/integration">
+              <button className="button" style={{ marginTop: '30px', marginRight: '10px' }}>연동 문서</button>
+            </Link>
+            <Link href="https://discord.gg/A4fRFXQhRu">
+              <button className="button" style={{ marginTop: '30px', backgroundColor: '#e8f3ff', color: '#1b64da' }}>실시간 문의</button>
+            </Link>
+          </div>
+
+        </div>
+      </div>
     </main>
   );
 }
