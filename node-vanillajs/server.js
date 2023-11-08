@@ -57,4 +57,4 @@ app.get("/fail", function (req, res) {
   res.sendFile(path);
 });
 
-app.listen(4242, () => console.log(`Node server listening on port ${4242}!`));
+app.listen(4242, () => console.log(`http://localhost:${4242} 으로 샘플 앱이 실행되었습니다.`));
