@@ -2,8 +2,8 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import Link from 'next/link';
 
-// Payment 객체
-// https://docs.tosspayments.com/reference#payment-객체
+// ------ Payment 객체 ------
+// @docs https://docs.tosspayments.com/reference#payment-객체
 interface Payment {
   orderName: string;
   approvedAt: string;
@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     // ------  결제 승인 ------
-    // https://docs.tosspayments.com/guides/payment-widget/integration#3-결제-승인하기
+    // @docs https://docs.tosspayments.com/guides/payment-widget/integration#3-결제-승인하기
     const { data: payment } = await axios.post<Payment>(
       "https://api.tosspayments.com/v1/payments/confirm",
       {

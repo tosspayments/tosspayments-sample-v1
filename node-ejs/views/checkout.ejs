@@ -2,13 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <!-- 결제위젯 SDK 추가 -->
-    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
     <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png" />
     <link rel="stylesheet" type="text/css" href="style.css" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>토스페이먼츠 샘플 프로젝트</title>
+    <!-- 결제위젯 SDK 추가 -->
+    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
   </head>
   <body>
     <!-- 주문서 영역 -->
@@ -34,30 +34,33 @@
 
     <script src="https://js.tosspayments.com/v1/payment-widget"></script>
     <script>
-      // TODO: 개발자센터에 로그인해서 내 결제위젯 클라이언트 키를 입력하세요
-      // @docs https://docs.tosspayments.com/reference/using-api/api-keys
-      const paymentWidget = PaymentWidget(
-        "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm",
-        PaymentWidget.ANONYMOUS
-      );
       const button = document.getElementById("payment-button");
       const coupon = document.getElementById("coupon-box");
 
+      // ------  결제위젯 초기화 ------
+      // @docs https://docs.tosspayments.com/reference/widget-sdk#sdk-설치-및-초기화
+      // TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요. 
+      // TODO: customerKey는 구매자와 1:1 관계로 무작위한 고유값을 생성하세요. 
+      const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm"; 
+      const customerKey = "<%= customerKey %>";                 
+      const paymentWidget = PaymentWidget(clientKey, customerKey); // 회원 결제
+      // const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS) // 비회원 결제
+
       // ------  결제위젯 렌더링 ------
-      // https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
+      // @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
       const paymentMethodWidget = paymentWidget.renderPaymentMethods("#payment-method", 
       { value: "<%= price %>"},
       { variantKey : "DEFAULT" }
       );
       // ------  이용약관 렌더링 ------
-      // 이용약관 UI를 렌더링할 위치를 지정합니다.
-      // `#agreement`와 같은 CSS 선택자를 추가하세요.
+      // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
       paymentWidget.renderAgreement(
         "#agreement",
         { variantKey: "AGREEMENT" } // 기본 이용약관 렌더링
       );
 
       // ------  결제 금액 업데이트 ------
+      // @docs https://docs.tosspayments.com/reference/widget-sdk#updateamount결제-금액
       coupon.addEventListener("change", function () {
         if (coupon.checked) {
           paymentMethodWidget.updateAmount("<%= price %>" - 5000);
@@ -67,7 +70,7 @@
       });
 
       // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
-      // https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
+      // @docs https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
       button.addEventListener("click", function () {
         paymentWidget.requestPayment({
           orderId: "<%= orderId %>",

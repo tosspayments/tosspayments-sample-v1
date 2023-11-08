@@ -4,8 +4,8 @@ var uuid = require("uuid").v4;
 
 var router = express.Router();
 
-// TODO: 개발자센터에 로그인해서 내 결제위젯 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
-// https://docs.tosspayments.com/reference/using-api/api-keys
+// TODO: 개발자센터에 로그인해서 내 결제위젯 연동 키 > 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
+// @docs https://docs.tosspayments.com/reference/using-api/api-keys
 var secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6";
 
 router.get("/", function (req, res) {
@@ -20,7 +20,7 @@ router.get("/", function (req, res) {
 });
 
 // ------  결제 승인 ------
-// https://docs.tosspayments.com/guides/payment-widget/integration#3-결제-승인하기
+// @docs https://docs.tosspayments.com/guides/payment-widget/integration#3-결제-승인하기
 router.get("/success", function (req, res) {
   got
     .post("https://api.tosspayments.com/v1/payments/confirm", {
@@ -37,11 +37,9 @@ router.get("/success", function (req, res) {
       responseType: "json",
     })
     .then(function (response) {
-      // console.log(response.body);
       // TODO: 구매 완료 비즈니스 로직 구현
       console.log(response.body)
       res.render("success", {
-        title: "성공적으로 구매했습니다",
         amount: response.body.totalAmount,
         paymentKey: response.body.paymentKey,
         orderId: response.body.orderId,

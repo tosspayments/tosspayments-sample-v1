@@ -16,14 +16,9 @@
 
 
 <%
- // 결제 승인 API 호출하기 
+ // ------ 결제 승인 API 호출 ------
  // @docs https://docs.tosspayments.com/guides/payment-widget/integration#3-결제-승인하기
-
-  String orderId = request.getParameter("orderId");
-  String paymentKey = request.getParameter("paymentKey");
-  String amount = request.getParameter("amount");
-  
-  // 개발자센터에 로그인해서 내 결제위젯 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
+  // TODO: 개발자센터에 로그인해서 내 결제위젯 연동 키 > 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
   // @docs https://docs.tosspayments.com/reference/using-api/api-keys
   String secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6:";
   
@@ -31,6 +26,9 @@
   byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));
   String authorizations = "Basic "+ new String(encodedBytes, 0, encodedBytes.length);
 
+  String orderId = request.getParameter("orderId");
+  String paymentKey = request.getParameter("paymentKey");
+  String amount = request.getParameter("amount");
   paymentKey = URLEncoder.encode(paymentKey, StandardCharsets.UTF_8);
   
   URL url = new URL("https://api.tosspayments.com/v1/payments/confirm");
@@ -101,7 +99,8 @@
         
         <%} else { %>
             <div class="result wrapper">
-                <div class="box_section">            
+                <div class="box_section">   
+                <!-- 결제 실패 시 -->
                     <h2 style="padding: 20px 0px 10px 0px">
                         <img
                         width="25px"
