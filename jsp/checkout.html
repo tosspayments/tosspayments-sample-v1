@@ -37,7 +37,7 @@
     const button = document.getElementById("payment-button");
     const coupon = document.getElementById("coupon-box");
     const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
-    let currentURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    let currentURL = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname.split('/')[1];
     var amount = 50000;
 
     // ------  결제위젯 초기화 ------
@@ -79,8 +79,8 @@
       paymentWidget.requestPayment({
         orderId: generateRandomString(),
         orderName: "토스 티셔츠 외 2건",
-        successUrl: currentURL + "success.jsp",
-        failUrl: currentURL + "fail.jsp",
+        successUrl: currentURL + "/success.jsp",
+        failUrl: currentURL + "/fail.jsp",
         customerEmail: "customer123@gmail.com",
         customerName: "김토스",
         customerMobilePhone: "01012341234"
