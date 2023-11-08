@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         },
       }
     );
-
+    console.log(payment)
     return {
       props: { payment },
     };
@@ -83,7 +83,6 @@ export default function SuccessPage({ payment }: Props) {
               <button className="button" style={{ marginTop: '30px', backgroundColor: '#e8f3ff', color: '#1b64da' }}>실시간 문의</button>
             </Link>
           </div>
-
         </div>
       </div>
     </main>
