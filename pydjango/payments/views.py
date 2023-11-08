@@ -16,7 +16,7 @@ def success(request):
   url = "https://api.tosspayments.com/v1/payments/confirm"
 
   """
-    개발자센터에 로그인해서 내 결제위젯 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
+    개발자센터에 로그인해서 내 결제위젯 연동 키 > 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
     @docs https://docs.tosspayments.com/reference/using-api/api-keys
   """
   secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6"
@@ -40,6 +40,10 @@ def success(request):
     "paymentKey": paymentKey,
   }
   
+  """
+    결제 승인 API호출하기
+    @docs https://docs.tosspayments.com/guides/payment-widget/integration#3-결제-승인하기
+  """
   res = requests.post(url, data=json.dumps(params), headers=headers)
   resjson = res.json()
   pretty = json.dumps(resjson, indent=4)
