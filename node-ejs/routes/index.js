@@ -9,7 +9,7 @@ var router = express.Router();
 var secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6";
 
 router.get("/", function (req, res) {
-  res.render("index", {
+  res.render("checkout", {
     title: "구매하기",
     orderId: uuid(),
     orderName: "토스 티셔츠",
@@ -37,11 +37,14 @@ router.get("/success", function (req, res) {
       responseType: "json",
     })
     .then(function (response) {
-      console.log(response.body);
+      // console.log(response.body);
       // TODO: 구매 완료 비즈니스 로직 구현
+      console.log(response.body)
       res.render("success", {
         title: "성공적으로 구매했습니다",
         amount: response.body.totalAmount,
+        paymentKey: response.body.paymentKey,
+        orderId: response.body.orderId,
       });
     })
     .catch(function (error) {
