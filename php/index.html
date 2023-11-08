@@ -1,47 +1,92 @@
 <!DOCTYPE html>
 <html lang="ko">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/vite.svg" />
+    <meta charset="utf-8" />
+    <!-- 결제위젯 SDK 추가 -->
+    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+    <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png" />
+    <link rel="stylesheet" type="text/css" href="./public/style.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>토스페이먼츠 샘플 프로젝트</title>
-    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+    <base href="/">
   </head>
+
   <body>
-    <div id="payment-method"></div>
-    <button id="payment-request-button">결제하기</button>
-    <script>
-      // TODO: 개발자센터에 로그인해서 내 결제위젯 클라이언트 키를 입력하세요
-      // @docs https://docs.tosspayments.com/reference/using-api/api-keys
-      const paymentWidget = PaymentWidget(
-        "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm",
-        PaymentWidget.ANONYMOUS // 비회원 customerKey
-      );
-
-      /**
-       * 결제창을 렌더링합니다.
-       * @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods%EC%84%A0%ED%83%9D%EC%9E%90-%EA%B2%B0%EC%A0%9C-%EA%B8%88%EC%95%A1
-       */
-      paymentWidget.renderPaymentMethods("#payment-method", { value: 50000 });
-
-      const paymentRequestButton = document.getElementById(
-        "payment-request-button"
-      );
-      paymentRequestButton.addEventListener("click", () => {
-        /** 결제 요청
-         * @docs https://docs.tosspayments.com/reference/widget-sdk#requestpayment%EA%B2%B0%EC%A0%9C-%EC%A0%95%EB%B3%B4
-         */
-        paymentWidget.requestPayment({
-          orderId: generateRandomString(),
-          orderName: "토스 티셔츠 외 2건",
-          successUrl: window.location.origin + "/success.php",
-          failUrl: window.location.origin + "/fail.php",
-        });
-      });
-
-      function generateRandomString() {
-        return window.btoa(Math.random()).slice(0, 20);
-      }
-    </script>
+    <!-- 주문서 영역 -->
+    <div class="wrapper">
+      <div class="box_section"
+      style="padding: 40px 30px 50px 30px; margin-top:30px; margin-bottom:50px">
+        <!-- 결제 UI -->
+        <div id="payment-method"></div>
+        <!-- 이용약관 UI -->
+        <div id="agreement"></div>
+        <!-- 쿠폰 체크박스 -->
+        <div style="padding-left: 25px">
+          <div class="checkable typography--p"><label for="coupon-box" class="checkable__label typography--regular"><input id="coupon-box" class="checkable__input" type="checkbox" aria-checked="true"><span class="checkable__label-text">5,000원 쿠폰 적용</span></label></div>
+        </div>
+        <!-- 결제하기 버튼 -->
+        <div class="result wrapper">
+          <button class="button" id="payment-button"
+          style="margin-top:30px; ">결제하기</button>
+        </div>
+      </div>
+    </div>
   </body>
+
+  <script>
+    // 결제위젯 클라이언트 키
+    const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+    // customeKey는 구매자의 고유 ID 값입니다.
+    // 서버에서 customerKey를 불러오는 로직을 추가하세요.
+    const customerKey = "JvwdufhlqnFlo_c1H63GC";
+    const button = document.getElementById("payment-button");
+    const coupon = document.getElementById("coupon-box");
+    var amount = 50000;
+
+    // ------  결제위젯 초기화 ------
+    const paymentWidget = PaymentWidget(clientKey, customerKey);
+    // const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS)
+    // ------  결제위젯 렌더링 ------
+    // 결제수단 UI를 지정한 위치에 렌더링합니다.
+    paymentMethodWidget = paymentWidget.renderPaymentMethods(
+      "#payment-method",
+      { value: amount },
+      // 렌더링하고 싶은 결제 UI의 variantKey
+      // 결제 수단 및 스타일이 다른 멀티 UI를 직접 만들고 싶다면 계약이 필요해요.
+      // https://docs.tosspayments.com/guides/payment-widget/admin#멀티-결제-ui
+      { variantKey: "DEFAULT" }
+    );
+    // ------  이용약관 렌더링 ------
+    // 이용약관 UI를 렌더링할 위치를 지정합니다.
+    // `#agreement`와 같은 CSS 선택자를 추가하세요.
+    paymentWidget.renderAgreement(
+      "#agreement",
+      // { variantKey: "AGREEMENT" } // 기본 이용약관 렌더링
+    );
+
+    // ------  결제 금액 업데이트 ------
+    coupon.addEventListener("change", function () {
+      if (coupon.checked) {
+        paymentMethodWidget.updateAmount(amount - 5000);
+      } else {
+        paymentMethodWidget.updateAmount(amount);
+      }
+    });
+
+    // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+    button.addEventListener("click", function () {
+      paymentWidget.requestPayment({
+        orderId: generateRandomString(),
+        orderName: "토스 티셔츠 외 2건",
+        successUrl: window.location.origin + "/success.php",
+        failUrl: window.location.origin + "/fail.php",
+        customerEmail: "customer123@gmail.com",
+        customerName: "김토스",
+        _skipAuth: "FORCE_SUCCESS"
+      });
+    });
+
+    const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
+  </script>
 </html>
