@@ -64,10 +64,10 @@
 
     // ------  결제 금액 업데이트 ------
     // @docs https://docs.tosspayments.com/reference/widget-sdk#updateamount결제-금액
-    $("#coupon-box").on("change", function () {
+    coupon = $("#coupon-box")
+    coupon.on("change", function () {
       if (coupon.is(":checked")) {
         paymentMethodWidget.updateAmount(amount - 5000);
-        console.log("checked")
       } else {
         paymentMethodWidget.updateAmount(amount);
       }
