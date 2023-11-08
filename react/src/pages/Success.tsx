@@ -36,7 +36,7 @@ export function SuccessPage() {
       if (!response.ok) {
         // TODO: 구매 실패 비즈니스 로직 구현
         console.log(json);
-        navigate(`/fail?message=${json.message}`)    
+        navigate(`/fail?code=${json.code}&message=${json.message}`)    
         return;
       }
 
