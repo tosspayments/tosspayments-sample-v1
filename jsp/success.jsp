@@ -29,7 +29,7 @@
   String orderId = request.getParameter("orderId");
   String paymentKey = request.getParameter("paymentKey");
   String amount = request.getParameter("amount");
-  paymentKey = URLEncoder.encode(paymentKey, StandardCharsets.UTF_8);
+  paymentKey = URLEncoder.encode(paymentKey, "UTF-8");
   
   URL url = new URL("https://api.tosspayments.com/v1/payments/confirm");
   
