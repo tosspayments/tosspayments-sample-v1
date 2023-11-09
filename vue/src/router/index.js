@@ -6,7 +6,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'pay',
-      component: () => import('../views/PayView.vue')
+      component: () => import('../views/CheckoutView.vue')
     },
     {
       path: '/success',
