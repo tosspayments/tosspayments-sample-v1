@@ -1,20 +1,38 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
-  <body>
-    <section>
-      <h1>구매 완료</h1>
-      <img src="/images/toss-tee.png" style="max-width: 100%" />
-      <h3>토스 티셔츠</h3>
-      <p>결제 금액: <%= amount.toLocaleString() %>원</p>
-    </section>
-  </body>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <!-- 결제위젯 SDK 추가 -->
+  <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>토스페이먼츠 샘플 프로젝트</title>
+</head>
+
+<body>
+  <div class="result wrapper">
+    <div class="box_section">  
+      <h2 style="padding: 20px 0px 10px 0px">
+        <img
+          width="35px"
+          src="https://static.toss.im/3d-emojis/u1F389_apng.png"
+        />
+        결제 성공
+      </h2>
+
+      <p id="paymentKey"> paymentKey = <%= paymentKey.toLocaleString() %></p>
+      <p id="orderId"> orderId = <%= orderId.toLocaleString() %></p>
+      <p id="amount">amount = <%= amount.toLocaleString() %></p>
+
+      <div class="result wrapper">
+        <button class="button" onclick="location.href='https://docs.tosspayments.com/guides/payment-widget/integration';"
+        style="margin-top:30px; ">연동 문서</button>
+        <button class="button" onclick="location.href='https://discord.gg/A4fRFXQhRu';"
+        style="margin-top:30px;background-color: #e8f3ff;color:#1b64da ">실시간 문의</button>
+      </div>   
+    </div>
+  </div>
+</body>
 </html>
