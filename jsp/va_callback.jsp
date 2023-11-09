@@ -16,8 +16,6 @@
     JSONParser parser = new JSONParser();
     JSONObject jsonObject = (JSONObject) parser.parse(reader);
     responseStream.close();
-    
-
 %>
 
 <p>secret : <%= jsonObject.get("secret") %></p>

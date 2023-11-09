@@ -26,10 +26,10 @@ brew install php
 2. php 서버를 실행합니다.
 
     ```sh
-    $ php -S localhost:3000 # 서버 실행
+    $ php -S localhost:4242 # 서버 실행
     ```
 
-3. http://localhost:3000/checkout.html 에서 샘플 프로젝트를 확인하세요.
+3. http://localhost:4242 에서 샘플 프로젝트를 확인하세요.
 
 ## 인증하기
 
