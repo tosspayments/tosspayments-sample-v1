@@ -13,7 +13,6 @@
 <%@ page import="java.io.Reader" %>
 <%@ page import="java.net.URLEncoder" %>
 
-
 <%
  // ------ 결제 승인 API 호출 ------
  // @docs https://docs.tosspayments.com/guides/payment-widget/integration#3-결제-승인하기
@@ -120,7 +119,6 @@
             <%
         }
         %>
-
     </section>
     </body>
     </html>
