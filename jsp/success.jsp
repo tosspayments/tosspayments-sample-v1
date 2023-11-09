@@ -11,7 +11,6 @@
 <%@ page import="java.io.InputStream" %>
 <%@ page import="java.io.InputStreamReader" %>
 <%@ page import="java.io.Reader" %>
-<%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="java.net.URLEncoder" %>
 
 
@@ -51,7 +50,7 @@
   
   InputStream responseStream = isSuccess? connection.getInputStream(): connection.getErrorStream();
   
-  Reader reader = new InputStreamReader(responseStream, StandardCharsets.UTF_8);
+  Reader reader = new InputStreamReader(responseStream, "UTF-8");
   JSONParser parser = new JSONParser();
   JSONObject jsonObject = (JSONObject) parser.parse(reader);
   responseStream.close();
