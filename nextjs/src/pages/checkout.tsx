@@ -15,6 +15,7 @@ const customerKey = nanoid();
 
 export default function Home() {
   const { data: paymentWidget } = usePaymentWidget(clientKey, customerKey);
+  // const { data: paymentWidget } = usePaymentWidget(clientKey, ANONYMOUS); // 비회원 결제
   const paymentMethodsWidgetRef = useRef<ReturnType<
     PaymentWidgetInstance["renderPaymentMethods"]
   > | null>(null);
@@ -28,27 +29,21 @@ export default function Home() {
       return;
     }
 
-    if (paymentMethodsWidgetRef.current == null) {
-      // ------  결제위젯 렌더링 ------
-      // @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
-      const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
-        "#payment-widget",
-        { value: price },
-        { variantKey: "DEFAULT" }
-      );
+    // ------  결제위젯 렌더링 ------
+    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
+    const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
+      "#payment-widget",
+      { value: price },
+      { variantKey: "DEFAULT" }
+    );
 
-      paymentMethodsWidgetRef.current = paymentMethodsWidget;
-    }
+    paymentMethodsWidgetRef.current = paymentMethodsWidget;
 
-    if (agreementsWidgetRef.current == null) {
-      // ------  이용약관 렌더링 ------
-      // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
-      const agreementsWidget = paymentWidget.renderAgreement("#agreement", {
-        variantKey: "AGREEMENT",
-      });
-
-      agreementsWidgetRef.current = agreementsWidget;
-    }
+    // ------  이용약관 렌더링 ------
+    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
+    paymentWidget.renderAgreement("#agreement", {
+      variantKey: "AGREEMENT",
+    });
   }, [paymentWidget]);
 
   useEffect(() => {
@@ -124,7 +119,7 @@ export default function Home() {
 
 function usePaymentWidget(clientKey: string, customerKey: string) {
   return useQuery({
-    queryKey: ["payment-widget"],
+    queryKey: ["payment-widget", clientKey, customerKey],
     queryFn: () => {
       // ------  결제위젯 초기화 ------
       // @docs https://docs.tosspayments.com/reference/widget-sdk#sdk-설치-및-초기화
