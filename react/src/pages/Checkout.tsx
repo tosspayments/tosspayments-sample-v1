@@ -7,47 +7,42 @@ import {
 import { nanoid } from "nanoid";
 
 import "../App.css";
+import { useQuery } from "@tanstack/react-query";
 
 const selector = "#payment-widget";
 
-// TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요. 
-// TODO: customerKey는 구매자와 1:1 관계로 무작위한 고유값을 생성하세요. 
+// TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요.
+// TODO: customerKey는 구매자와 1:1 관계로 무작위한 고유값을 생성하세요.
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = nanoid();
 
 export function CheckoutPage() {
-  const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
+  const { data: paymentWidget } = usePaymentWidget(clientKey, customerKey);
+  // const paymentWidget = usePaymentWidget(clientKey, ANONYMOUS); // 비회원 결제
   const paymentMethodsWidgetRef = useRef<ReturnType<
     PaymentWidgetInstance["renderPaymentMethods"]
   > | null>(null);
   const [price, setPrice] = useState(50_000);
 
   useEffect(() => {
-    (async () => {
-      // ------  결제위젯 초기화 ------
-      // @docs https://docs.tosspayments.com/reference/widget-sdk#sdk-설치-및-초기화
-      const paymentWidget = await loadPaymentWidget(clientKey, customerKey); // 회원 결제
-      // const paymentWidget = await loadPaymentWidget(clientKey, ANONYMOUS); // 비회원 결제
+    if (paymentWidget == null) {
+      return;
+    }
 
-      // ------  결제위젯 렌더링 ------
-      // @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
-      const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
-        selector,
-        { value: price },
-        { variantKey: "DEFAULT" }
-      );
+    // ------  결제위젯 렌더링 ------
+    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
+    const paymentMethodsWidget = paymentWidget.renderPaymentMethods(
+      selector,
+      { value: price },
+      { variantKey: "DEFAULT" }
+    );
 
-      // ------  이용약관 렌더링 ------
-      // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자
-      paymentWidget.renderAgreement(
-        "#agreement",
-        { variantKey: "AGREEMENT" }
-      );
+    // ------  이용약관 렌더링 ------
+    // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자
+    paymentWidget.renderAgreement("#agreement", { variantKey: "AGREEMENT" });
 
-      paymentWidgetRef.current = paymentWidget;
-      paymentMethodsWidgetRef.current = paymentMethodsWidget;
-    })();
-  }, []);
+    paymentMethodsWidgetRef.current = paymentMethodsWidget;
+  }, [paymentWidget]);
 
   useEffect(() => {
     const paymentMethodsWidget = paymentMethodsWidgetRef.current;
@@ -66,18 +61,32 @@ export function CheckoutPage() {
       <div className="box_section">
         <div id="payment-widget" />
         <div id="agreement" />
-        <div style={{paddingLeft: "24px"}}>
-          <div className="checkable typography--p"><label htmlFor="coupon-box" className="checkable__label typography--regular"><input id="coupon-box" className="checkable__input" type="checkbox" aria-checked="true" onChange={(event) => {
-                setPrice(event.target.checked ? price - 5_000 : price + 5_000);
-              }}
-            /><span className="checkable__label-text">5,000원 쿠폰 적용</span></label></div>
+        <div style={{ paddingLeft: "24px" }}>
+          <div className="checkable typography--p">
+            <label
+              htmlFor="coupon-box"
+              className="checkable__label typography--regular"
+            >
+              <input
+                id="coupon-box"
+                className="checkable__input"
+                type="checkbox"
+                aria-checked="true"
+                onChange={(event) => {
+                  setPrice(
+                    event.target.checked ? price - 5_000 : price + 5_000
+                  );
+                }}
+              />
+              <span className="checkable__label-text">5,000원 쿠폰 적용</span>
+            </label>
+          </div>
         </div>
         <div className="result wrapper">
-          
-          <button className="button" style={{marginTop: "30px"}}
+          <button
+            className="button"
+            style={{ marginTop: "30px" }}
             onClick={async () => {
-              const paymentWidget = paymentWidgetRef.current;
-
               try {
                 // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
                 // @docs https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
@@ -88,7 +97,7 @@ export function CheckoutPage() {
                   customerEmail: "customer123@gmail.com",
                   customerMobilePhone: "01012341234",
                   successUrl: `${window.location.origin}/success`,
-                  failUrl: `${window.location.origin}/fail`
+                  failUrl: `${window.location.origin}/fail`,
                 });
               } catch (error) {
                 // 에러 처리하기
@@ -101,6 +110,16 @@ export function CheckoutPage() {
         </div>
       </div>
     </div>
-
   );
+}
+
+function usePaymentWidget(clientKey: string, customerKey: string) {
+  return useQuery({
+    queryKey: ["payment-widget", clientKey, customerKey],
+    queryFn: () => {
+      // ------  결제위젯 초기화 ------
+      // @docs https://docs.tosspayments.com/reference/widget-sdk#sdk-설치-및-초기화
+      return loadPaymentWidget(clientKey, customerKey);
+    },
+  });
 }
