@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.8.1",
     "@tosspayments/payment-widget-sdk": "^0.10.0",
     "nanoid": "^4.0.1",
     "react": "^18.2.0",

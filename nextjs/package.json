@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.8.1",
     "@tosspayments/payment-widget-sdk": "^0.10.0",
     "@types/node": "18.14.6",
     "@types/react": "18.0.28",
@@ -20,7 +21,6 @@
     "next": "13.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-use": "^17.4.0",
     "typescript": "4.9.5"
   }
 }

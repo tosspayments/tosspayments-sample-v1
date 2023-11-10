@@ -8,7 +8,7 @@ const nextConfig = {
         destination: "/checkout",
       },
     ];
-  }
-}
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
