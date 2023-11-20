@@ -272,10 +272,11 @@ packages:
   tosspayments_widget_sdk_flutter:
     dependency: "direct main"
     description:
-      path: ".."
-      relative: true
-    source: path
-    version: "0.1.12-beta.3"
+      name: tosspayments_widget_sdk_flutter
+      sha256: "54142b78dd457cabdd768b767487f21c598d2817c6eea61c1a6aab4019acbab6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   url_launcher:
     dependency: transitive
     description:
