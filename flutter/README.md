@@ -1,58 +1,41 @@
-Flutter에서 토스페이먼츠 결제창을 손쉽게 연동하기 위한 패키지입니다.
+# 결제위젯 Flutter 샘플 프로젝트
 
-## 1. 사전 설정
+결제위젯 Flutter SDK로 결제 과정을 구현한 Flutter 샘플 프로젝트입니다. 자세한 연동 방법과 결제 과정은 [공식 연동 문서](https://docs.tosspayments.com/guides/payment-widget/integration)에서 확인하세요.
 
-### A. 패키지 다운로드
-pubspec.yaml에 패키지 추가
-```xml
-dependencies:
-tosspayments_widget_sdk_flutter: ^0.X.X
-```
+## 준비하기
 
-### B. Android 설정
-usesCleartextTraffic 세팅을 true로 설정하여, 웹뷰 내 모든 카드사앱을 띄울 수 있도록 설정
-```xml
-...
-<appication ...  android:usesCleartextTraffic="true"></application>
-...
-```
+[Dart SDK](https://dart.dev/get-dart), [Flutter SDK](https://docs.flutter.dev/get-started/install) 를 설치해 주세요.
 
 
-### C. iOS설정
-별도 설정할 내용 없음
+## 실행하기
 
+1. 결제위젯 샘플 프로젝트 레포지토리를 클론(Clone)하고 Flutter 폴더로 진입하세요.
 
-## 2. 시작하기
-아래 방법으로 토스페이먼츠 결제창을 띄울 수 있습니다. 자세한 내용은 예제(example)을 참고해주세요.
+    ```sh
+    $ git clone https://github.com/tosspayments/payment-widget-sample # 샘플 프로젝트 클론
+    $ cd payment-widget-sample/flutter
+    ```
 
-```dart
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:tosspayments_widget_sdk_flutter/model/tosspayments_result.dart';
-import 'package:tosspayments_widget_sdk_flutter/tosspayments_sdk_flutter.dart';
-import 'package:tosspayments_widget_sdk_flutter/model/paymentData.dart';
+2. 의존성 패키지를 다운로드합니다.
 
-class Payment extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return TossPayments(
-      apiKey: "##TODO clientKey 입력 ##,"
-      data:  PaymentData(
-          paymentMethod: '카드',
-          orderId: 'tosspayments-202303210239',
-          orderName: 'toss t-shirt',
-          amount: 50000,
-          customerName: '김토스',
-          customerEmail: 'toss@toss-payments.co.kr'
-      ),
-      success: (Success success) {
-          Get.back(result: success);
-      },
-      fail: (Fail fail) {
-          Get.back(result: fail);
-      };
-    );
-  }
-}
+    ```sh
+    $ flutter pub get
+    ```
 
-```
+3. 플러터 앱을 실행합니다.
+
+    ```sh
+    $ flutter run lib/main.dart
+    ```
+
+## 인증하기
+
+샘플에 있는 키로 연동이 가능하지만, 내 테스트 연동 키를 사용하면 테스트 결제내역, 웹훅 기능을 사용할 수 있어요. 내 테스트 연동 키는 [개발자센터](https://developers.tosspayments.com/my/api-keys)에서 확인할 수 있습니다. 더 자세한 내용은 [API 키 가이드](https://docs.tosspayments.com/reference/using-api/api-keys)를 참고하세요.
+
+- **클라이언트 키**: 샘플 앱 실행 후, Client Key에 내 결제위젯 클라이언트 키를 입력하세요. 또는 `lib/utils/config.dart` 파일에서 `_live` 부분을 수정한 후 앱을 실행하세요. 
+
+## 더 알아보기
+
+- 토스페이먼츠 개발 블로그 👉 [30분 안에 결제 페이지 개발하기 (ft. 결제위젯)](https://velog.io/@tosspayments/결제위젯으로-30분안에-결제-페이지-개발하기)
+
+- 토스페이먼츠 연동 문서 👉 [결제위젯 이해하기](https://docs.tosspayments.com/guides/payment-widget/overview) | [결제위젯 연동 문서](https://docs.tosspayments.com/guides/payment-widget/integration)
