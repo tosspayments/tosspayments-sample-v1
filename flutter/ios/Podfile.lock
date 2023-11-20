@@ -1,0 +1,92 @@
+PODS:
+  - device_info (0.0.1):
+    - Flutter
+  - Firebase/CoreOnly (10.16.0):
+    - FirebaseCore (= 10.16.0)
+  - firebase_core (2.21.0):
+    - Firebase/CoreOnly (= 10.16.0)
+    - Flutter
+  - FirebaseCore (10.16.0):
+    - FirebaseCoreInternal (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/Logger (~> 7.8)
+  - FirebaseCoreInternal (10.16.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - Flutter (1.0.0)
+  - flutter_inappwebview (0.0.1):
+    - Flutter
+    - flutter_inappwebview/Core (= 0.0.1)
+    - OrderedSet (~> 5.0)
+  - flutter_inappwebview/Core (0.0.1):
+    - Flutter
+    - OrderedSet (~> 5.0)
+  - fluttertoast (0.0.2):
+    - Flutter
+    - Toast
+  - GoogleUtilities/Environment (7.11.5):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.11.5):
+    - GoogleUtilities/Environment
+  - "GoogleUtilities/NSData+zlib (7.11.5)"
+  - OrderedSet (5.0.0)
+  - PromisesObjC (2.3.1)
+  - Toast (4.0.0)
+  - tosspayments_webview_flutter (0.0.1):
+    - Flutter
+  - url_launcher_ios (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - device_info (from `.symlinks/plugins/device_info/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - Flutter (from `Flutter`)
+  - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
+  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - tosspayments_webview_flutter (from `.symlinks/plugins/tosspayments_webview_flutter/ios`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+
+SPEC REPOS:
+  trunk:
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreInternal
+    - GoogleUtilities
+    - OrderedSet
+    - PromisesObjC
+    - Toast
+
+EXTERNAL SOURCES:
+  device_info:
+    :path: ".symlinks/plugins/device_info/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
+  Flutter:
+    :path: Flutter
+  flutter_inappwebview:
+    :path: ".symlinks/plugins/flutter_inappwebview/ios"
+  fluttertoast:
+    :path: ".symlinks/plugins/fluttertoast/ios"
+  tosspayments_webview_flutter:
+    :path: ".symlinks/plugins/tosspayments_webview_flutter/ios"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
+
+SPEC CHECKSUMS:
+  device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
+  Firebase: 25899099b77d255a636e3579c3d9dce10ec150d5
+  firebase_core: 68027ba03585e3efe1608e35d3ab2777a64eabe9
+  FirebaseCore: 65a801af84cca84361ef9eac3fd868656968a53b
+  FirebaseCoreInternal: 26233f705cc4531236818a07ac84d20c333e505a
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_inappwebview: 3d32228f1304635e7c028b0d4252937730bbc6cf
+  fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
+  GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
+  OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
+  PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+  tosspayments_webview_flutter: ceae304825a077de594d01ee39dd0ce2307adb4e
+  url_launcher_ios: 68d46cc9766d0c41dbdc884310529557e3cd7a86
+
+PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
+
+COCOAPODS: 1.11.0
