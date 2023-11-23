@@ -22,7 +22,7 @@
     $ flutter pub get
     ```
 
-3. 플러터 앱을 실행합니다.
+3. 플러터 앱을 실행합니다. `build variant`를 `live`로 설정하게 테스트하세요.
 
     ```sh
     $ flutter run lib/main.dart
