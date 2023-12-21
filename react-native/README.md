@@ -8,19 +8,19 @@
 
 1. 결제위젯 샘플 프로젝트 레포지토리를 클론(Clone)하고 react-native 폴더로 진입하세요.
 
-    ```sh
-    $ git clone https://github.com/tosspayments/payment-widget-sample # 샘플 프로젝트 클론
-    $ cd payment-widget-sample/react-native
-    ```
+   ```sh
+   $ git clone https://github.com/tosspayments/payment-widget-sample # 샘플 프로젝트 클론
+   $ cd payment-widget-sample/react-native
+   ```
 
-2. React Native를 실행하기 위한 사전 개발환경을 준비하세요. [React Native 공식 문서](https://reactnative.dev/docs/environment-setup)를 참고하세요. 
+2. React Native를 실행하기 위한 사전 개발환경을 준비하세요. [React Native 공식 문서](https://reactnative.dev/docs/environment-setup)를 참고하세요.
 
 3. 의존성 패키지를 다운로드하고 Metro를 실행합니다.
 
-    ```sh
-    $ npm install # 의존성 패키지 다운로드
-    $ npm start # Metro 실행
-    ```
+   ```sh
+   $ npm install # 의존성 패키지 다운로드
+   $ npm start # Metro 실행
+   ```
 
 4. 로컬 네트워크에서 샘플 프로젝트를 확인하세요.
 
