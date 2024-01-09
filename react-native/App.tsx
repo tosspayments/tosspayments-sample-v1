@@ -1,21 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React, {useState} from 'react';
-import {
-  Alert,
-  Button,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  useColorScheme,
-} from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Button, Alert} from 'react-native';
 import {
   PaymentWidgetProvider,
   usePaymentWidget,
@@ -25,30 +9,22 @@ import {
 import type {
   AgreementWidgetControl,
   PaymentMethodWidgetControl,
+  AgreementStatus,
 } from '@tosspayments/widget-sdk-react-native';
 
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+// ...
+export default function App() {
   return (
-    <ScrollView>
+    <>
+      {/* 스크롤이 필요한 경우 ScrollView로 감싸주세요. */}
+      {/* <ScrollView> */}
       <PaymentWidgetProvider
         clientKey={`test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm`}
-        customerKey={`fpemiBOPUxWz3SpkA`}
-        options={{}}>
-        <SafeAreaView style={backgroundStyle}>
-          <StatusBar
-            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            backgroundColor={backgroundStyle.backgroundColor}
-          />
-          <CheckoutPage />
-        </SafeAreaView>
+        customerKey={`JK7_wcrP9zWznigTpHtZM`}>
+        <CheckoutPage />
       </PaymentWidgetProvider>
-    </ScrollView>
+      {/* </ScrollView> */}
+    </>
   );
 }
 
@@ -105,11 +81,18 @@ function CheckoutPage() {
 
           paymentWidgetControl
             .requestPayment?.({
-              orderId: 'fpemiBOPUxWz3SpkA-EBd',
+              orderId: 'GkE7i5oFXWuuI0xiM9dzx',
               orderName: '토스 티셔츠 외 2건',
             })
             .then(result => {
-              Alert.alert(`결제 요청 결과: ${JSON.stringify(result)}`);
+              if (result?.success) {
+                // 결제 성공 비즈니스 로직을 구현하세요.
+                // result.success에 있는 값을 서버로 전달해서 결제 승인을 호출하세요.
+                Alert.alert(result.success.paymentKey);
+              } else if (result?.fail) {
+                // 결제 실패 비즈니스 로직을 구현하세요.
+                Alert.alert(result.fail.code);
+              }
             });
         }}
       />
@@ -120,7 +103,6 @@ function CheckoutPage() {
             Alert.alert('주문 정보가 초기화되지 않았습니다.');
             return;
           }
-
           Alert.alert(
             `선택된 결제수단: ${JSON.stringify(
               await paymentMethodWidgetControl.getSelectedPaymentMethod(),
@@ -135,7 +117,6 @@ function CheckoutPage() {
             Alert.alert('주문 정보가 초기화되지 않았습니다.');
             return;
           }
-
           paymentMethodWidgetControl.updateAmount(100_000).then(() => {
             Alert.alert('결제 금액이 100000원으로 변경되었습니다.');
           });
@@ -144,5 +125,3 @@ function CheckoutPage() {
     </>
   );
 }
-
-export default App;
