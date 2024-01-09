@@ -19,6 +19,7 @@
 
    ```sh
    $ npm install # 의존성 패키지 다운로드
+   $ npm update @tosspayments/widget-sdk-react-native --save # 최신 버전으로 업데이트
    $ npm start # Metro 실행
    ```
 
