@@ -74,7 +74,7 @@ export default {
   async mounted() {
     // ------  결제위젯 초기화 ------
     // @docs https://docs.tosspayments.com/reference/widget-sdk#sdk-설치-및-초기화
-    this.paymentWidget = PaymentWidget(this.clientKey, ANONYMOUS);
+    this.paymentWidget = await loadPaymentWidget(this.clientKey, ANONYMOUS);
 
     // ------  결제 UI 렌더링 ------
     // @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
