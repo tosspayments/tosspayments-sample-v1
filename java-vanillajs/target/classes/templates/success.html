@@ -66,17 +66,20 @@
         }
 
         // TODO: 결제 성공 비즈니스 로직을 구현하세요.
-        console.log(json);
+        // console.log(json);
+        return json;
       }
-      confirm();
+      confirm().then(function (data) {
+        document.getElementById("response").innerHTML = `<pre>${JSON.stringify(data, null, 4)}</pre>`;
+      });
 
       const paymentKeyElement = document.getElementById("paymentKey");
       const orderIdElement = document.getElementById("orderId");
       const amountElement = document.getElementById("amount");
 
-      orderIdElement.textContent = "주문번호: " + urlParams.get("orderId");
-      amountElement.textContent = "결제 금액: " + urlParams.get("amount");
-      paymentKeyElement.textContent = "paymentKey: " + urlParams.get("paymentKey");
+      orderIdElement.textContent = urlParams.get("orderId");
+      amountElement.textContent = urlParams.get("amount") + "원";
+      paymentKeyElement.textContent = urlParams.get("paymentKey");
     </script>
   </body>
 </html>
