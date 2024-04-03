@@ -12,6 +12,7 @@
 <%@ page import="java.io.InputStreamReader" %>
 <%@ page import="java.io.Reader" %>
 <%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.util.Set" %>
 
 <%
  // ------ 결제 승인 API 호출 ------
@@ -83,8 +84,8 @@
               <div class="p-grid-col text--right" id="orderId"> <%= jsonObject.get("orderId") %></div>
             </div>
             <div class="p-grid typography--p" style="margin-top: 10px">
-              <div class="p-grid-col text--left"><b>paymentKey</b><%= jsonObject.get("paymentKey") %></div>
-              <div class="p-grid-col text--right" id="paymentKey" style="white-space: initial; width: 250px"></div>
+              <div class="p-grid-col text--left"><b>paymentKey</b></div>
+              <div class="p-grid-col text--right" id="paymentKey" style="white-space: initial; width: 250px"><%= jsonObject.get("paymentKey") %></div>
             </div>
             <div class="p-grid" style="margin-top: 30px">
               <button class="button p-grid-col5" onclick="location.href='https://docs.tosspayments.com/guides/payment/integration';">연동 문서</button>
@@ -94,18 +95,27 @@
 
           <div class="box_section" style="width: 600px; text-align: left">
             <b>Response Data :</b>
-            <div id="response" style="white-space: initial"><pre><%= jsonObject%></pre></div>
+            <div id="response"">
+              <pre>
+                <%
+                Set<String> keys = jsonObject.keySet();
+                for (String key : keys) {
+                %>
+                <%= key %>: <%= jsonObject.get(key) %>
+                <%
+                }
+                %>
+              </pre>
+            </div>
           </div>
       
-          
-        
         <%} else { %>
           <div id="info" class="box_section" style="width: 600px">
             <img width="100px" src="https://static.toss.im/lotties/error-spot-no-loop-space-apng.png" />
             <h2>결제를 실패했어요</h2>
             <div class="p-grid typography--p" style="margin-top: 50px">
-              <div class="p-grid-col text--left"><b>에러메시지</b><%= jsonObject.get("message") %></div>
-              <div class="p-grid-col text--right" id="message"></div>
+              <div class="p-grid-col text--left"><b>에러메시지</b></div>
+              <div class="p-grid-col text--right" id="message"><%= jsonObject.get("message") %></div>
             </div>
             <div class="p-grid typography--p" style="margin-top: 10px">
               <div class="p-grid-col text--left"><b>에러코드</b></div>

@@ -20,7 +20,7 @@
         <!-- 이용약관 UI -->
         <div id="agreement"></div>
         <!-- 쿠폰 체크박스 -->
-        <div class="checkable typography--p">
+        <div class="checkable typography--p" style="padding-left: 25px">
           <label for="coupon-box" class="checkable__label typography--regular"
             ><input id="coupon-box" class="checkable__input" type="checkbox" aria-checked="true" disabled /><span class="checkable__label-text">5,000원 쿠폰 적용</span></label
           >
@@ -34,6 +34,7 @@
   <script>
     const button = document.getElementById("payment-button");
     const coupon = document.getElementById("coupon-box");
+    const currentURL = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname.split("/")[1];
     const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
     var amount = 50000;
     // ------  결제위젯 초기화 ------
