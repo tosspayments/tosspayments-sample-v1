@@ -18,6 +18,7 @@ export function CheckoutPage() {
   // const paymentWidget = usePaymentWidget(clientKey, ANONYMOUS); // 비회원 결제
   const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance["renderPaymentMethods"]> | null>(null);
   const [price, setPrice] = useState(50_000);
+  const [inputEnabled, setInputEnabled] = useState(false);
 
   useEffect(() => {
     if (paymentWidget == null) {
@@ -32,7 +33,11 @@ export function CheckoutPage() {
     // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
     paymentWidget.renderAgreement("#agreement", { variantKey: "AGREEMENT" });
 
-    paymentMethodsWidgetRef.current = paymentMethodsWidget;
+    //  ------  결제 UI 렌더링 완료 이벤트 ------
+    paymentMethodsWidget.on("ready", () => {
+      paymentMethodsWidgetRef.current = paymentMethodsWidget;
+      setInputEnabled(true);
+    });
   }, [paymentWidget]);
 
   useEffect(() => {
@@ -60,6 +65,7 @@ export function CheckoutPage() {
                 className="checkable__input"
                 type="checkbox"
                 aria-checked="true"
+                disabled={!inputEnabled}
                 onChange={(event) => {
                   setPrice(event.target.checked ? price - 5_000 : price + 5_000);
                 }}
@@ -72,6 +78,7 @@ export function CheckoutPage() {
         <button
           className="button"
           style={{ marginTop: "30px" }}
+          disabled={!inputEnabled}
           onClick={async () => {
             // TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
             // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.

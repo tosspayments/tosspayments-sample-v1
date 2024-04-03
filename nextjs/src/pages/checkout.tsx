@@ -25,7 +25,6 @@ export default function Home() {
     // ------  결제위젯 렌더링 ------
     // @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
     const paymentMethodsWidget = paymentWidget.renderPaymentMethods("#payment-widget", { value: price }, { variantKey: "DEFAULT" });
-    paymentMethodsWidgetRef.current = paymentMethodsWidget;
 
     // ------  이용약관 렌더링 ------
     // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
@@ -35,6 +34,7 @@ export default function Home() {
 
     //  ------  결제 UI 렌더링 완료 이벤트 ------
     paymentMethodsWidget.on("ready", () => {
+      paymentMethodsWidgetRef.current = paymentMethodsWidget;
       setInputEnabled(true);
     });
   }, [paymentWidget]);
