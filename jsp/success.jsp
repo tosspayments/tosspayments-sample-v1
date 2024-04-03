@@ -12,6 +12,7 @@
 <%@ page import="java.io.InputStreamReader" %>
 <%@ page import="java.io.Reader" %>
 <%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.util.Set" %>
 
 <%
  // ------ 결제 승인 API 호출 ------
@@ -70,53 +71,63 @@
         <%
         if (isSuccess) { %>
 
-            <div class="result wrapper">
-                <div class="box_section">  
-                <!-- 결제 성공 시 -->
-                  <h2 style="padding: 20px 0px 10px 0px">
-                    <img
-                      width="35px"
-                      src="https://static.toss.im/3d-emojis/u1F389_apng.png"
-                    />
-                    결제 성공
-                  </h2>
-
-                  <p>paymentKey : <%= jsonObject.get("paymentKey") %></p>
-                  <p>orderId : <%= jsonObject.get("orderId") %></p>
-                  <p>amount : <%= jsonObject.get("totalAmount") %></p>
-                
-                  <div class="result wrapper">
-                    <button class="button" onclick="location.href='https://docs.tosspayments.com/guides/payment-widget/integration';"
-                    style="margin-top:30px; ">연동 문서</button>
-                    <button class="button" onclick="location.href='https://discord.gg/A4fRFXQhRu';"
-                    style="margin-top:30px;background-color: #e8f3ff;color:#1b64da ">실시간 문의</button>
-                  </div>   
-                </div>
-              </div>
-          
-        
-        <%} else { %>
-            <div class="result wrapper">
-                <div class="box_section">   
-                <!-- 결제 실패 시 -->
-                    <h2 style="padding: 20px 0px 10px 0px">
-                        <img
-                        width="25px"
-                        src="https://static.toss.im/3d-emojis/u1F6A8-apng.png"
-                        />
-                        결제 실패
-                    </h2>
-                    <p><%= jsonObject.get("message") %></p>
-                    <span>에러코드: <%= jsonObject.get("code") %></span>
-                    <div class="result wrapper">
-                        <button class="button" onclick="location.href='https://docs.tosspayments.com/guides/payment-widget/integration';"
-                        style="margin-top:30px; ">연동 문서</button>
-                        <button class="button" onclick="location.href='https://discord.gg/A4fRFXQhRu';"
-                        style="margin-top:30px;background-color: #e8f3ff;color:#1b64da ">실시간 문의</button>
-                      </div>                 
-                </div>
+          <div class="box_section" style="width: 600px">
+            <img width="100px" src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png" />
+            <h2>결제를 완료했어요</h2>
+      
+            <div class="p-grid typography--p" style="margin-top: 50px">
+              <div class="p-grid-col text--left"><b>결제금액</b></div>
+              <div class="p-grid-col text--right" id="amount"> <%= jsonObject.get("totalAmount") %></div>
             </div>
-            <%
+            <div class="p-grid typography--p" style="margin-top: 10px">
+              <div class="p-grid-col text--left"><b>주문번호</b></div>
+              <div class="p-grid-col text--right" id="orderId"> <%= jsonObject.get("orderId") %></div>
+            </div>
+            <div class="p-grid typography--p" style="margin-top: 10px">
+              <div class="p-grid-col text--left"><b>paymentKey</b></div>
+              <div class="p-grid-col text--right" id="paymentKey" style="white-space: initial; width: 250px"><%= jsonObject.get("paymentKey") %></div>
+            </div>
+            <div class="p-grid" style="margin-top: 30px">
+              <button class="button p-grid-col5" onclick="location.href='https://docs.tosspayments.com/guides/payment/integration';">연동 문서</button>
+              <button class="button p-grid-col5" onclick="location.href='https://discord.gg/A4fRFXQhRu';" style="background-color: #e8f3ff; color: #1b64da">실시간 문의</button>
+            </div>
+          </div>
+
+          <div class="box_section" style="width: 600px; text-align: left">
+            <b>Response Data :</b>
+            <div id="response"">
+              <pre>
+                <%
+                Set<String> keys = jsonObject.keySet();
+                for (String key : keys) {
+                %>
+                <%= key %>: <%= jsonObject.get(key) %>
+                <%
+                }
+                %>
+              </pre>
+            </div>
+          </div>
+      
+        <%} else { %>
+          <div id="info" class="box_section" style="width: 600px">
+            <img width="100px" src="https://static.toss.im/lotties/error-spot-no-loop-space-apng.png" />
+            <h2>결제를 실패했어요</h2>
+            <div class="p-grid typography--p" style="margin-top: 50px">
+              <div class="p-grid-col text--left"><b>에러메시지</b></div>
+              <div class="p-grid-col text--right" id="message"><%= jsonObject.get("message") %></div>
+            </div>
+            <div class="p-grid typography--p" style="margin-top: 10px">
+              <div class="p-grid-col text--left"><b>에러코드</b></div>
+              <div class="p-grid-col text--right" id="code"><%= jsonObject.get("code") %></div>
+            </div>
+            <div class="p-grid">
+              <button class="button p-grid-col5" onclick="location.href='https://docs.tosspayments.com/guides/payment/integration';">연동 문서</button>
+              <button class="button p-grid-col5" onclick="location.href='https://discord.gg/A4fRFXQhRu';" style="background-color: #e8f3ff; color: #1b64da">실시간 문의</button>
+            </div>
+          </div>
+      
+      <%
         }
         %>
     </section>
