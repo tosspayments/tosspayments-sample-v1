@@ -15,7 +15,7 @@ export default function Home() {
   const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance["renderPaymentMethods"]> | null>(null);
   const agreementsWidgetRef = useRef<ReturnType<PaymentWidgetInstance["renderAgreement"]> | null>(null);
   const [price, setPrice] = useState(50_000);
-  const [inputEnabled, setInputEnabled] = useState(false);
+  const [paymentMethodsWidgetReady, isPaymentMethodsWidgetReady] = useState(false);
 
   useEffect(() => {
     if (paymentWidget == null) {
@@ -35,7 +35,7 @@ export default function Home() {
     //  ------  결제 UI 렌더링 완료 이벤트 ------
     paymentMethodsWidget.on("ready", () => {
       paymentMethodsWidgetRef.current = paymentMethodsWidget;
-      setInputEnabled(true);
+      isPaymentMethodsWidgetReady(true);
     });
   }, [paymentWidget]);
 
@@ -65,7 +65,7 @@ export default function Home() {
                   className="checkable__input"
                   type="checkbox"
                   aria-checked="true"
-                  disabled={!inputEnabled}
+                  disabled={!paymentMethodsWidgetReady}
                   onChange={(event) => {
                     setPrice(event.target.checked ? price - 5_000 : price + 5_000);
                   }}
@@ -78,7 +78,7 @@ export default function Home() {
           <button
             className="button"
             style={{ marginTop: "30px" }}
-            disabled={!inputEnabled}
+            disabled={!paymentMethodsWidgetReady}
             onClick={async () => {
               try {
                 // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
