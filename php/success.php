@@ -51,61 +51,57 @@ $responseJson = json_decode($response);
 </head>
 
 <body>
-    <div>
-        <div>
-            <!-- 결제 성공 시 -->
-            <?php if ($isSuccess) { ?>
-                <div class="result wrapper">
-                  <div class="box_section">  
+    <!-- 결제 성공 시 -->
+    <?php if ($isSuccess) { ?>
+        <div class="box_section" style="width: 600px">
+            <img width="100px" src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png" />
+            <h2>결제를 완료했어요</h2>
 
-                    <h2 style="padding: 20px 0px 10px 0px">
-                        <img
-                            width="35px"
-                            src="https://static.toss.im/3d-emojis/u1F389_apng.png"
-                        />
-                        결제 성공
-                    </h2>
-
-                    <p> paymentKey = <?php echo $responseJson->paymentKey ?></p>
-                    <p> orderId = <?php echo $responseJson->orderId ?></p>
-                    <p> amount = <?php echo $responseJson->totalAmount ?></p>
-                    <div class="result wrapper">
-                        <button class="button" onclick="location.href='https://docs.tosspayments.com/guides/payment-widget/integration';"
-                        style="margin-top:30px; ">연동 문서</button>
-                        <button class="button" onclick="location.href='https://discord.gg/A4fRFXQhRu';"
-                        style="margin-top:30px;background-color: #e8f3ff;color:#1b64da ">실시간 문의</button>
-                    </div>   
-
-                </div>
+            <div class="p-grid typography--p" style="margin-top: 50px">
+                <div class="p-grid-col text--left"><b>결제금액</b></div>
+                <div class="p-grid-col text--right" id="amount"><?php echo $responseJson->totalAmount ?></div>
             </div>
-
-                </div>
-
-            <!-- 결제 실패 시 -->
-            <?php } else { ?>
-
-                <div class="result wrapper">
-                    <div class="box_section">  
-                        <h2 style="padding: 20px 0px 10px 0px">
-                        <img
-                            width="25px"
-                            src="https://static.toss.im/3d-emojis/u1F6A8-apng.png"
-                        />
-                        결제 실패
-                        </h2>
-                        <p>code = <?php echo $responseJson->message ?></p>
-                        <p>message = <?php echo $responseJson->code ?></p>
-                        <div class="result wrapper">
-                        <button class="button" onclick="location.href='https://docs.tosspayments.com/guides/payment-widget/integration';"
-                        style="margin-top:30px; ">연동 문서</button>
-                        <button class="button" onclick="location.href='https://discord.gg/A4fRFXQhRu';"
-                        style="margin-top:30px;background-color: #e8f3ff;color:#1b64da ">실시간 문의</button>
-                        </div>   
-                    </div>
-                    </div>
-
-            <?php } ?>
+            <div class="p-grid typography--p" style="margin-top: 10px">
+                <div class="p-grid-col text--left"><b>주문번호</b></div>
+                <div class="p-grid-col text--right" id="orderId"><?php echo $responseJson->orderId ?></div>
+            </div>
+            <div class="p-grid typography--p" style="margin-top: 10px">
+                <div class="p-grid-col text--left"><b>paymentKey</b></div>
+                <div class="p-grid-col text--right" id="paymentKey" style="white-space: initial; width: 250px"><?php echo $responseJson->paymentKey ?></div>
+            </div>
+            <div class="p-grid" style="margin-top: 30px">
+                <button class="button p-grid-col5" onclick="location.href='https://docs.tosspayments.com/guides/payment/integration';">연동 문서</button>
+                <button class="button p-grid-col5" onclick="location.href='https://discord.gg/A4fRFXQhRu';" style="background-color: #e8f3ff; color: #1b64da">실시간 문의</button>
+            </div>
         </div>
+        <div class="box_section" style="width: 600px; text-align: left">
+            <b>Response Data :</b>
+            <pre>
+            <?php echo trim(json_encode($responseJson,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE)); ?>
+            </pre>
+        </div>
+
+    <!-- 결제 실패 시 -->
+    <?php } else { ?>
+        <div class="box_section" style="width: 600px">
+        <img width="100px" src="https://static.toss.im/lotties/error-spot-no-loop-space-apng.png" />
+        <h2>결제를 실패했어요</h2>
+
+        <div class="p-grid typography--p" style="margin-top: 50px">
+            <div class="p-grid-col text--left"><b>에러메시지</b></div>
+            <div class="p-grid-col text--right" id="message"><?php echo $responseJson->message ?></div>
+        </div>
+        <div class="p-grid typography--p" style="margin-top: 10px">
+            <div class="p-grid-col text--left"><b>에러코드</b></div>
+            <div class="p-grid-col text--right" id="code"><?php echo $responseJson->code ?></div>
+        </div>
+        <div class="p-grid">
+            <button class="button p-grid-col5" onclick="location.href='https://docs.tosspayments.com/guides/payment/integration';">연동 문서</button>
+            <button class="button p-grid-col5" onclick="location.href='https://discord.gg/A4fRFXQhRu';" style="background-color: #e8f3ff; color: #1b64da">실시간 문의</button>
+        </div>
+        </div>
+
+    <?php } ?>
 </body>
 
 </html>
