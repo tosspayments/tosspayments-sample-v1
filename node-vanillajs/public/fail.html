@@ -27,15 +27,15 @@
         <button class="button p-grid-col5" onclick="location.href='https://discord.gg/A4fRFXQhRu';" style="background-color: #e8f3ff; color: #1b64da">실시간 문의</button>
       </div>
     </div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+
+      const codeElement = document.getElementById("code");
+      const messageElement = document.getElementById("message");
+
+      codeElement.textContent = urlParams.get("code");
+      messageElement.textContent = urlParams.get("message");
+    </script>
   </body>
-
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-
-    const codeElement = document.getElementById("code");
-    const messageElement = document.getElementById("message");
-
-    codeElement.textContent = urlParams.get("code");
-    messageElement.textContent = urlParams.get("message");
-  </script>
 </html>
