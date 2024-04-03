@@ -15,6 +15,7 @@ export default function Home() {
   const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance["renderPaymentMethods"]> | null>(null);
   const agreementsWidgetRef = useRef<ReturnType<PaymentWidgetInstance["renderAgreement"]> | null>(null);
   const [price, setPrice] = useState(50_000);
+  const [inputEnabled, setInputEnabled] = useState(false);
 
   useEffect(() => {
     if (paymentWidget == null) {
@@ -24,13 +25,17 @@ export default function Home() {
     // ------  결제위젯 렌더링 ------
     // @docs https://docs.tosspayments.com/reference/widget-sdk#renderpaymentmethods선택자-결제-금액-옵션
     const paymentMethodsWidget = paymentWidget.renderPaymentMethods("#payment-widget", { value: price }, { variantKey: "DEFAULT" });
-
     paymentMethodsWidgetRef.current = paymentMethodsWidget;
 
     // ------  이용약관 렌더링 ------
     // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
     paymentWidget.renderAgreement("#agreement", {
       variantKey: "AGREEMENT",
+    });
+
+    //  ------  결제 UI 렌더링 완료 이벤트 ------
+    paymentMethodsWidget.on("ready", () => {
+      setInputEnabled(true);
     });
   }, [paymentWidget]);
 
@@ -60,6 +65,7 @@ export default function Home() {
                   className="checkable__input"
                   type="checkbox"
                   aria-checked="true"
+                  disabled={!inputEnabled}
                   onChange={(event) => {
                     setPrice(event.target.checked ? price - 5_000 : price + 5_000);
                   }}
@@ -72,6 +78,7 @@ export default function Home() {
           <button
             className="button"
             style={{ marginTop: "30px" }}
+            disabled={!inputEnabled}
             onClick={async () => {
               try {
                 // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
