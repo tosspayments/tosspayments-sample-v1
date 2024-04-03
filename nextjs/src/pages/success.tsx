@@ -1,6 +1,6 @@
 import axios from "axios";
 import { GetServerSideProps } from "next";
-import Link from 'next/link';
+import Link from "next/link";
 
 // ------ Payment 객체 ------
 // @docs https://docs.tosspayments.com/reference#payment-객체
@@ -33,13 +33,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
       {
         headers: {
-          Authorization: `Basic ${Buffer.from(
-            `${process.env.TOSS_PAYMENTS_SECRET_KEY}:`
-          ).toString("base64")}`,
+          Authorization: `Basic ${Buffer.from(`${process.env.TOSS_PAYMENTS_SECRET_KEY}:`).toString("base64")}`,
         },
       }
     );
-    console.log(payment)
+    console.log(payment);
     return {
       props: { payment },
     };
@@ -62,27 +60,48 @@ interface Props {
 export default function SuccessPage({ payment }: Props) {
   return (
     <main>
-      <div className="result wrapper">
-        <div className="box_section">  
-          <h2 style={{padding: "20px 0px 10px 0px"}}>
-              <img
-                width="35px"
-                src="https://static.toss.im/3d-emojis/u1F389_apng.png"
-              />
-              결제 성공
-          </h2>
-          <p>paymentKey = {payment.paymentKey}</p>
-          <p>orderId =  {payment.orderId}</p>
-          <p>amount = {payment.totalAmount.toLocaleString()}원</p>
-
-          <div>
-            <Link href="https://docs.tosspayments.com/guides/payment-widget/integration">
-              <button className="button" style={{ marginTop: '30px', marginRight: '10px' }}>연동 문서</button>
-            </Link>
-            <Link href="https://discord.gg/A4fRFXQhRu">
-              <button className="button" style={{ marginTop: '30px', backgroundColor: '#e8f3ff', color: '#1b64da' }}>실시간 문의</button>
-            </Link>
+      <div className="box_section" style={{ width: "600px" }}>
+        <img width="100px" src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png" />
+        <h2>결제를 완료했어요</h2>
+        <div className="p-grid typography--p" style={{ marginTop: "50px" }}>
+          <div className="p-grid-col text--left">
+            <b>결제금액</b>
           </div>
+          <div className="p-grid-col text--right" id="amount">
+            {payment.totalAmount.toLocaleString()}원
+          </div>
+        </div>
+        <div className="p-grid typography--p" style={{ marginTop: "10px" }}>
+          <div className="p-grid-col text--left">
+            <b>주문번호</b>
+          </div>
+          <div className="p-grid-col text--right" id="orderId">
+            {payment.orderId}
+          </div>
+        </div>
+        <div className="p-grid typography--p" style={{ marginTop: "10px" }}>
+          <div className="p-grid-col text--left">
+            <b>paymentKey</b>
+          </div>
+          <div className="p-grid-col text--right" id="paymentKey" style={{ whiteSpace: "initial", width: "250px" }}>
+            {payment.paymentKey}
+          </div>
+        </div>
+        <div className="p-grid-col">
+          <Link href="https://docs.tosspayments.com/guides/payment-widget/integration">
+            <button className="button p-grid-col5">연동 문서</button>
+          </Link>
+          <Link href="https://discord.gg/A4fRFXQhRu">
+            <button className="button p-grid-col5" style={{ backgroundColor: "#e8f3ff", color: "#1b64da" }}>
+              실시간 문의
+            </button>
+          </Link>
+        </div>
+      </div>
+      <div className="box_section" style={{ width: "600px", textAlign: "left" }}>
+        <b>Response Data :</b>
+        <div id="response" style={{ whiteSpace: "initial" }}>
+          {payment && <pre>{JSON.stringify(payment, null, 4)}</pre>}
         </div>
       </div>
     </main>

@@ -8,15 +8,15 @@
       <!-- 쿠폰 체크박스 -->
       <div style="padding-left: 25px">
         <div class="checkable typography--p">
-          <label for="coupon-box" class="checkable__label typography--regular"
-            ><input @change="updateAmount" id="coupon-box" class="checkable__input" type="checkbox" aria-checked="true" /><span class="checkable__label-text">5,000원 쿠폰 적용</span></label
-          >
+          <label for="coupon-box" class="checkable__label typography--regular">
+            <input :disabled="!inputEnabled" @change="updateAmount" id="coupon-box" class="checkable__input" type="checkbox" aria-checked="true" /><span class="checkable__label-text"
+              >5,000원 쿠폰 적용</span
+            >
+          </label>
         </div>
       </div>
       <!-- 결제하기 버튼 -->
-      <div class="result wrapper">
-        <button @click="requestPayment" class="button" id="payment-button" style="margin-top: 30px">결제하기</button>
-      </div>
+      <button :disabled="!inputEnabled" @click="requestPayment" class="button" id="payment-button" style="margin-top: 30px">결제하기</button>
     </div>
   </div>
 </template>
@@ -35,6 +35,7 @@ export default {
       clientKey: "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm",
       customerKey: nanoid(),
       amount: 50000,
+      inputEnabled: false,
     };
   },
   methods: {
@@ -82,6 +83,10 @@ export default {
     // ------  이용약관 UI 렌더링 ------
     // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
     this.paymentWidget.renderAgreement("#agreement", { variantKey: "AGREEMENT" });
+
+    this.paymentMethodWidget.on("ready", () => {
+      this.inputEnabled = true;
+    });
   },
 };
 </script>

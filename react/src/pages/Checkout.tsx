@@ -18,6 +18,7 @@ export function CheckoutPage() {
   // const paymentWidget = usePaymentWidget(clientKey, ANONYMOUS); // 비회원 결제
   const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance["renderPaymentMethods"]> | null>(null);
   const [price, setPrice] = useState(50_000);
+  const [paymentMethodsWidgetReady, isPaymentMethodsWidgetReady] = useState(false);
 
   useEffect(() => {
     if (paymentWidget == null) {
@@ -32,7 +33,11 @@ export function CheckoutPage() {
     // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
     paymentWidget.renderAgreement("#agreement", { variantKey: "AGREEMENT" });
 
-    paymentMethodsWidgetRef.current = paymentMethodsWidget;
+    //  ------  결제 UI 렌더링 완료 이벤트 ------
+    paymentMethodsWidget.on("ready", () => {
+      paymentMethodsWidgetRef.current = paymentMethodsWidget;
+      isPaymentMethodsWidgetReady(true);
+    });
   }, [paymentWidget]);
 
   useEffect(() => {
@@ -60,6 +65,7 @@ export function CheckoutPage() {
                 className="checkable__input"
                 type="checkbox"
                 aria-checked="true"
+                disabled={!paymentMethodsWidgetReady}
                 onChange={(event) => {
                   setPrice(event.target.checked ? price - 5_000 : price + 5_000);
                 }}
@@ -68,34 +74,34 @@ export function CheckoutPage() {
             </label>
           </div>
         </div>
-        <div className="result wrapper">
-          <button
-            className="button"
-            style={{ marginTop: "30px" }}
-            onClick={async () => {
-              // TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
-              // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
-              try {
-                // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
-                // @docs https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
-                await paymentWidget?.requestPayment({
-                  orderId: nanoid(),
-                  orderName: "토스 티셔츠 외 2건",
-                  customerName: "김토스",
-                  customerEmail: "customer123@gmail.com",
-                  customerMobilePhone: "01012341234",
-                  successUrl: `${window.location.origin}/success`,
-                  failUrl: `${window.location.origin}/fail`,
-                });
-              } catch (error) {
-                // 에러 처리하기
-                console.error(error);
-              }
-            }}
-          >
-            결제하기
-          </button>
-        </div>
+
+        <button
+          className="button"
+          style={{ marginTop: "30px" }}
+          disabled={!paymentMethodsWidgetReady}
+          onClick={async () => {
+            // TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
+            // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
+            try {
+              // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+              // @docs https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
+              await paymentWidget?.requestPayment({
+                orderId: nanoid(),
+                orderName: "토스 티셔츠 외 2건",
+                customerName: "김토스",
+                customerEmail: "customer123@gmail.com",
+                customerMobilePhone: "01012341234",
+                successUrl: `${window.location.origin}/success`,
+                failUrl: `${window.location.origin}/fail`,
+              });
+            } catch (error) {
+              // 에러 처리하기
+              console.error(error);
+            }
+          }}
+        >
+          결제하기
+        </button>
       </div>
     </div>
   );
