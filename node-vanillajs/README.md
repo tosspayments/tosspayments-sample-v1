@@ -23,7 +23,7 @@ Node.js가 없다면 [Node.js 홈페이지](https://nodejs.org/ko/download/)에�
 
    ```sh
    $ git clone https://github.com/tosspayments/payment-widget-sample # 샘플 프로젝트 클론
-   $ cd payment-widget-sample/node-ejs
+   $ cd payment-widget-sample/node-vanillajs
    ```
 
 2. 의존성 패키지를 다운로드하고 서버를 실행합니다.
