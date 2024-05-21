@@ -1,4 +1,3 @@
-import 'package:example/utils/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tosspayments_widget_sdk_flutter/model/tosspayments_result.dart';
@@ -15,7 +14,9 @@ class ResultPage extends StatelessWidget {
   /// [title]는 회색 텍스트 스타일로, [message]는 기본 텍스트 스타일로 표시됩니다.
   Row makeRow(String title, String message) {
     return Row(children: [
-      Expanded(flex: 3, child: Text(title, style: const TextStyle(color: Colors.grey))),
+      Expanded(
+          flex: 3,
+          child: Text(title, style: const TextStyle(color: Colors.grey))),
       Expanded(
         flex: 8,
         child: Text(message),
@@ -29,57 +30,63 @@ class ResultPage extends StatelessWidget {
   /// [result]이 [Fail] 타입이면 오류 메시지와 함께 세부 정보를 표시합니다.
   /// 그 외의 경우, 비어있는 [Container]를 반환합니다.
   Container getContainer(dynamic result) {
-    if (result is Success) {
-      Success success = result;
-      return Container(
-        child: Column(
-          children: <Widget>[
-            makeRow('paymentKey', success.paymentKey),
-            const SizedBox(height: 20),
-            makeRow('orderId', success.orderId),
-            const SizedBox(height: 20),
-            makeRow('amount', success.amount.toString()),
-            const SizedBox(height: 20),
-            Column(
-                children: success.additionalParams?.entries
-                        .map<Widget>((e) => Column(
-                              children: [makeRow(e.key, e.value), const SizedBox(height: 10)],
-                            ))
-                        .toList() ??
-                    []),
-            ElevatedButton(
-              onPressed: () {
-                copyToClipboard(success.toString());
-              },
-              child: const Center(
-                child: Text(
-                  '복사하기',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
+    return Container(
+      color: Colors.transparent,
+      child: Builder(
+        builder: (context) {
+          // Success 타입인 경우
+          if (result is Success) {
+            return Column(
+              children: <Widget>[
+                makeRow('paymentKey', result.paymentKey),
+                const SizedBox(height: 20),
+                makeRow('orderId', result.orderId),
+                const SizedBox(height: 20),
+                makeRow('amount', result.amount.toString()),
+                const SizedBox(height: 20),
+                ...?result.additionalParams?.entries.map<Widget>((e) => Column(
+                      children: [
+                        makeRow(e.key, e.value),
+                        const SizedBox(height: 10),
+                      ],
+                    )),
+                ElevatedButton(
+                  onPressed: () {
+                    // copyToClipboard 함수 구현 필요
+                    // copyToClipboard(result.toString());
+                  },
+                  child: const Center(
+                    child: Text(
+                      '복사하기',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ],
-        ),
-      );
-    } else if (result is Fail) {
-      Fail fail = result;
-      return Container(
-        child: Column(
-          children: <Widget>[
-            makeRow('errorCode', fail.errorCode),
-            const SizedBox(height: 20),
-            makeRow('errorMessage', fail.errorMessage),
-            const SizedBox(height: 20),
-            makeRow('orderId', fail.orderId),
-          ],
-        ),
-      );
-    } else {
-      return Container();
-    }
+              ],
+            );
+          }
+
+          // Fail 타입인 경우
+          if (result is Fail) {
+            return Column(
+              children: <Widget>[
+                makeRow('errorCode', result.errorCode),
+                const SizedBox(height: 20),
+                makeRow('errorMessage', result.errorMessage),
+                const SizedBox(height: 20),
+                makeRow('orderId', result.orderId),
+              ],
+            );
+          }
+
+          // Success 또는 Fail 타입이 아닌 경우
+          return const SizedBox(); // 빈 위젯 반환
+        },
+      ),
+    );
   }
 
   /// 위젯을 빌드합니다.
