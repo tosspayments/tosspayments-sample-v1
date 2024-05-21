@@ -11,7 +11,7 @@ class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
-  _HomeState createState() => _HomeState();
+  State<Home> createState() => _HomeState();
 }
 
 /// [_HomeState]는 [Home] 위젯의 상태를 관리하는 클래스입니다.
