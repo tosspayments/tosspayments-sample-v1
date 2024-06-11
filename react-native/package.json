@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@tosspayments/widget-sdk-react-native": "^1.3.0",
+    "@tosspayments/widget-sdk-react-native": "^1.2.2",
     "react": "18.2.0",
     "react-native": "0.72.7",
     "tosspayments-react-native-webview": "1.0.0"
