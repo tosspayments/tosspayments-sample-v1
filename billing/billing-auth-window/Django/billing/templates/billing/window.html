@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+{% load static %}
+
+<head>
+    <title>구매하기</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" type="text/css" href="{% static 'billing/bulma/bulma.min.css' %}"/>
+
+    <script src="https://js.tosspayments.com/v1"></script>
+</head>
+
+<body>
+
+    <section class="hero is-link">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    빌링 (자동결제)
+                </h1>
+
+            </div>
+        </div>
+    </section>
+    <section class="section ">
+        <div class="container">
+            <button class="button is-link" onclick="billing('카드',jsons.card);">빌링(자동결제)</button>
+        </div>
+    </section>
+</body>
+
+<script>
+    let amount = 50000;
+
+    let tossPayments = TossPayments("test_ck_YyZqmkKeP8g4bgQa1nk3bQRxB9lG");
+
+    function billing(method, requestJson) {
+        console.log(requestJson);
+        tossPayments.requestBillingAuth(method, requestJson)
+            .catch(function (error) {
+                if (error.code === "USER_CANCEL") {
+                    alert('유저가 취소했습니다.');
+                } else {
+                    alert(error.message);
+                }
+            });
+    }
+
+    let path = "/";
+    let billingSuccessUrl = window.location.origin + path + "billing/billing_confirm";
+    let failUrl = window.location.origin + path + "billing/fail";
+
+
+    let jsons = {
+        "card": {
+            "customerKey": "test_customer_key123",
+            "successUrl": billingSuccessUrl,
+            "failUrl": failUrl
+        }
+
+
+    }
+</script>
+
+</html>

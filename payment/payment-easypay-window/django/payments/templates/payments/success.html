@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+{% load static %}
+
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{% static 'payments/bulma/bulma.min.css' %}"/>
+      
+  <title>결제 성공 (Django)</title>
+</head>
+    
+<body>
+    
+<section>
+    <h1>결제 성공</h1>
+    
+    <p>결과 데이터 : </p>
+    <pre>{{ res.text }}</pre>
+    <br><br>
+    <pre>
+      paymentKey = {{ respaymentKey }}
+      orderId = {{ resorderId }}
+      card Company = {{ rescardcom }}</pre>
+    
+</section> 
+
+<button class="button is-link" onclick="location.href='/payments/';">돌아가기</button>
+    
+</body>
+</html>

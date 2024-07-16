@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>구매하기</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <script src="https://js.tosspayments.com/v1"></script>
+  </head>
+
+  <body>
+    <section class="hero is-link">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Golang 신용카드사 인증창 직접 호출 샘플</h1>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <button id="but1" class="button is-link" onclick="pay()">결제하기</button>
+
+        <div class="field">
+          <label class="label is-small">결제 수단</label>
+          <div class="select">
+            <select id="method">
+              <option value="카드">카드</option>
+              <option value="가상계좌">가상계좌</option>
+              <option value="계좌이체">계좌이체</option>
+              <option value="휴대폰">휴대폰</option>
+              <option value="문화상품권">문화상품권</option>
+              <option value="도서문화상품권">도서문화상품권</option>
+              <option value="게임문화상품권">게임문화상품권</option>
+              <option value="빌링">빌링 (자동결제)</option>
+              <option value="토스결제">토스결제 (DIRECT)</option>
+              <option value="페이코결제">PAYCO결제 (DIRECT)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label is-small">Json</label>
+          <div class="textarea" style="height: 400px">
+            <textarea id="jsontext" style="width: 100%; height: 100%; border-style: none"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      var clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
+      var tossPayments = TossPayments(clientKey);
+
+      var dropdown = document.getElementById("method");
+      var orderId = new Date().getTime();
+
+      var jsondata = {
+        amount: 100,
+        orderId: "es_test_px_" + orderId,
+        orderName: "토스-슬리퍼 외 2건",
+        successUrl: window.location.origin + "/successUrl",
+        failUrl: window.location.origin + "/failUrl",
+        cardCompany: "신한",
+        cardInstallmentPlan: null,
+        maxCardInstallmentPlan: null,
+        useCardPoint: false,
+        customerName: "프로페서신",
+        customerEmail: null,
+        customerMobilePhone: null,
+        taxFreeAmount: null,
+        useInternationalCardOnly: false,
+        flowMode: "DIRECT",
+        discountCode: null,
+        appScheme: "ExcmpleAppScheme://",
+      };
+
+      dropdown.addEventListener("change", function () {
+        var method = dropdown.options[dropdown.selectedIndex].value;
+
+        var jsontext = document.getElementById("jsontext");
+
+        if (method === "카드") {
+          jsondata = {
+            amount: 100,
+            orderId: "test-customer-" + orderId,
+            orderName: "토스-슬리퍼 외 2건",
+            successUrl: window.location.origin + "/successUrl",
+            failUrl: window.location.origin + "/failUrl",
+            cardCompany: "신한",
+            cardInstallmentPlan: null,
+            maxCardInstallmentPlan: null,
+            useCardPoint: false,
+            customerName: "프로페서신",
+            customerEmail: null,
+            customerMobilePhone: null,
+            taxFreeAmount: null,
+            useInternationalCardOnly: false,
+            flowMode: "DIRECT",
+            discountCode: null,
+            appScheme: "tosspg:action",
+          };
+        }
+
+        jsontext.value = JSON.stringify(jsondata, undefined, 4);
+      });
+
+      function pay() {
+        var method = dropdown.options[dropdown.selectedIndex].value;
+
+        var paymentData = JSON.parse(document.getElementById("jsontext").value);
+        console.log(method);
+        console.log(paymentData);
+        if (method == "빌링") {
+          tossPayments.requestBillingAuth("카드", paymentData);
+        } else {
+          tossPayments.requestPayment(method, paymentData).catch(function (error) {
+            alert(error.code);
+            if (error.code === "USER_CANCEL") {
+              //alert('유저가 취소했습니다.');
+            }
+            if (error.code === "INVALID_PHONE") {
+              //alert('잘못된 전화번호입니다.');
+            }
+
+            alert(error.message);
+          });
+        }
+      }
+      sessionStorage.setItem("ID", "test");
+      jsontext.value = JSON.stringify(jsondata, undefined, 4);
+    </script>
+  </body>
+</html>
