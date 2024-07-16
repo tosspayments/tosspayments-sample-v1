@@ -4,17 +4,6 @@
 
 사용하는 언어를 선택해서 샘플 프로젝트로 빠르게 결제 연동을 시작하세요.
 
-- [Next.js](https://github.com/tosspayments/payment-widget-sample/tree/main/nextjs)
-- [React](https://github.com/tosspayments/payment-widget-sample/tree/main/react)
-- [Vue.js](https://github.com/tosspayments/payment-widget-sample/tree/main/vue)
-- [Node + Vanilla JS](https://github.com/tosspayments/payment-widget-sample/tree/main/node-vanillajs)
-- [Java](https://github.com/tosspayments/payment-widget-sample/tree/main/java-vanillajs)
-- [PHP](https://github.com/tosspayments/payment-widget-sample/tree/main/php)
-- [JSP](https://github.com/tosspayments/payment-widget-sample/tree/main/jsp)
-- [Django](https://github.com/tosspayments/payment-widget-sample/tree/main/pydjango)
-- [Flutter](https://github.com/tosspayments/payment-widget-sample/tree/main/flutter)
-- [React Native](https://github.com/tosspayments/payment-widget-sample/tree/main/react-native)
-
 ## 더 알아보기
 
 토스페이먼츠 공식 문서 👉 [결제위젯 이해하기](https://docs.tosspayments.com/guides/payment-widget/overview) | [결제위젯 연동 문서](https://docs.tosspayments.com/guides/payment-widget/integration)
