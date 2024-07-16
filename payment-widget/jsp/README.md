@@ -11,10 +11,6 @@
 
 1. 결제위젯 샘플 프로젝트 레포지토리를 클론(Clone)하세요.
 
-    ```sh
-    $ git clone https://github.com/tosspayments/payment-widget-sample # 샘플 프로젝트 클론
-    ```
-
 2. 클론한 레포지토리의 `jsp` 폴더를 Tomcat의 `webapp` 폴더에 넣어주세요.
 
 3. Tomcat을 실행하고 http://localhost:{PORT_NUMBER}/jsp/checkout.html 에서 샘플 프로젝트를 확인하세요.

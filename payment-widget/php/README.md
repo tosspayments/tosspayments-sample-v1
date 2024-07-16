@@ -18,16 +18,11 @@ brew install php
 
 1. 결제위젯 샘플 프로젝트 레포지토리를 클론(Clone)하고 php 폴더로 진입하세요.
 
-    ```sh
-    $ git clone https://github.com/tosspayments/payment-widget-sample # 샘플 프로젝트 클론
-    $ cd payment-widget-sample/php
-    ```
-
 2. php 서버를 실행합니다.
 
-    ```sh
-    $ php -S localhost:4242 # 서버 실행
-    ```
+   ```sh
+   $ php -S localhost:4242 # 서버 실행
+   ```
 
 3. http://localhost:4242 에서 샘플 프로젝트를 확인하세요.
 
@@ -37,12 +32,6 @@ brew install php
 
 - **클라이언트 키**: `checkout.html` 파일에 있는 `clientKey`를 내 결제위젯 클라이언트 키로 수정하세요.
 - **시크릿 키**: `success.php` 파일에 있는 `secretKey`를 내 결제위젯 시크릿 키로 수정하세요. **시크릿 키는 외부에 노출되면 안 됩니다.**
-
-## Q. 결제 요청 후 계속 로딩 중인 화면이 보인다면?
-
-아직 결제 요청 중이에요. 이어서 요청 결과를 확인한 뒤, 결제 승인 API 호출까지 해야 결제가 완료돼요. iframe을 사용하면 요청 결과 페이지(`successUrl`, `failUrl`)로 이동할 수가 없으니 유의하세요.
-
-**시크릿 키는 외부에 노출되면 안 됩니다.**
 
 ## 더 알아보기
 
