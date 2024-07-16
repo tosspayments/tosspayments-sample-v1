@@ -6,33 +6,27 @@
 
 [Dart SDK](https://dart.dev/get-dart), [Flutter SDK](https://docs.flutter.dev/get-started/install) 를 설치해 주세요.
 
-
 ## 실행하기
 
 1. 결제위젯 샘플 프로젝트 레포지토리를 클론(Clone)하고 Flutter 폴더로 진입하세요.
 
-    ```sh
-    $ git clone https://github.com/tosspayments/payment-widget-sample # 샘플 프로젝트 클론
-    $ cd payment-widget-sample/flutter
-    ```
-
 2. 의존성 패키지를 다운로드합니다.
 
-    ```sh
-    $ flutter pub get
-    ```
+   ```sh
+   $ flutter pub get
+   ```
 
 3. 플러터 앱을 실행합니다. `build variant`를 `live`로 설정하고 테스트하세요.
 
-    ```sh
-    $ flutter run lib/main.dart
-    ```
+   ```sh
+   $ flutter run lib/main.dart
+   ```
 
 ## 인증하기
 
 샘플에 있는 키로 연동이 가능하지만, 내 테스트 연동 키를 사용하면 테스트 결제내역, 웹훅 기능을 사용할 수 있어요. 내 테스트 연동 키는 [개발자센터](https://developers.tosspayments.com/my/api-keys)에서 확인할 수 있습니다. 더 자세한 내용은 [API 키 가이드](https://docs.tosspayments.com/reference/using-api/api-keys)를 참고하세요.
 
-- **클라이언트 키**: 샘플 앱 실행 후, Client Key에 내 결제위젯 클라이언트 키를 입력하세요. 또는 `lib/utils/config.dart` 파일에서 `_live` 부분을 수정한 후 앱을 실행하세요. 
+- **클라이언트 키**: 샘플 앱 실행 후, Client Key에 내 결제위젯 클라이언트 키를 입력하세요. 또는 `lib/utils/config.dart` 파일에서 `_live` 부분을 수정한 후 앱을 실행하세요.
 
 ## 더 알아보기
 

@@ -6,22 +6,16 @@
 
 [Python](https://www.python.org/downloads/), [Django](https://www.djangoproject.com/download/), [pip](https://pip.pypa.io/en/stable/installation/)를 설치하세요.
 
-
 ## 실행하기
 
 1. 결제위젯 샘플 프로젝트 레포지토리를 클론(Clone)하고 Django 폴더로 진입하세요.
 
-    ```sh
-    $ git clone https://github.com/tosspayments/payment-widget-sample # 샘플 프로젝트 클론
-    $ cd payment-widget-sample/django
-    ```
-
 2. 의존성 패키지를 다운로드하고 서버를 실행합니다.
 
-    ```sh
-    $ pip install -r requirements.txt # 의존성 패키지 다운로드
-    $ python manage.py runserver  # 서버 실행
-    ```
+   ```sh
+   $ pip install -r requirements.txt # 의존성 패키지 다운로드
+   $ python manage.py runserver  # 서버 실행
+   ```
 
 3. 로컬 서버에서 샘플 프로젝트를 확인하세요.
 

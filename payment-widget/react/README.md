@@ -12,17 +12,12 @@
 
 1. 결제위젯 샘플 프로젝트 레포지토리를 클론(Clone)하고 React 폴더로 진입하세요.
 
-    ```sh
-    $ git clone https://github.com/tosspayments/payment-widget-sample # 샘플 프로젝트 클론
-    $ cd payment-widget-sample/react
-    ```
-
 2. 의존성 패키지를 다운로드하고 서버를 실행합니다.
 
-    ```sh
-    $ npm install # 의존성 패키지 다운로드
-    $ npm run dev # 서버 실행
-    ```
+   ```sh
+   $ npm install # 의존성 패키지 다운로드
+   $ npm run dev # 서버 실행
+   ```
 
 3. 로컬 네트워크에서 샘플 프로젝트를 확인하세요.
 
