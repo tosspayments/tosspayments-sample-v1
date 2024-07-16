@@ -1,4 +1,0 @@
-Django
-psycopg2
-djangorestframework
-requests
