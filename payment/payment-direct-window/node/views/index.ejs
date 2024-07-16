@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>구매하기</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="./bulma.min.css" />
+
+    <script src="https://js.tosspayments.com/v1"></script>
+  </head>
+
+  <body>
+    <section class="hero is-link">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">토스페이먼츠 연동 샘플</h1>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <button class="button is-link" onclick="pay('카드',jsons.card);">카드사결제창</button>
+      </div>
+    </section>
+  </body>
+
+  <script>
+    let amount = 50000;
+    let cardCompany = "삼성";
+
+    let tossPayments = TossPayments("test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq");
+
+    function pay(method, requestJson) {
+      console.log(requestJson);
+      tossPayments.requestPayment(method, requestJson).catch(function (error) {
+        if (error.code === "USER_CANCEL") {
+          alert("유저가 취소했습니다.");
+        } else {
+          alert(error.message);
+        }
+      });
+    }
+
+    let path = "";
+    let successUrl = window.location.origin + path + "/success";
+    let failUrl = window.location.origin + path + "/fail";
+    let orderId = new Date().getTime();
+
+    let jsons = {
+      card: {
+        amount: amount,
+        orderId: "sample-" + orderId,
+        orderName: "토스 티셔츠 외 2건",
+        successUrl: successUrl,
+        failUrl: failUrl,
+        cardCompany: cardCompany,
+        cardInstallmentPlan: null,
+        maxCardInstallmentPlan: null,
+        useCardPoint: false,
+        customerName: "박토스",
+        customerEmail: null,
+        customerMobilePhone: null,
+        taxFreeAmount: null,
+        useInternationalCardOnly: false,
+        flowMode: "DIRECT",
+        discountCode: null,
+        appScheme: null,
+      },
+    };
+  </script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+{% load static %}
+<head>
+    <title>구매하기</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" type="text/css" href="{% static 'billing/bulma/bulma.min.css' %}"/>
+
+  <title>빌링결제 성공 (Ruby On Rails)</title>
+</head>
+    
+<body>
+    
+<section>
+    <h1>빌링결제 성공</h1>
+    
+    <p>결과 데이터 : </p>
+    <pre>{{ res.text }}</pre>
+    <br><br>
+    
+</section> 
+
+<button class="button is-link" onclick="location.href='/billing/';">돌아가기</button>
+    
+</body>
+</html>

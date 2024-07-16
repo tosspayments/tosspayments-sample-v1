@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag "bulma.min" %>
+      
+  <title>결제 실패 (Ruby On Rails)</title>
+</head>
+    
+<body>
+    
+<section>
+    <h1>결제 실패</h1>
+    
+    <p><%=@message%></p>
+    <p>코드 : <%=@code%></p>
+</section> 
+
+<button class="button is-link" onclick="location.href='/payment/window';">돌아가기</button>
+    
+</body>
+</html>
