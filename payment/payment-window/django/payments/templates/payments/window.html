@@ -122,7 +122,7 @@
   
   
     {% comment %} =================================  결제데이터 ==================================
-    각 파라미터별 세부 내용은 다음 링크 참고 https://docs.tosspayments.com/reference/js-sdk {% endcomment %}
+    각 파라미터별 세부 내용은 다음 링크 참고 https://docs.tosspayments.com/sdk/payment-js {% endcomment %}
     let paymentData = ["공통", "카드", "가상계좌", "계좌이체", "휴대폰", "문화상품권", "도서상품권", "게임문화상품권", "토스페이"];
     let path = "/";
     let successUrl = window.location.origin + path + "payments/success";
@@ -186,7 +186,7 @@
       
       tossPayments.requestPayment(paymentType, requestJson)
         .catch(function (error) {
-          // 응답 처리 (https://docs.tosspayments.com/reference/js-sdk#응답-처리)
+          // 응답 처리 (https://docs.tosspayments.com/sdk/payment-js#응답-처리)
           if (error.code === 'USER_CANCEL') {
             // 결제 고객이 결제창을 닫았을 때 에러 처리
           } else if (error.code === 'INVALID_CARD_COMPANY') {

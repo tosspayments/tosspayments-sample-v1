@@ -9,6 +9,6 @@
 ## 연동 문서
 
 - [결제창 연동 가이드](https://docs.tosspayments.com/guides/payment/integration)
-- [결제창 JavaScript SDK](https://docs.tosspayments.com/reference/js-sdk)
+- [결제창 JavaScript SDK](https://docs.tosspayments.com/sdk/payment-js)
 
 기능 및 구현에 대해 궁금한 점이 있다면 [1:1 채팅](https://discord.com/invite/VdkfJnknD9)이나 [토스페이먼츠 기술지원 팀 이메일](techsupport@tosspayments.com)로 문의해주세요.
