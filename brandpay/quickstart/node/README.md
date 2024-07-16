@@ -35,11 +35,6 @@ $ nvm install {NODE_VERSION}
 
 먼저 이 레포지토리를 [클론](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)합니다.
 
-```sh
-$ git clone https://github.com/tosspayments/brandpay-sample # 샘플 프로젝트 클론
-$ cd brandpay-sample/quickstart/node
-```
-
 의존성 패키지를 다운로드하고 서버를 실행합니다.
 
 ```sh
@@ -47,7 +42,7 @@ $ npm install   # 의존성 패키지 다운로드
 $ node index.js # 서버 실행
 ```
 
-브라우저에서 [http://localhost:3000/checkout](http://localhost:3000/checkout) 페이지로 접속합니다.
+브라우저에서 http://localhost:3000/checkout 페이지로 접속합니다.
 
 샘플 프로젝트가 성공적으로 실행되면 아래와 같은 화면을 확인할 수 있습니다.
 
@@ -58,7 +53,3 @@ $ node index.js # 서버 실행
 클라이언트 코드의 `clientKey`, 서버 코드의 `SECRET_KEY`를 **내 상점의 테스트용 API 키**로 변경하세요. 테스트용 API 키는 [개발 정보 페이지](https://onboarding.tosspayments.com/my/integration)에서 확인할 수 있습니다.
 
 API 키에 대한 더 자세한 내용은 [API 사용하기](/guides/apis/usage#가맹점용-api-키-발급받기) 페이지를 참고하세요.
-
-
-
-
