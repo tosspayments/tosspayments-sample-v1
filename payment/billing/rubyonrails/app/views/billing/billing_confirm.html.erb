@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag "bulma.min" %>
+      
+  <title>빌링키 발급 (Ruby On Rails)</title>
+</head>
+    
+<body>
+    
+<section>
+    <h1>빌링키 발급 성공</h1>
+    
+    <p>결과 데이터 : </p>
+    <pre><%= JSON.pretty_generate(@Response) %></pre>
+    <br><br>
+    
+    <p>billingKey : <%= @Response["billingKey"] %></p>
+    <p>cardCompany : <%= @Response["card"]["company"] %></p>
+    <p>cardNumber : <%= @Response["card"]["number"] %></p>
+    <br>
+    
+</section> 
+
+<button class="button is-link" onclick="location.href='/billing/index';">돌아가기</button>
+    
+</body>
+</html>

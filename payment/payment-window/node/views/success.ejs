@@ -1,0 +1,82 @@
+<!-- 토스페이먼츠 결제 샘플 소스코드 -->
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>토스페이먼츠 샘플페이지-결제결과</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <style>
+    @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+    body {font-family: 'Noto Sans KR', sans-serif;} 
+    .box_section { background-color: white; border-radius: 10px; box-shadow: 0 10px 20px rgb(0 0 0 / 1%), 0 6px 6px rgb(0 0 0 / 6%); margin-top: 30px; padding: 20px}
+  </style>
+</head>
+
+<body class="bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3"></div>
+
+      <div class="col-md-6">
+        <!-- 결제 성공 시 -->
+        <%  if (isSuccess) { %>
+        <h2 style="margin-top:10px;  padding:20px 0px 10px 0px">
+          <img width="45px" src="https://static.toss.im/3d-emojis/u1F911-apng.png">
+          결제 성공
+        </h2>
+
+        <div class="box_section">
+          <div class="card-body">
+            <div class="gray">
+              <p>상품명 : <%= responseJson.orderName %></p>
+              <p>결제수단 : <%= responseJson.method %> (
+                <% if(responseJson.method === "카드") { %> <%= responseJson.card.number %> <% } %>
+                <% if(responseJson.method === "가상계좌") { %> <%= responseJson.virtualAccount.accountNumber %> <% } %>
+                <% if(responseJson.method === "계좌이체") { %> <%= responseJson.transfer.bank %> <% } %>
+                <% if(responseJson.method === "휴대폰") { %> <%= responseJson.mobilePhone.customerMobilePhone %> <% } %>
+              )</p>
+            </div>
+          </div>
+        </div> 
+
+        <div class="box_section">
+          <div class="card-body">
+            <div class="gray">
+              <b>Response Data :</b>
+              <pre> 
+
+                <%= JSON.stringify(responseJson, null, 4) %>
+              </pre>
+            </div>
+          </div> 
+        </div>
+
+        <!-- 결제 실패 시 -->
+        <% } else { %>
+
+        <h2 style="margin-top:10px; padding:20px 0px 10px 0px">
+          <img width="45px" src="https://static.toss.im/3d-emojis/u1F975-apng.png">
+          결제 실패
+        </h2>
+
+        <div id="info" class="box_section">
+          <div class="card-body">
+            <div class="gray">
+              <p>에러메시지 : <%= responseJson.message %></p>
+              <p>에러코드:<%= responseJson.code %></p>
+            </div>
+          </div>
+        </div>
+        
+        <% } %>
+
+        <div class="col-md-3"></div>
+      </div>
+    </div>
+</body>
+
+</html>

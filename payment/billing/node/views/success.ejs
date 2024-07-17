@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <title>빌링키 발급</title>
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+</head>
+
+<body>
+  <section>
+    <h1>빌링키 발급 성공</h1>
+    <p>결과 데이터 : <%= JSON.stringify(responseJson) %></p>
+
+    <p>billingKey : <%= responseJson.billingKey %></p>
+    <p>cardCompany : <%= responseJson.cardCompany %></p>
+    <p>cardNumber : <%= responseJson.cardNumber %></p>
+  </section>
+</body>
+
+</html>

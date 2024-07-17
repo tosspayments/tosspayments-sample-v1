@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구매하기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://js.tosspayments.com/v1/payment"></script>
+
+</head>
+<style>
+    @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .mb2 {
+      margin-bottom: 25px;
+    }
+
+    .gray {
+      color: rgb(78, 89, 104);
+      font-size: 13px;
+    }
+
+    .red {
+      color: rgb(240, 68, 82);
+      font-size: 13px;
+    }
+
+    .box_section {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgb(0 0 0 / 1%), 0 6px 6px rgb(0 0 0 / 6%);
+    }
+</style>
+
+<body class="bg-light" onload="initJsonData()">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+
+            <div class="col-md-6">
+                <h2 style=" margin-top:10px;  padding:20px 0px 10px 0px">
+                    <img width="45px" src="https://static.toss.im/3d-emojis/u1F60E-apng.png">
+                    Tosspayments 결제 데모
+                </h2>
+
+                <div id="info" class="box_section" style=" margin-top:30px; padding:20px 10px 10px 10px">
+                    <div class="card-body">
+                        <div class="gray">
+                            <ul>
+                                <li>연동 진행하며 궁금한 점은 Tosspayments Discord 채널로 문의주세요
+                                <a href="https://discord.com/invite/VdkfJnknD9" target="_blank"><span
+                                    class="badge bg-primary">link</span></a></h5>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> <!-- .card-body -->
+                </div> <!-- #info -->
+    
+                <div id="requestPayment_form" class="box_section"
+                    style="padding: 40px 30px 50px 30px; margin-top:30px; margin-bottom:50px">
+                
+                    <label class="form-label" for="paymentType">결제수단 <span class="red">필수</span></label>
+                    <select id="paymentType" class="form-select form-control-lg mb2">
+                        <option value="카드" selected>카드</option>
+                        <option value="계좌이체">계좌이체</option>
+                        <option value="가상계좌">가상계좌</option>
+                        <option value="휴대폰">휴대폰</option>
+                        <option value="문화상품권">문화상품권</option>
+                        <option value="도서문화상품권">도서문화상품권</option>
+                        <option value="게임문화상품권">게임문화상품권</option>
+                        <option value="토스페이">토스페이</option>
+                    </select>
+    
+                    <label class="form-label" for="jsonTextArea">JSON 포맷</label>
+                    <textarea class="form-control" id="jsontext" style="overflow:scroll" rows="12" ></textarea>
+                </div>
+    
+                <div class="d-grid gap-2">
+                    <button id="requestPayment" type="button" class="btn btn-lg btn-primary" onclick="pay()">결제하기</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+<script>
+    /* =================================  API KEY 세팅 ================================== */
+    let clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq'; // [TODO] https://developers.tosspayments.com 로그인 후 API Key발급 가능
+    let tossPayments = TossPayments(clientKey);
+    
+    /* =================================  결제데이터 ================================== */
+    /* 각 파라미터별 세부 내용은 다음 링크 참고 https://docs.tosspayments.com/sdk/payment-js */
+    let paymentData = ["공통", "카드", "가상계좌", "계좌이체", "휴대폰", "문화상품권", "도서상품권", "게임문화상품권", "토스페이"];
+    let currentURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
+
+    var orderId = new Date().getTime();
+    var dropdown = document.getElementById("paymentType");
+
+    var jsondata = {
+        "amount": 100,
+        "orderId": orderId,
+        "orderName": "토스-슬리퍼 외 2건",
+        "successUrl": window.location.origin + "/successUrl",
+        "failUrl": window.location.origin + "/failUrl",
+        "cardCompany": null,
+        "cardInstallmentPlan": null,
+        "maxCardInstallmentPlan": null,
+        "useCardPoint": false,
+        "flowMode": "DEFAULT",
+        "discountCode": null
+    };
+
+    function initJsonData() {
+        jsontext.value = JSON.stringify(jsondata, undefined, 4);
+    }
+
+    dropdown.addEventListener("change", function () {
+        var method = dropdown.options[dropdown.selectedIndex].value;
+        //alert(method)
+
+        var jsontext = document.getElementById("jsontext");
+
+        if (method === '카드') {
+
+            jsondata = {
+                "amount": 100,
+                "orderId": "test-customer-" + orderId,
+                "orderName": "토스-슬리퍼 외 2건",
+                "successUrl": window.location.origin + "/successUrl",
+                "failUrl": window.location.origin + "/failUrl",
+                "cardCompany": null,
+                "cardInstallmentPlan": null,
+                "maxCardInstallmentPlan": null,
+                "useCardPoint": false,
+                "customerName": "프로페서신",
+                "customerEmail": null,
+                "customerMobilePhone": null,
+                "taxFreeAmount": null,
+                "useInternationalCardOnly": false,
+                "flowMode": "DEFAULT",
+                "discountCode": null,
+                "appScheme": "tosspg:action"
+            }
+        }
+            if (method === '가상계좌') {
+
+            jsondata = {
+                "amount": 200,
+                "orderId": "test-customer-" + orderId,
+                "orderName": "토스-슬리퍼 외 2건",
+                "successUrl": window.location.origin + "/successUrl",
+                "failUrl": window.location.origin + "/failUrl",
+                "validHours": 72,
+                "failUrl": window.location.origin + "/vaCallbacklUrl",
+                "customerName": "프로페서신",
+                "customerEmail": null,
+                "customerMobilePhone": null,
+                "taxFreeAmount": null,
+                "cashReceipt": {
+                    "type": "소득공제"
+                },
+                "useEscrow": false
+            }
+        } else if (method === '계좌이체') {
+
+            jsondata = {
+                "amount": 200,
+                "orderId": "test-customer-" + orderId,
+                "orderName": "토스-슬리퍼 외 2건",
+                "successUrl": window.location.origin + "/successUrl",
+                "failUrl": window.location.origin + "/failUrl",
+                "bank": null,
+                "customerName": "프로페서신",
+                "customerEmail": null,
+                "customerMobilePhone": null,
+                "taxFreeAmount": null,
+                "cashReceipt": {
+                    "type": "소득공제"
+                },
+                "useEscrow": false
+            }
+        } else if (method === '휴대폰') {
+
+            jsondata = {
+                "amount": 300,
+                "orderId": "test-customer-" + orderId,
+                "orderName": "토스-슬리퍼 외 2건",
+                "successUrl": window.location.origin + "/successUrl",
+                "failUrl": window.location.origin + "/failUrl",
+                "mobileCarrier": null
+            }
+        } else if (method === '문화상품권') {
+
+            jsondata = {
+                "amount": 300,
+                "orderId": "test-customer-" + orderId,
+                "orderName": "토스-슬리퍼 외 2건",
+                "successUrl": window.location.origin + "/successUrl",
+                "failUrl": window.location.origin + "/failUrl",
+            }
+        } else if (method === '도서문화상품권') {
+
+            jsondata = {
+                "amount": 300,
+                "orderId": "test-customer-" + orderId,
+                "orderName": "토스-슬리퍼 외 2건",
+                "successUrl": window.location.origin + "/successUrl",
+                "failUrl": window.location.origin + "/failUrl",
+            }
+        } else if (method === '게임문화상품권') {
+
+            jsondata = {
+                "amount": 500,
+                "orderId": "test-customer-" + orderId,
+                "orderName": "토스-슬리퍼 외 2건",
+                "successUrl": window.location.origin + "/successUrl",
+                "failUrl": window.location.origin + "/failUrl",
+            }
+        } else if (method === '빌링') {
+
+            jsondata = {
+                "customerKey": "test_customer_key",
+                "successUrl": window.location.origin + "/successUrl",
+                "failUrl": window.location.origin + "/failUrl",
+            }
+        } else if (method === '토스페이') {
+            jsondata = {
+                "amount": 300,
+                "orderId": "test-customer-" + orderId,
+                "orderName": "토스-슬리퍼 외 2건",
+                "successUrl": window.location.origin + "/successUrl",
+                "failUrl": window.location.origin + "/failUrl",
+                "taxFreeAmount": null,
+                "customerName": "프로페서신",
+                "customerEmail": null,
+                "flowMode" : "DIRECT",
+                "easyPay" : "TOSSPAY"
+
+            }
+        }
+
+        jsontext.value = JSON.stringify(jsondata, undefined, 4);
+    });
+
+    function pay() {
+        var method = dropdown.options[dropdown.selectedIndex].value;
+
+        var paymentData = JSON.parse(document.getElementById("jsontext").value);
+        console.log(method);
+        console.log(paymentData);
+        if (method == "빌링") {
+            tossPayments.requestBillingAuth('카드', paymentData);
+        } else {
+            tossPayments.requestPayment(method, paymentData)
+                .catch(function (error) {
+                    alert(error.code);
+                    if (error.code === "USER_CANCEL") {
+                        //alert('유저가 취소했습니다.');
+                    }
+                    if (error.code === "INVALID_PHONE") {
+                        //alert('잘못된 전화번호입니다.');
+                    }
+
+                    alert(error.message);
+                });
+        }
+    }
+    sessionStorage.setItem('ID', 'test');
+    jsontext.value = JSON.stringify(jsondata, undefined, 4);
+    </script>
+</body>
+</html>
