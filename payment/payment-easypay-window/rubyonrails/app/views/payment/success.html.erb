@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag "bulma.min" %>
+      
+  <title>결제 성공 (Ruby On Rails)</title>
+</head>
+    
+<body>
+    
+<section>
+    <h1>결제 성공</h1>
+    
+    <p>결과 데이터 : </p>
+    <pre><%= JSON.pretty_generate(@Response) %></pre>
+    <br><br>
+    
+    <p>금액 : <%=@amount%></p>
+    <p>영수증 : <%=@receipt_url%></p>
+    <br><br>
+    
+    <p>paymentKey : <%= @Response["paymentKey"] %></p>
+    <p>easyPay : <%= @Response["easyPay"] %></p>
+    <br>
+    
+</section> 
+
+<button class="button is-link" onclick="location.href='/payment/index';">돌아가기</button>
+    
+</body>
+</html>

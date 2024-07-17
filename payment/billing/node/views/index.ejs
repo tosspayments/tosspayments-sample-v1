@@ -1,0 +1,42 @@
+<head>
+  <title>결제하기</title>
+  <meta charset="utf-8" />
+  <!-- 토스페이먼츠 결제창 SDK 추가 -->
+  <script src="https://js.tosspayments.com/v1/payment"></script>
+</head>
+
+<body>
+  <button class="button is-link" onclick="billing('카드',jsons.card);">자동결제</button>
+  <script>
+    // ------ 클라이언트 키로 객체 초기화 ------
+    var clientKey = '{CLIENT_KEY}';
+    var tossPayments = TossPayments(clientKey);
+
+    var amount = 4900;
+    function billing(method, requestJson) {
+      console.log(requestJson);
+
+      tossPayments.requestBillingAuth(method, requestJson)
+        .catch(function (error) {
+          if (error.code === "USER_CANCEL") {
+            alert('유저가 취소했습니다.');
+          } else {
+            alert(error.message);
+          }
+        });
+    }
+
+    var successUrl = window.location.origin + "/success";
+    var failUrl = window.location.origin + "/fail"; // 실패하면 EJS 파일에서 실패 영역이 나타납니다.
+
+    var jsons = {
+      "card": {
+        // customerKey에는 가맹점에서 가지고 있는 고객 식별키를 넣어주세요.
+        // 다른 사용자가 이 값을 알게 되면 악의적으로 사용할 수 있어 자동 증가하는 숫자는 안전하지 않습니다. UUID와 같이 충분히 무작위적인 고유 값으로 생성해주세요.
+        "customerKey": "test_customer_key",
+        "successUrl": successUrl,
+        "failUrl": failUrl
+      }
+    }
+  </script>
+</body>
