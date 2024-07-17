@@ -4,7 +4,7 @@ $customerKey = $_GET['customerKey'];
 $authKey = $_GET['authKey'];
 
 
-$secretKey = 'test_sk_jZ61JOxRQVENaNGNeJmrW0X9bAqw'; 
+$secretKey = 'test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R'; 
 
 $url = 'https://api.tosspayments.com/v1/billing/authorizations/issue';
 

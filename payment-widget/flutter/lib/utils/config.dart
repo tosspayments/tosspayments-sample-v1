@@ -15,7 +15,7 @@ class LocalConfig {
   }
 
   static final UIState _live = UIState(
-    clientKey: 'test_ck_6BYq7GWPVv54JZaMpgn3NE5vbo1d',
+    clientKey: 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq',
     customerKey: 'aaaa',
     currency: Currency.KRW,
     country: "KR",

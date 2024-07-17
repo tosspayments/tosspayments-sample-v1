@@ -21,7 +21,7 @@ def success(request):
   paymentKey = request.GET.get('paymentKey')
   
   url = "https://api.tosspayments.com/v1/payments/confirm"
-  secertkey = "test_sk_D4yKeq5bgrpKRd0JYbLVGX0lzW6Y"
+  secertkey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R"
   userpass = secertkey + ':'
   encoded_u = base64.b64encode(userpass.encode()).decode()
   
