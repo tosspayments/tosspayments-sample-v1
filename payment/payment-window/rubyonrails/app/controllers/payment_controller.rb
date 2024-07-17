@@ -3,7 +3,7 @@ class PaymentController < ApplicationController
   def success
     options = {
       headers: {
-        Authorization: "Basic " + Base64.strict_encode64("test_sk_D4yKeq5bgrpKRd0JYbLVGX0lzW6Y:"),
+        Authorization: "Basic " + Base64.strict_encode64("test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R:"),
         "Content-Type": "application/json"
       },
       body: {

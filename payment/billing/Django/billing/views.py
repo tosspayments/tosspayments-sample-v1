@@ -20,7 +20,7 @@ def billing_confirm(request):
   customerKey = request.GET.get('customerKey')
   
   url = "https://api.tosspayments.com/v1/billing/authorizations/issue"
-  secertkey = "test_sk_D4yKeq5bgrpKRd0JYbLVGX0lzW6Y"
+  secertkey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R"
   userpass = secertkey + ':'
   encoded_u = base64.b64encode(userpass.encode()).decode()
   
