@@ -49,7 +49,8 @@
 
     let jsons = {
       card: {
-        customerKey: "test_customer_key123",
+        // 샘플에서는 브라우저의 암호학적 난수(crypto.randomUUID)로 만들어요. 실제 서비스에서는 서버가 로그인한 구매자 기준으로 정한 customerKey 를 쓰세요.
+        customerKey: window.crypto.randomUUID(),
         successUrl: billingSuccessUrl,
         failUrl: failUrl,
       },

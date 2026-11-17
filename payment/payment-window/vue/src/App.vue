@@ -35,7 +35,7 @@ export default {
     pay: function (method) {
       func1.then((tossPayments) => {
         let amt = 50000;
-        let orderId = new Date().getTime();
+        let orderId = window.crypto.randomUUID();
 
         tossPayments
           .requestPayment(method, {

@@ -24,7 +24,11 @@ amount = trim(request("amount"))
 
 secretkey = "{SECRET_KEY}:"
 url = "https://api.tosspayments.com/v1/payments/confirm"
-data = "{""paymentKey"" : """ & paymentKey & """, ""orderId"" : """ & orderId & """, ""amount"" : """ & amount & """}"
+set body = JSON.parse("{}")
+body.set "paymentKey", paymentKey
+body.set "orderId", orderId
+body.set "amount", amount
+data = JSON.stringify(body)
 authorization = "Basic " & base64Encode(secretkey)
 set req = Server.CreateObject("MSXML2.ServerXMLHTTP")
 req.open "POST", url, false
@@ -33,6 +37,11 @@ req.setRequestHeader "Content-Type", "application/json;charset=UTF-8"
 req.send data
 set myJSON = JSON.parse(req.responseText)
 httpCode = req.status
+' 화면에는 승인 응답에서 필요한 필드만 보여 줘요.
+set picked = JSON.parse("{}")
+for each field in array("paymentKey", "orderId", "orderName", "status", "method", "totalAmount", "approvedAt")
+  picked.set field, myJSON.get(field)
+next
 %>
 
 <html lang="ko">
@@ -47,17 +56,16 @@ httpCode = req.status
     <section>
       <% if httpCode=200 then %>
       <h1>결제 성공</h1>
-      <p>결과 데이터 : <%= req.responseText %></p>
-      <p>orderName : <%= myJSON.orderName%></p>
-      <p>method : <%= myJSON.method%></p>
+      <p>결과 데이터 : <%= Server.HTMLEncode(JSON.stringify(picked)) %></p>
+      <p>orderName : <%= Server.HTMLEncode(myJSON.orderName & "") %></p>
+      <p>method : <%= Server.HTMLEncode(myJSON.method & "") %></p>
       <p>
-        <% if myJSON.method = "카드" then response.write myJSON.card.number end if %> <% if myJSON.method = "가상계좌" then response.write myJSON.virtualAccount.accountNumber end if %> <% if
-        myJSON.method = "계좌이체" then response.write myJSON.transfer.bank end if %> <% if myJSON.method = "휴대폰" then response.write myJSON.mobilePhone.customerMobilePhone end if %>
+        <% if myJSON.method = "카드" then response.write Server.HTMLEncode(myJSON.card.number & "") end if %> <% if myJSON.method = "가상계좌" then response.write Server.HTMLEncode(myJSON.virtualAccount.accountNumber & "") end if %> <% if myJSON.method = "계좌이체" then response.write Server.HTMLEncode(myJSON.transfer.bank & "") end if %> <% if myJSON.method = "휴대폰" then response.write Server.HTMLEncode(myJSON.mobilePhone.customerMobilePhone & "") end if %>
       </p>
       <% else %>
       <h1>결제 실패</h1>
-      <p>에러메시지 : <%= myJSON.message%></p>
-      <span>에러코드: <%= myJSON.code%></span>
+      <p>에러메시지 : <%= Server.HTMLEncode(myJSON.message & "") %></p>
+      <span>에러코드: <%= Server.HTMLEncode(myJSON.code & "") %></span>
       <% end if %>
     </section>
   </body>

@@ -21,9 +21,18 @@ class PaymentController < ApplicationController
     }
 
     begin
-      response = HTTParty.post("https://api.tosspayments.com/v1/payments/confirm", options).parsed_response
+      result = HTTParty.post("https://api.tosspayments.com/v1/payments/confirm", options)
+      response = result.parsed_response
 
-      @Response = response
+      # 승인에 실패하면 응답의 code, message 만 실패 화면에 보여 줘요.
+      unless result.code == 200
+        @message = response['message']
+        @code = response['code']
+        render :fail, status: result.code and return
+      end
+
+      # 화면에 필요한 필드만 골라 넘겨요.
+      @Response = response.slice('paymentKey', 'orderId', 'orderName', 'status', 'method', 'totalAmount', 'approvedAt', 'easyPay')
       @amount = response['totalAmount']
       @receipt_url = response['receiptUrl']
       @orderId = response['orderId']

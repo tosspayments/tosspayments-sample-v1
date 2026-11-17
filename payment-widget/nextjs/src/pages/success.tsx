@@ -49,12 +49,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         },
       }
     );
-    console.log(payment);
+    // 브라우저에는 화면에 필요한 필드만 내려 줘요.
     return {
-      props: { payment },
+      props: { payment: pickPaymentFields(payment) },
     };
   } catch (err: any) {
-    console.error("err", err.response.data);
+    console.error("err", err.response.data.code);
 
     return {
       redirect: {
@@ -65,8 +65,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 };
 
+// 승인 응답(Payment 객체)에서 화면에 필요한 필드만 골라요.
+function pickPaymentFields(payment: Payment) {
+  const { paymentKey, orderId, orderName, method, totalAmount, approvedAt } = payment;
+  return { paymentKey, orderId, orderName, method, totalAmount, approvedAt };
+}
+
 interface Props {
-  payment: Payment;
+  payment: ReturnType<typeof pickPaymentFields>;
 }
 
 export default function SuccessPage({ payment }: Props) {

@@ -197,7 +197,7 @@
 
   /* ================= 주문번호(OrderID) 자동생성 =================== */
   function makeOrderId (prefix){
-    let x = Math.floor(Math.random() * 100000000);
+    let x = window.crypto.randomUUID();
     document.getElementById("orderId").value = prefix + x;
   }
 

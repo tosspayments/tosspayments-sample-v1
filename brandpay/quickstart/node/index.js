@@ -23,29 +23,35 @@ app.get('/checkout', (req, res) => {
 // 문서: https://docs-staging.tosspayments.com/guides/brandpay/integration#access-token-발급받기
 
 app.get('/callback-auth', async (req, res) => {
-  await axios.post(
-    "https://api.tosspayments.com/v1/brandpay/authorizations/access-token",
-    JSON.stringify({
-      grantType: "AuthorizationCode",
-      // Access Token 발급을 위해 리다이렉트 URL에 포함되어 돌아온 code와 customerKey 전달
-      code: req.query.code,
-      customerKey: req.query.customerKey,
-      // TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요.
-    }),
-    {
-      headers: {
-        // [TODO] Basic 인증 방식의 사용자명과 비밀번호는 콜론으로 구분해서 `사용자명:비밀번호`로 추가합니다. 상점의 시크릿 키를 사용자명으로, 비밀번호는 공백으로 추가한 뒤 base64로 인코딩하세요.
-        // 문서: https://docs-staging.tosspayments.com/guides/brandpay/auth#2-브랜드페이-access-token-요청
-        Authorization: `Basic ${Buffer.from(SECRET_KEY + ":", "utf8").toString(
-          "base64"
-        )}`,
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  try {
+    await axios.post(
+      "https://api.tosspayments.com/v1/brandpay/authorizations/access-token",
+      JSON.stringify({
+        grantType: "AuthorizationCode",
+        // Access Token 발급을 위해 리다이렉트 URL에 포함되어 돌아온 code와 customerKey 전달
+        code: req.query.code,
+        customerKey: req.query.customerKey,
+        // TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요.
+      }),
+      {
+        headers: {
+          // [TODO] Basic 인증 방식의 사용자명과 비밀번호는 콜론으로 구분해서 `사용자명:비밀번호`로 추가합니다. 상점의 시크릿 키를 사용자명으로, 비밀번호는 공백으로 추가한 뒤 base64로 인코딩하세요.
+          // 문서: https://docs-staging.tosspayments.com/guides/brandpay/auth#2-브랜드페이-access-token-요청
+          Authorization: `Basic ${Buffer.from(SECRET_KEY + ":", "utf8").toString(
+            "base64"
+          )}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-  // 성공(HTTP status 200) 응답
-  res.status(200).send('OK')
+    // 성공(HTTP status 200) 응답
+    res.status(200).send('OK')
+  } catch (error) {
+    // Access Token 발급에 실패하면 Toss 응답의 상태 코드로 실패를 알려 줘요.
+    console.error(error.response ? error.response.data.code : error.message)
+    res.status(error.response ? error.response.status : 500).send('FAIL')
+  }
 })
 
 // 최종 결제 승인

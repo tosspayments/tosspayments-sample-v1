@@ -46,15 +46,21 @@ app.post("/confirm", function (req, res) {
     })
     .then(function (response) {
       // TODO: 결제 완료 비즈니스 로직을 구현하세요.
-      console.log(response.body);
-      res.status(response.statusCode).json(response.body);
+      // 브라우저에는 화면에 필요한 필드만 내려 줘요.
+      res.status(response.statusCode).json(pickPaymentFields(response.body));
     })
     .catch(function (error) {
       // TODO: 결제 실패 비즈니스 로직을 구현하세요.
-      console.log(error.response.body);
-      res.status(error.response.statusCode).json(error.response.body);
+      console.log(error.response.body.code);
+      res.status(error.response.statusCode).json({ code: error.response.body.code, message: error.response.body.message });
     });
 });
+
+// 승인 응답(Payment 객체)에서 화면에 필요한 필드만 골라요.
+function pickPaymentFields(payment) {
+  const { paymentKey, orderId, orderName, status, method, totalAmount, approvedAt } = payment;
+  return { paymentKey, orderId, orderName, status, method, totalAmount, approvedAt };
+}
 
 app.get("/", function (req, res) {
   var path = resolve("./public/checkout.html");

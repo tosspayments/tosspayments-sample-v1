@@ -35,7 +35,12 @@ curl_setopt_array($curl, [
 ]);
 
 $response = curl_exec($curl);
-$err = curl_error($curl);
+$statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-echo $response; 
+// 승인 응답 원문은 브라우저로 내려보내지 않고, 결과만 상태 코드와 함께 알려 주세요.
+if ($statusCode === 0) {
+    $statusCode = 500;
+}
+http_response_code($statusCode);
+echo $statusCode === 200 ? 'OK' : 'FAIL';
 ?>

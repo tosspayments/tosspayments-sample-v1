@@ -14,7 +14,10 @@ authKey = trim(request("authKey"))
 
 secretKey = "{SECRET_KEY}:"
 url = "https://api.tosspayments.com/v1/billing/authorizations/issue"
-data = "{""authKey"" : """ & authKey & """, ""customerKey"" : """ & customerKey & """}"
+set body = JSON.parse("{}")
+body.set "authKey", authKey
+body.set "customerKey", customerKey
+data = JSON.stringify(body)
 authorization = "Basic " & base64Encode(secretKey)
 set req = Server.CreateObject("MSXML2.ServerXMLHTTP")
 req.open "POST", url, false
@@ -37,15 +40,15 @@ httpCode = req.status
     <section>
       <% if httpCode=200 then %>
       <h1>빌링키 발급 성공</h1>
-      <p>결과 데이터 : <%= req.responseText %></p>
-      <p>billingKey : <%= myJSON.billingKey%></p>
-      <p>cardCompany : <%= myJSON.cardCompany%></p>
-      <p>cardNumber : <%= myJSON.cardNumber%></p>
+      <p>결과 데이터 : <%= Server.HTMLEncode(req.responseText) %></p>
+      <p>billingKey : <%= Server.HTMLEncode(myJSON.billingKey & "") %></p>
+      <p>cardCompany : <%= Server.HTMLEncode(myJSON.cardCompany & "") %></p>
+      <p>cardNumber : <%= Server.HTMLEncode(myJSON.cardNumber & "") %></p>
 
       <% else %>
       <h1>빌링키 발급 실패</h1>
-      <p>에러메시지 : <%= myJSON.message%></p>
-      <span>에러코드: <%= myJSON.code%></span>
+      <p>에러메시지 : <%= Server.HTMLEncode(myJSON.message & "") %></p>
+      <span>에러코드: <%= Server.HTMLEncode(myJSON.code & "") %></span>
       <% end if %>
     </section>
   </body>

@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL);
-ini_set("display_errors", true);
+// 개발할 때만 화면에 오류를 보여 줘요(APP_DEBUG=true). 운영 환경에서는 끄세요.
+ini_set("display_errors", getenv("APP_DEBUG") === "true" ? "1" : "0");
 
 
 $paymentKey = $_GET['paymentKey'];
@@ -65,17 +66,17 @@ $responseJson = json_decode($response);
     <?php
     if ($isSuccess) { ?>
         <h1>결제 성공</h1>
-        <p>결과 데이터 : <?php echo json_encode($responseJson, JSON_UNESCAPED_UNICODE); ?></p>
-        <p>orderName : <?php echo $responseJson->orderName ?></p>
-        <p>method : <?php echo $responseJson->method ?></p>
+        <p>결과 데이터 : <?php echo htmlspecialchars(json_encode(array_intersect_key((array) $responseJson, array_flip(['paymentKey', 'orderId', 'orderName', 'status', 'method', 'totalAmount', 'approvedAt'])), JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8'); ?></p>
+        <p>orderName : <?php echo htmlspecialchars((string) ($responseJson->orderName ?? ''), ENT_QUOTES, 'UTF-8') ?></p>
+        <p>method : <?php echo htmlspecialchars((string) ($responseJson->method ?? ''), ENT_QUOTES, 'UTF-8') ?></p>
         <p>
-            card -> number : <?php echo $responseJson->card->number; ?>
+            card -> number : <?php echo htmlspecialchars((string) ($responseJson->card->number ?? ''), ENT_QUOTES, 'UTF-8'); ?>
         </p>
         <?php
     } else { ?>
         <h1>결제 실패</h1>
-        <p>에러메시지 : <?php echo $responseJson->message ?></p>
-        <span>에러코드: <?php echo $responseJson->code ?></span>
+        <p>에러메시지 : <?php echo htmlspecialchars((string) ($responseJson->message ?? ''), ENT_QUOTES, 'UTF-8') ?></p>
+        <span>에러코드: <?php echo htmlspecialchars((string) ($responseJson->code ?? ''), ENT_QUOTES, 'UTF-8') ?></span>
         <?php
     }
     ?>

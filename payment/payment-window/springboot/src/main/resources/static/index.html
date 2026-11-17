@@ -51,7 +51,7 @@
     let successUrl = window.location.origin + path + "success";
     let failUrl = window.location.origin + path + "fail";
     let callbackUrl = window.location.origin + path + "va_callback";
-    let orderId = new Date().getTime();
+    let orderId = window.crypto.randomUUID();
 
     let jsons = {
       card: {

@@ -44,11 +44,18 @@ def success(request):
   
   res = requests.post(url, data=json.dumps(params), headers=headers)
   resjson = res.json()
-  pretty = json.dumps(resjson, indent=4, ensure_ascii=False)
+
+  # 승인 실패는 상태 코드로 나눠 실패 화면을 보여 줘요.
+  if res.status_code != 200:
+    return render(request, "payments/fail.html", {"code": resjson.get("code"), "message": resjson.get("message")})
+
+  # 화면에는 승인 응답에서 필요한 필드만 보여 줘요.
+  picked = {key: resjson.get(key) for key in ["paymentKey", "orderId", "orderName", "status", "method", "totalAmount", "approvedAt"]}
+  pretty = json.dumps(picked, indent=4, ensure_ascii=False)
 
   respaymentKey = resjson["paymentKey"]
   resorderId = resjson["orderId"]
-  rescardcom = resjson["card"]["company"]
+  rescardcom = (resjson.get("card") or {}).get("company")
   
 
   return render(

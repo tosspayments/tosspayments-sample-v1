@@ -52,7 +52,7 @@
       var tossPayments = TossPayments(clientKey);
 
       var dropdown = document.getElementById("method");
-      var orderId = new Date().getTime();
+      var orderId = window.crypto.randomUUID();
 
       var jsondata = {
         amount: 100,

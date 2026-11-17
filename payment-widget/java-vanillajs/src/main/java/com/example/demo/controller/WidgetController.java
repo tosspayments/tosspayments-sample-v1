@@ -87,7 +87,17 @@ public class WidgetController {
         JSONObject jsonObject = (JSONObject) parser.parse(reader);
         responseStream.close();
 
-        return ResponseEntity.status(code).body(jsonObject);
+        // 브라우저에는 화면에 필요한 필드만 내려 줘요.
+        String[] fields = new String[]{"code", "message"};
+        if (isSuccess) {
+            fields = new String[]{"paymentKey", "orderId", "orderName", "status", "method", "totalAmount", "approvedAt"};
+        }
+        JSONObject responseBody = new JSONObject();
+        for (String field : fields) {
+            responseBody.put(field, jsonObject.get(field));
+        }
+
+        return ResponseEntity.status(code).body(responseBody);
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL);
-ini_set("display_errors", true);
+// 개발할 때만 화면에 오류를 보여 줘요(APP_DEBUG=true). 운영 환경에서는 끄세요.
+ini_set("display_errors", getenv("APP_DEBUG") === "true" ? "1" : "0");
 
 $paymentKey = $_GET['paymentKey'];
 $orderId = $_GET['orderId'];
@@ -68,15 +69,15 @@ $responseJson = json_decode($response);
 
             <div class="p-grid typography--p" style="margin-top: 50px">
                 <div class="p-grid-col text--left"><b>결제금액</b></div>
-                <div class="p-grid-col text--right" id="amount"><?php echo $responseJson->totalAmount ?></div>
+                <div class="p-grid-col text--right" id="amount"><?php echo htmlspecialchars((string) ($responseJson->totalAmount ?? ''), ENT_QUOTES, 'UTF-8') ?></div>
             </div>
             <div class="p-grid typography--p" style="margin-top: 10px">
                 <div class="p-grid-col text--left"><b>주문번호</b></div>
-                <div class="p-grid-col text--right" id="orderId"><?php echo $responseJson->orderId ?></div>
+                <div class="p-grid-col text--right" id="orderId"><?php echo htmlspecialchars((string) ($responseJson->orderId ?? ''), ENT_QUOTES, 'UTF-8') ?></div>
             </div>
             <div class="p-grid typography--p" style="margin-top: 10px">
                 <div class="p-grid-col text--left"><b>paymentKey</b></div>
-                <div class="p-grid-col text--right" id="paymentKey" style="white-space: initial; width: 250px"><?php echo $responseJson->paymentKey ?></div>
+                <div class="p-grid-col text--right" id="paymentKey" style="white-space: initial; width: 250px"><?php echo htmlspecialchars((string) ($responseJson->paymentKey ?? ''), ENT_QUOTES, 'UTF-8') ?></div>
             </div>
             <div class="p-grid" style="margin-top: 30px">
                 <button class="button p-grid-col5" onclick="location.href='https://docs.tosspayments.com/guides/payment/integration';">연동 문서</button>
@@ -86,7 +87,7 @@ $responseJson = json_decode($response);
         <div class="box_section" style="width: 600px; text-align: left">
             <b>Response Data :</b>
             <pre>
-            <?php echo trim(json_encode($responseJson,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE)); ?>
+            <?php echo htmlspecialchars(json_encode(array_intersect_key((array) $responseJson, array_flip(['paymentKey', 'orderId', 'orderName', 'status', 'method', 'totalAmount', 'approvedAt'])), JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8'); ?>
             </pre>
         </div>
 
@@ -98,11 +99,11 @@ $responseJson = json_decode($response);
 
         <div class="p-grid typography--p" style="margin-top: 50px">
             <div class="p-grid-col text--left"><b>에러메시지</b></div>
-            <div class="p-grid-col text--right" id="message"><?php echo $responseJson->message ?></div>
+            <div class="p-grid-col text--right" id="message"><?php echo htmlspecialchars((string) ($responseJson->message ?? ''), ENT_QUOTES, 'UTF-8') ?></div>
         </div>
         <div class="p-grid typography--p" style="margin-top: 10px">
             <div class="p-grid-col text--left"><b>에러코드</b></div>
-            <div class="p-grid-col text--right" id="code"><?php echo $responseJson->code ?></div>
+            <div class="p-grid-col text--right" id="code"><?php echo htmlspecialchars((string) ($responseJson->code ?? ''), ENT_QUOTES, 'UTF-8') ?></div>
         </div>
         <div class="p-grid">
             <button class="button p-grid-col5" onclick="location.href='https://docs.tosspayments.com/guides/payment/integration';">연동 문서</button>

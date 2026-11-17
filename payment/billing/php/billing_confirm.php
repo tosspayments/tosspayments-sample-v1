@@ -45,15 +45,15 @@ $responseJson = json_decode($response);
     <?php
     if ($isSuccess) { ?>
         <h1>빌링키 발급 성공</h1>
-        <p>결과 데이터: <?php echo json_encode($responseJson, JSON_UNESCAPED_UNICODE); ?></p>
-        <p>billingKey : <?php echo $responseJson->billingKey ?></p>
-        <p>cardCompany : <?php echo $responseJson->cardCompany ?></p>
-        <p>cardNumber : <?php echo $responseJson->cardNumber ?></p>
+        <p>결과 데이터: <?php echo htmlspecialchars(json_encode($responseJson, JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8'); ?></p>
+        <p>billingKey : <?php echo htmlspecialchars((string) ($responseJson->billingKey ?? ''), ENT_QUOTES, 'UTF-8') ?></p>
+        <p>cardCompany : <?php echo htmlspecialchars((string) ($responseJson->cardCompany ?? ''), ENT_QUOTES, 'UTF-8') ?></p>
+        <p>cardNumber : <?php echo htmlspecialchars((string) ($responseJson->cardNumber ?? ''), ENT_QUOTES, 'UTF-8') ?></p>
         <?php
     } else { ?>
         <h1>빌링키 발급 실패</h1>
-        <p><?php echo $responseJson->message ?></p>
-        <span>에러코드: <?php echo $responseJson->code ?></span>
+        <p><?php echo htmlspecialchars((string) ($responseJson->message ?? ''), ENT_QUOTES, 'UTF-8') ?></p>
+        <span>에러코드: <?php echo htmlspecialchars((string) ($responseJson->code ?? ''), ENT_QUOTES, 'UTF-8') ?></span>
         <?php
     }
     ?>

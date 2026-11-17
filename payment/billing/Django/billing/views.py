@@ -37,6 +37,11 @@ def billing_confirm(request):
   
   res = requests.post(url, data=json.dumps(params), headers=headers)
   resjson = res.json()
+
+  # 발급 실패는 상태 코드로 나눠 실패 화면을 보여 줘요.
+  if res.status_code != 200:
+    return render(request, "billing/fail.html", {"code": resjson.get("code"), "message": resjson.get("message")})
+
   pretty = json.dumps(resjson, indent=4, ensure_ascii=False)
 
   billingKey = resjson["billingKey"]

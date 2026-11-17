@@ -101,7 +101,7 @@
     let paymentData = ["공통", "카드", "가상계좌", "계좌이체", "휴대폰", "문화상품권", "도서상품권", "게임문화상품권", "토스페이"];
     let currentURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
-    var orderId = new Date().getTime();
+    var orderId = window.crypto.randomUUID();
     var dropdown = document.getElementById("paymentType");
 
     var jsondata = {
@@ -227,7 +227,7 @@
         } else if (method === '빌링') {
 
             jsondata = {
-                "customerKey": "test_customer_key",
+                "customerKey": window.crypto.randomUUID(), // 실제 서비스에서는 서버가 로그인한 구매자를 기준으로 정하세요.
                 "successUrl": window.location.origin + "/successUrl",
                 "failUrl": window.location.origin + "/failUrl",
             }

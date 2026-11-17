@@ -53,7 +53,8 @@ def success(request):
   """
   res = requests.post(url, data=json.dumps(params), headers=headers)
   resjson = res.json()
-  pretty = json.dumps(resjson, indent=4)
+  # 화면에는 승인 응답에서 필요한 필드만 보여 줘요.
+  pretty = json.dumps({key: resjson.get(key) for key in ["paymentKey", "orderId", "orderName", "status", "method", "totalAmount", "approvedAt"]}, indent=4)
 
   if res.status_code == 200:
     respaymentKey = resjson["paymentKey"]

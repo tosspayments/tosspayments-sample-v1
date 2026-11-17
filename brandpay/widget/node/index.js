@@ -22,29 +22,35 @@ app.get('/', (req, res) => {
 // 문서: https://docs-staging.tosspayments.com/guides/brandpay/integration#access-token-발급받기
 
 app.get('/callback-auth', async (req, res) => {
-  await axios.post(
-    "https://api.tosspayments.com/v1/brandpay/authorizations/access-token",
-    JSON.stringify({
-      grantType: "AuthorizationCode",
-      // Access Token 발급을 위해 리다이렉트 URL에 포함되어 돌아온 code와 customerKey 전달
-      code: req.query.code,
-      customerKey: req.query.customerKey,
-      // TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요.
-    }),
-    {
-      headers: {
-        // [TODO] 상점의 사용자명을 `SECRET_KEY` 부분에 추가하세요.
-        // 문서: https://docs-staging.tosspayments.com/guides/brandpay/auth#2-브랜드페이-access-token-요청
-        Authorization: `Basic ${Buffer.from(SECRET_KEY + ":", "utf8").toString(
-          "base64"
-        )}`,
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  try {
+    await axios.post(
+      "https://api.tosspayments.com/v1/brandpay/authorizations/access-token",
+      JSON.stringify({
+        grantType: "AuthorizationCode",
+        // Access Token 발급을 위해 리다이렉트 URL에 포함되어 돌아온 code와 customerKey 전달
+        code: req.query.code,
+        customerKey: req.query.customerKey,
+        // TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요.
+      }),
+      {
+        headers: {
+          // [TODO] 상점의 사용자명을 `SECRET_KEY` 부분에 추가하세요.
+          // 문서: https://docs-staging.tosspayments.com/guides/brandpay/auth#2-브랜드페이-access-token-요청
+          Authorization: `Basic ${Buffer.from(SECRET_KEY + ":", "utf8").toString(
+            "base64"
+          )}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-  // 성공(HTTP status 200) 응답
-  res.status(200).send('OK')
+    // 성공(HTTP status 200) 응답
+    res.status(200).send('OK')
+  } catch (error) {
+    // Access Token 발급에 실패하면 Toss 응답의 상태 코드로 실패를 알려 줘요.
+    console.error(error.response ? error.response.data.code : error.message)
+    res.status(error.response ? error.response.status : 500).send('FAIL')
+  }
 })
 
 // 최종 결제 승인

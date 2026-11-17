@@ -31,11 +31,21 @@ app.post("/api/confirm", async function (req, res) {
     });
 
     const json = await response.json();
-    res.status(response.status).json(json);
+    // 브라우저에는 화면에 필요한 필드만 내려 줘요.
+    res.status(response.status).json(pickPaymentFields(json, response.ok));
   } catch (error) {
     // 승인 API 호출 자체가 실패하면(네트워크 오류 등) 서버가 멈추지 않도록 실패로 응답해요.
     res.status(500).json({ code: "CONFIRM_REQUEST_FAILED", message: error.message });
   }
 });
+
+// 승인 응답(Payment 객체)에서 화면에 필요한 필드만 골라요. 실패하면 code, message 만 내려 줘요.
+function pickPaymentFields(payment, ok) {
+  if (!ok) {
+    return { code: payment.code, message: payment.message };
+  }
+  const { paymentKey, orderId, orderName, status, method, totalAmount, approvedAt } = payment;
+  return { paymentKey, orderId, orderName, status, method, totalAmount, approvedAt };
+}
 
 app.listen(3000, () => console.log(`http://localhost:${3000} 으로 승인 서버가 실행되었습니다.`));

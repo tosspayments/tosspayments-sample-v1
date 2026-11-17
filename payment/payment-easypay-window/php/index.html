@@ -45,7 +45,7 @@
     let path = "/";
     let successUrl = window.location.origin + path + "/success.php";
     let failUrl = window.location.origin + path + "/fail.php";
-    let orderId = new Date().getTime();
+    let orderId = window.crypto.randomUUID();
 
     let jsons = {
       card: {

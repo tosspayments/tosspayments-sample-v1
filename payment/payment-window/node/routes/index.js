@@ -33,11 +33,10 @@ router.get("/success", function (req, res) {
       responseType: "json",
     })
     .then(function (response) {
-      console.log(response.body);
-
       res.render("success", {
         isSuccess: true,
         responseJson: response.body,
+        pickedJson: pickPaymentFields(response.body),
       });
     })
     .catch(function (error) {
@@ -55,13 +54,26 @@ router.get("/fail", function (req, res) {
   });
 });
 
-router.get("/va_callback", function (req, res) {
-  req.body;
-  res.render("va_callback", {
-    secret: req.body.secret,
-    code: req.body.code,
-    orderId: req.body.orderId,
-  });
+// 가상계좌 입금 콜백
+router.post("/va_callback", function (req, res) {
+  // TODO: 요청 본문의 secret 을 결제 승인 응답에서 저장해 둔 secret 과 비교하고, 다르면 처리하지 마세요.
+  // TODO: 결제 조회 API 로 결제 상태를 다시 확인한 뒤 주문 상태를 바꾸세요.
+  // @docs https://docs.tosspayments.com/reference#orderid로-결제-조회
+  // 예시)
+  // const savedPayment = findPaymentByOrderId(req.body.orderId); // 승인할 때 저장한 결제 정보
+  // if (savedPayment == null || savedPayment.secret !== req.body.secret) {
+  //   res.status(400).send("FAIL");
+  //   return;
+  // }
+  // const payment = await getPaymentByOrderId(req.body.orderId); // GET /v1/payments/orders/{orderId}
+  // if (payment.status === "DONE") { ... }
+  res.status(200).send("OK");
 });
+
+// 승인 응답(Payment 객체)에서 화면에 필요한 필드만 골라요.
+function pickPaymentFields(payment) {
+  const { paymentKey, orderId, orderName, status, method, totalAmount, approvedAt } = payment;
+  return { paymentKey, orderId, orderName, status, method, totalAmount, approvedAt };
+}
 
 module.exports = router;

@@ -1,7 +1,8 @@
 <!-- 토스페이먼츠 결제 샘플 소스코드 -->
 <?php
 error_reporting(E_ALL);
-ini_set("display_errors", true);
+// 개발할 때만 화면에 오류를 보여 줘요(APP_DEBUG=true). 운영 환경에서는 끄세요.
+ini_set("display_errors", getenv("APP_DEBUG") === "true" ? "1" : "0");
 
 $paymentKey = $_GET['paymentKey'];
 $orderId = $_GET['orderId'];
@@ -72,12 +73,12 @@ $responseJson = json_decode($response);
         <div class="box_section">
           <div class="card-body">
             <div class="gray">
-              <p>상품명 : <?php echo $responseJson->orderName ?></p>
-              <p>결제수단 : <?php echo $responseJson->method ?> (
-                <?php if($responseJson->method === "카드") { echo $responseJson->card->number;} ?>
-                <?php if($responseJson->method === "가상계좌") { echo $responseJson->virtualAccount->accountNumber;} ?>
-                <?php if($responseJson->method === "계좌이체") { echo $responseJson->transfer->bank;} ?>
-                <?php if($responseJson->method === "휴대폰") { echo $responseJson->mobilePhone->customerMobilePhone;} ?>
+              <p>상품명 : <?php echo htmlspecialchars((string) ($responseJson->orderName ?? ''), ENT_QUOTES, 'UTF-8') ?></p>
+              <p>결제수단 : <?php echo htmlspecialchars((string) ($responseJson->method ?? ''), ENT_QUOTES, 'UTF-8') ?> (
+                <?php if($responseJson->method === "카드") { echo htmlspecialchars((string) ($responseJson->card->number ?? ''), ENT_QUOTES, 'UTF-8');} ?>
+                <?php if($responseJson->method === "가상계좌") { echo htmlspecialchars((string) ($responseJson->virtualAccount->accountNumber ?? ''), ENT_QUOTES, 'UTF-8');} ?>
+                <?php if($responseJson->method === "계좌이체") { echo htmlspecialchars((string) ($responseJson->transfer->bank ?? ''), ENT_QUOTES, 'UTF-8');} ?>
+                <?php if($responseJson->method === "휴대폰") { echo htmlspecialchars((string) ($responseJson->mobilePhone->customerMobilePhone ?? ''), ENT_QUOTES, 'UTF-8');} ?>
                 )</p>
             </div>
           </div>
@@ -88,7 +89,7 @@ $responseJson = json_decode($response);
             <div class="gray">
               <b>Response Data :</b>
               <pre>
-                <?php echo trim(json_encode($responseJson,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE)); ?>
+                <?php echo htmlspecialchars(json_encode(array_intersect_key((array) $responseJson, array_flip(['paymentKey', 'orderId', 'orderName', 'status', 'method', 'totalAmount', 'approvedAt'])), JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8'); ?>
               </pre>
             </div>
           </div> 
@@ -105,8 +106,8 @@ $responseJson = json_decode($response);
         <div id="info" class="box_section">
           <div class="card-body">
             <div class="gray">
-              <p>에러메시지 : <?php echo $responseJson->message ?></p>
-              <p>에러코드: <?php echo $responseJson->code ?></p>
+              <p>에러메시지 : <?php echo htmlspecialchars((string) ($responseJson->message ?? ''), ENT_QUOTES, 'UTF-8') ?></p>
+              <p>에러코드: <?php echo htmlspecialchars((string) ($responseJson->code ?? ''), ENT_QUOTES, 'UTF-8') ?></p>
             </div>
           </div>
         </div>

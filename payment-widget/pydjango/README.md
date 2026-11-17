@@ -14,7 +14,7 @@
 
    ```sh
    $ pip install -r requirements.txt # 의존성 패키지 다운로드
-   $ python manage.py runserver  # 서버 실행
+   $ DJANGO_DEBUG=true python manage.py runserver  # 서버 실행 (개발용, DEBUG 를 켜야 정적 파일이 보여요)
    ```
 
 3. 로컬 서버에서 샘플 프로젝트를 확인하세요.

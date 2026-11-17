@@ -19,7 +19,7 @@ include_once "./setting/var.php"
       // [TODO] 아래 키는 테스트용 클라이언트 키입니다. 계정 설정이 진행된 후에는 내 상점의 키 값으로 변경하세요. (/common/var.php에서 설정)
       var clientKey = '<?=$clientKey?>'
       // [TODO] 상점에서 고객을 구분하기 위해 발급한 고객의 고유 ID로 변경하세요.
-      var customerKey = 'CUSTOMER_KEY1'
+      var customerKey = '{CUSTOMER_KEY}'
       // [TODO] 상점에서 주문 건에 대해 발급한 고유 ID로 변경하세요.
       var orderId = 'ORDER_ID1'
 
@@ -58,10 +58,10 @@ include_once "./setting/var.php"
 
       // [NOTE] 아래 내용은 샘플 코드 연동 과정을 돕기 위한 코드입니다. 실제 연동에 사용하지 않습니다.
       function validateParams() {
-        if (customerKey === 'CUSTOMER_KEY') {
+        if (customerKey === '{CUSTOMER_KEY}') {
           alert('customerKey 값을 설정해주세요.')
           return false
-        } else if (orderId === 'ORDER_ID') {
+        } else if (orderId === 'ORDER_ID1') {
           alert('orderId 값을 설정해주세요.')
           return false
         }

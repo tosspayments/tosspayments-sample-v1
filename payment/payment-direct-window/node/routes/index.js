@@ -33,17 +33,14 @@ router.get("/success", function (req, res) {
       responseType: "json",
     })
     .then(function (response) {
-      console.log(response.body);
-
       res.render("success", {
         isSuccess: true,
         responseJson: response.body,
+        pickedJson: pickPaymentFields(response.body),
       });
     })
     .catch(function (error) {
-      console.log(error);
-
-      res.render("keyin", {
+      res.render("success", {
         isSuccess: false,
         responseJson: error.response.body,
       });
@@ -56,5 +53,11 @@ router.get("/fail", function (req, res) {
     code: req.query.code,
   });
 });
+
+// 승인 응답(Payment 객체)에서 화면에 필요한 필드만 골라요.
+function pickPaymentFields(payment) {
+  const { paymentKey, orderId, orderName, status, method, totalAmount, approvedAt } = payment;
+  return { paymentKey, orderId, orderName, status, method, totalAmount, approvedAt };
+}
 
 module.exports = router;

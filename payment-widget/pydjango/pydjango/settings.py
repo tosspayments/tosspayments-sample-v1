@@ -25,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "{DJANGO_SECRET_KEY}")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# 운영 환경에서는 False 로 두세요.
-DEBUG = True
+# 개발할 때는 DJANGO_DEBUG=true 로 켜고, 운영 환경에서는 끄세요.
+DEBUG = os.environ.get("DJANGO_DEBUG", "false").lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 
 # Application definition

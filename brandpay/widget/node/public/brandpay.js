@@ -1,7 +1,7 @@
 // API 키 설정
 // 문서: https://docs.tosspayments.com/guides/brandpay/integration#api-키-설정-및-sdk-준비
 const clientKey = '{CLIENT_KEY}';
-const customerKey = 'CUSTOMER_KEY'; // 상점에서 고객을 구분하기 위해 발급한 고객의 고유 ID로 변경하세요.
+const customerKey = '{CUSTOMER_KEY}'; // 상점에서 고객을 구분하기 위해 발급한 고객의 고유 ID로 변경하세요.
 
 // brandpay 초기화
 const brandpay = BrandPay(clientKey, customerKey, {
