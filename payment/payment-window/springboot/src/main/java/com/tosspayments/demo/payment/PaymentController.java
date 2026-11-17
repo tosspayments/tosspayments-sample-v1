@@ -26,7 +26,14 @@ public class PaymentController {
             @RequestParam(value = "amount") Integer amount,
             @RequestParam(value = "paymentKey") String paymentKey) throws Exception {
 
-        String secretKey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R:";
+        // TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하고, 승인하기 전에 저장한 값과 비교하세요.
+        // 값이 다르면 결제 승인 API를 호출하지 말고 실패로 처리해요.
+        // 예시)
+        // Integer savedAmount = findAmountByOrderId(orderId); // 결제 요청 전에 서버에 저장한 금액
+        // if (savedAmount == null || !savedAmount.equals(amount)) {
+        //     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "결제 금액이 주문 금액과 달라요.");
+        // }
+        String secretKey = "{SECRET_KEY}:";
 
         Base64.Encoder encoder = Base64.getEncoder();
         byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));

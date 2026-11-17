@@ -39,6 +39,7 @@ router.get('/success', function (req, res) {
       json: {
         authKey: req.query.authKey,
         customerKey: req.query.customerKey,
+        // TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요.
       },
       responseType: 'json',
     })

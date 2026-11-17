@@ -18,9 +18,10 @@ def window(request):
 def billing_confirm(request):
   authKey = request.GET.get('authKey')
   customerKey = request.GET.get('customerKey')
+  # TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요.
   
   url = "https://api.tosspayments.com/v1/billing/authorizations/issue"
-  secertkey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R"
+  secertkey = "{SECRET_KEY}"
   userpass = secertkey + ':'
   encoded_u = base64.b64encode(userpass.encode()).decode()
   

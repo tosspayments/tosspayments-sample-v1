@@ -24,7 +24,7 @@
 
 <script>
 import { loadTossPayments } from "@tosspayments/payment-sdk";
-const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
+const clientKey = "{CLIENT_KEY}";
 
 let func1 = loadTossPayments(clientKey);
 

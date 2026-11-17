@@ -13,13 +13,19 @@ def success(request):
   amount = request.GET.get('amount')
   paymentKey = request.GET.get('paymentKey')
   
+  # TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하고, 승인하기 전에 저장한 값과 비교하세요.
+  # 값이 다르면 결제 승인 API를 호출하지 말고 실패로 처리해요.
+  # 예시)
+  # savedAmount = find_amount_by_order_id(orderId)  # 결제 요청 전에 서버에 저장한 금액
+  # if savedAmount is None or savedAmount != int(amount):
+  #   return HttpResponseBadRequest("결제 금액이 주문 금액과 달라요.")
   url = "https://api.tosspayments.com/v1/payments/confirm"
 
   """
     개발자센터에 로그인해서 내 결제위젯 연동 키 > 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
     @docs https://docs.tosspayments.com/reference/using-api/api-keys
   """
-  secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6"
+  secretKey = "{WIDGET_SECRET_KEY}"
 
   """
     토스페이먼츠 API는 시크릿 키를 사용자 ID로 사용하고, 비밀번호는 사용하지 않습니다.

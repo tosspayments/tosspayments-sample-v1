@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ page import="java.util.Base64"%> <%@ page import="java.util.Base64.Encoder"%> <%@ page
 import="java.net.HttpURLConnection"%> <%@ page import="java.net.URL" %> <%@ page import="org.json.simple.JSONObject" %> <%@ page import="org.json.simple.parser.JSONParser" %> <%@ page
 import="org.json.simple.parser.ParseException" %> <%@ page import="java.io.OutputStream" %> <%@ page import="java.io.InputStream" %> <%@ page import="java.io.InputStreamReader" %> <%@ page
-import="java.io.Reader" %> <%@ page import="java.nio.charset.StandardCharsets" %> <%@ page import="java.net.URLEncoder" %> <% // 결제 승인 API 호출하기 String customerKey =
-request.getParameter("customerKey"); String authKey = request.getParameter("authKey"); String secretKey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R:"; Encoder encoder = Base64.getEncoder(); byte[]
+import="java.io.Reader" %> <%@ page import="java.nio.charset.StandardCharsets" %> <%@ page import="java.net.URLEncoder" %> <% /* 결제 승인 API 호출하기 */ String customerKey =
+request.getParameter("customerKey"); /* TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요. */ String authKey = request.getParameter("authKey"); String secretKey = "{SECRET_KEY}:"; Encoder encoder = Base64.getEncoder(); byte[]
 encodedBytes = encoder.encode(secretKey.getBytes("UTF-8")); String authorizations = "Basic "+ new String(encodedBytes, 0, encodedBytes.length); authKey = URLEncoder.encode(authKey,
 StandardCharsets.UTF_8); URL url = new URL("https://api.tosspayments.com/v1/billing/authorizations/issue"); HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 connection.setRequestProperty("Authorization", authorizations); connection.setRequestProperty("Content-Type", "application/json"); connection.setRequestMethod("POST"); connection.setDoOutput(true);

@@ -3,12 +3,13 @@ class BillingController < ApplicationController
   def billing_confirm
       options = {
         headers: {
-          Authorization: "Basic " + Base64.strict_encode64("test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R:"),
+          Authorization: "Basic " + Base64.strict_encode64("{SECRET_KEY}:"),
           "Content-Type": "application/json"
         },
         body: {
           authKey: params['authKey'],
           customerKey: params['customerKey']
+          # TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요.
         }.to_json
       }
   

@@ -19,7 +19,7 @@
  // @docs https://docs.tosspayments.com/guides/payment-widget/integration#3-결제-승인하기
   // TODO: 개발자센터에 로그인해서 내 결제위젯 연동 키 > 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
   // @docs https://docs.tosspayments.com/reference/using-api/api-keys
-  String secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6:";
+  String secretKey = "{WIDGET_SECRET_KEY}:";
   
   Encoder encoder = Base64.getEncoder(); 
   byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));
@@ -30,6 +30,14 @@
   String amount = request.getParameter("amount");
   paymentKey = URLEncoder.encode(paymentKey, "UTF-8");
   
+  // TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하고, 승인하기 전에 저장한 값과 비교하세요.
+  // 값이 다르면 결제 승인 API를 호출하지 말고 실패로 처리해요.
+  // 예시)
+  // Long savedAmount = findAmountByOrderId(orderId); // 결제 요청 전에 서버에 저장한 금액
+  // if (savedAmount == null || savedAmount != Long.parseLong(amount)) {
+  //   response.sendError(400, "결제 금액이 주문 금액과 달라요.");
+  //   return;
+  // }
   URL url = new URL("https://api.tosspayments.com/v1/payments/confirm");
   
   HttpURLConnection connection = (HttpURLConnection) url.openConnection();

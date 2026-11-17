@@ -6,6 +6,7 @@ $credential = base64_encode($secretKey . ':');
 
 $code = $_GET['code'];
 $customerKey = $_GET['customerKey'];
+// TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요.
 
 $curl = curl_init();
 

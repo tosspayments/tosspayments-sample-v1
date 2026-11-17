@@ -36,23 +36,16 @@ export default {
             console.log(params.get("orderId"));
             console.log(params.get("amount"));
 
-            const url = 'https://api.tosspayments.com/v1/payments/'+params.get("paymentKey");
-            const token = "dGVzdF9za19ZUEJhbDJ2eGo4MWV4NDdFNURHODVSUWdPQU5EOg==";
+            // 결제 승인은 서버(server.js)에서 시크릿 키로 호출해요. 브라우저 코드에는 시크릿 키를 넣지 마세요.
+            const url = '/api/confirm';
 
             let userData = {
+                paymentKey: params.get("paymentKey"),
                 amount: params.get("amount"),
                 orderId: params.get("orderId")
             }
 
-            const instance = axios.create({
-                baseURL: url,
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Basic ' + token, 
-                }
-            })
-
-            instance.post(url, userData)
+            axios.post(url, userData)
             .then( res => {                
                 this.responseData = res
                 console.log("[res] Item Insert", res);

@@ -7,10 +7,19 @@ $paymentKey = $_GET['paymentKey'];
 $orderId = $_GET['orderId'];
 $amount = $_GET['amount'];
 
+// TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하고, 승인하기 전에 저장한 값과 비교하세요.
+// 값이 다르면 결제 승인 API를 호출하지 말고 실패로 처리해요.
+// 예시)
+// $savedAmount = findAmountByOrderId($orderId); // 결제 요청 전에 서버에 저장한 금액
+// if ($savedAmount === null || (int) $savedAmount !== (int) $amount) {
+//     http_response_code(400);
+//     echo '결제 금액이 주문 금액과 달라요.';
+//     exit;
+// }
 $url = 'https://api.tosspayments.com/v1/payments/confirm';
 $data = ['paymentKey' => $paymentKey, 'orderId' => $orderId, 'amount' => $amount];
 
-$secretKey = 'test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R'; 
+$secretKey = '{SECRET_KEY}'; 
 $credential = base64_encode($secretKey . ':');
 
 $curlHandle = curl_init($url);

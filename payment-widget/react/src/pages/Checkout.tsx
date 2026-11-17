@@ -10,7 +10,7 @@ const selector = "#payment-widget";
 // TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요.
 // TODO: customerKey는 구매자와 1:1 관계로 무작위한 고유값을 생성하세요.
 // @docs https://docs.tosspayments.com/reference/widget-sdk#sdk-설치-및-초기화
-const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+const clientKey = "{WIDGET_CLIENT_KEY}";
 const customerKey = nanoid();
 
 export function CheckoutPage() {

@@ -8,7 +8,7 @@ const port = 3000
 // 문서: https://docs.tosspayments.com/guides/brandpay/integration#api-키-설정-및-sdk-준비
 
 // [TODO] 아래 키는 테스트용 시크릿 키입니다. 계정 설정이 진행된 후에는 내 상점의 키 값으로 변경하세요. 시크릿 키는 외부에 노출되어서는 안됩니다.
-const SECRET_KEY = 'test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R';
+const SECRET_KEY = '{SECRET_KEY}';
 
 app.use(bodyParser.json())
 app.use('/static', express.static('public'));
@@ -29,6 +29,7 @@ app.get('/callback-auth', async (req, res) => {
       // Access Token 발급을 위해 리다이렉트 URL에 포함되어 돌아온 code와 customerKey 전달
       code: req.query.code,
       customerKey: req.query.customerKey,
+      // TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요.
     }),
     {
       headers: {
@@ -49,10 +50,19 @@ app.get('/callback-auth', async (req, res) => {
 // 최종 결제 승인
 app.post('/confirm-payment', async (req, res) => {
   try {
+    // TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하고, 승인하기 전에 저장한 값과 비교하세요.
+    // 값이 다르면 결제 승인 API를 호출하지 말고 실패로 처리해요.
+    // 예시)
+    // const savedAmount = findAmountByOrderId(req.body.orderId); // 결제 요청 전에 서버에 저장한 금액
+    // if (savedAmount == null || savedAmount !== Number(req.body.amount)) {
+    //   res.status(400).send("결제 금액이 주문 금액과 달라요.");
+    //   return;
+    // }
     await axios.post(
       `https://api.tosspayments.com/v1/brandpay/payments/confirm`,
       {
         customerKey: req.body.customerKey,
+        // TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요.
         paymentKey: req.body.paymentKey,
         orderId: req.body.orderId,
         amount: req.body.amount,

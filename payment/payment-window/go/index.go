@@ -12,7 +12,7 @@ import (
 	"strconv"
 )
 
-const secretKey string = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R"
+const secretKey string = "{SECRET_KEY}"
 
 type Page struct {
 	Title string
@@ -57,6 +57,14 @@ func successUrlHandler(w http.ResponseWriter, r *http.Request) {
 	orderId := r.URL.Query().Get("orderId")
 	amount, err := strconv.Atoi(r.URL.Query().Get("amount"))
 
+	// TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하고, 승인하기 전에 저장한 값과 비교하세요.
+	// 값이 다르면 결제 승인 API를 호출하지 말고 실패로 처리해요.
+	// 예시)
+	// savedAmount, ok := findAmountByOrderId(orderId) // 결제 요청 전에 서버에 저장한 금액
+	// if !ok || savedAmount != amount {
+	// 	http.Error(w, "결제 금액이 주문 금액과 달라요.", http.StatusBadRequest)
+	// 	return
+	// }
 	// 응답 파라미터 json 형태로 셋팅
 	approval := Approval{paymentKey, orderId, amount}
 	pbytes, _ := json.Marshal(approval)

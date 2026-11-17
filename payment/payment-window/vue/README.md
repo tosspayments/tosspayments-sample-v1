@@ -8,9 +8,12 @@ Vue를 이용한 결제창 샘플입니다.
 
    ```sh
    $ npm install # 의존성 패키지 다운로드
-   $ npm run serve # 서버 실행
+   $ npm run server # 결제 승인 서버 실행 (localhost:3000)
+   $ npm run serve # 다른 터미널에서 화면 서버 실행
    ```
+
+   결제 승인 서버는 전역 `fetch` 를 쓰므로 Node 18 이상에서 실행하세요.
 
 2. 로컬 환경에서 샘플 프로젝트를 확인하세요.
 
-\* Vue는 결제창을 호출하는 클라이언트 코드만 참고하세요. Front side 언어 특성상 승인 API의 Authorization이 외부에 노출될 수 밖에 없습니다. 승인 API를 호출 로직은 Server side 언어를 사용하여 구현하세요.
+\* 승인 API는 시크릿 키가 필요해서 브라우저가 아니라 서버(`server.js`)에서 호출합니다. `server.js` 파일에 있는 `secretKey`를 내 시크릿 키로 수정하세요. 시크릿 키는 브라우저 코드에 넣지 마세요.

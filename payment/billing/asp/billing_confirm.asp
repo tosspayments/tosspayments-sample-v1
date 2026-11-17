@@ -5,10 +5,25 @@
 <!--#include file="json2.asp"-->
 <!--#include file="base64.asp"-->
 
-<% call initCodecs customerKey = trim(request("customerKey")) authKey = trim(request("authKey")) secretKey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R:" url =
-"https://api.tosspayments.com/v1/billing/authorizations/issue" data = "{""authKey"" : """ & authKey & """, ""customerKey"" : """ & customerKey & """}" authorization = "Basic " &
-base64Encode(secretKey) set req = Server.CreateObject("MSXML2.ServerXMLHTTP") req.open "POST", url, false req.setRequestHeader "Authorization", authorization req.setRequestHeader "Content-Type",
-"application/json;charset=UTF-8" req.send data set myJSON = JSON.parse(req.responseText) httpCode = req.status %>
+<%
+call initCodecs
+
+customerKey = trim(request("customerKey"))
+' TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요.
+authKey = trim(request("authKey"))
+
+secretKey = "{SECRET_KEY}:"
+url = "https://api.tosspayments.com/v1/billing/authorizations/issue"
+data = "{""authKey"" : """ & authKey & """, ""customerKey"" : """ & customerKey & """}"
+authorization = "Basic " & base64Encode(secretKey)
+set req = Server.CreateObject("MSXML2.ServerXMLHTTP")
+req.open "POST", url, false
+req.setRequestHeader "Authorization", authorization
+req.setRequestHeader "Content-Type", "application/json;charset=UTF-8"
+req.send data
+set myJSON = JSON.parse(req.responseText)
+httpCode = req.status
+%>
 
 <html lang="ko">
   <head>
