@@ -13,7 +13,7 @@ public class MvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/templates/", "classpath:/static/")
+                .addResourceLocations("classpath:/static/") // 템플릿 원본은 정적 파일로 내보내지 않아요
                 .setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
     }
 }

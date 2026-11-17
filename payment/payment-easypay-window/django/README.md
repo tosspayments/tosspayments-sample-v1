@@ -9,6 +9,7 @@ Django를 이용한 간편결제사 결제창 샘플입니다.
 ## 실행하기
 
 1. `/payments` 앱과 아래 설명을 참조해서 기존 프로젝트에 샘플 코드를 추가하세요.
+2. 개발할 때는 `DJANGO_DEBUG=true python manage.py runserver` 로 실행하세요. DEBUG 가 꺼져 있으면 runserver 가 정적 파일(CSS)을 내려 주지 않아요.
 
 ## 기본 설명
 

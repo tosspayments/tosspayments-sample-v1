@@ -6,6 +6,15 @@
 <%@ page import="org.json.simple.parser.ParseException" %>
 
 
+<%!
+    // 화면에 출력하는 값은 HTML 이스케이프해요.
+    private static String escapeHtml(Object value) {
+        if (value == null) {
+            return "";
+        }
+        return String.valueOf(value).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&#39;");
+    }
+%>
 <%
  String message = request.getParameter("message");
   String code = request.getParameter("code");
@@ -21,8 +30,8 @@
 <body>
 <section>
     <h1>결제 실패</h1>
-    <p><%= message %></p>
-    <span>에러코드: <%= code %></span>
+    <p><%= escapeHtml(message) %></p>
+    <span>에러코드: <%= escapeHtml(code) %></span>
 </section>
 </body>
 </html>

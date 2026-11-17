@@ -14,12 +14,21 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.Set" %>
 
+<%!
+    // 화면에 출력하는 값은 HTML 이스케이프해요.
+    private static String escapeHtml(Object value) {
+        if (value == null) {
+            return "";
+        }
+        return String.valueOf(value).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&#39;");
+    }
+%>
 <%
  // ------ 결제 승인 API 호출 ------
  // @docs https://docs.tosspayments.com/guides/payment-widget/integration#3-결제-승인하기
   // TODO: 개발자센터에 로그인해서 내 결제위젯 연동 키 > 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
   // @docs https://docs.tosspayments.com/reference/using-api/api-keys
-  String secretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6:";
+  String secretKey = "{WIDGET_SECRET_KEY}:";
   
   Encoder encoder = Base64.getEncoder(); 
   byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));
@@ -30,6 +39,14 @@
   String amount = request.getParameter("amount");
   paymentKey = URLEncoder.encode(paymentKey, "UTF-8");
   
+  // TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하고, 승인하기 전에 저장한 값과 비교하세요.
+  // 값이 다르면 결제 승인 API를 호출하지 말고 실패로 처리해요.
+  // 예시)
+  // Long savedAmount = findAmountByOrderId(orderId); // 결제 요청 전에 서버에 저장한 금액
+  // if (savedAmount == null || savedAmount != Long.parseLong(amount)) {
+  //   response.sendError(400, "결제 금액이 주문 금액과 달라요.");
+  //   return;
+  // }
   URL url = new URL("https://api.tosspayments.com/v1/payments/confirm");
   
   HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -77,15 +94,15 @@
       
             <div class="p-grid typography--p" style="margin-top: 50px">
               <div class="p-grid-col text--left"><b>결제금액</b></div>
-              <div class="p-grid-col text--right" id="amount"> <%= jsonObject.get("totalAmount") %></div>
+              <div class="p-grid-col text--right" id="amount"> <%= escapeHtml(jsonObject.get("totalAmount")) %></div>
             </div>
             <div class="p-grid typography--p" style="margin-top: 10px">
               <div class="p-grid-col text--left"><b>주문번호</b></div>
-              <div class="p-grid-col text--right" id="orderId"> <%= jsonObject.get("orderId") %></div>
+              <div class="p-grid-col text--right" id="orderId"> <%= escapeHtml(jsonObject.get("orderId")) %></div>
             </div>
             <div class="p-grid typography--p" style="margin-top: 10px">
               <div class="p-grid-col text--left"><b>paymentKey</b></div>
-              <div class="p-grid-col text--right" id="paymentKey" style="white-space: initial; width: 250px"><%= jsonObject.get("paymentKey") %></div>
+              <div class="p-grid-col text--right" id="paymentKey" style="white-space: initial; width: 250px"><%= escapeHtml(jsonObject.get("paymentKey")) %></div>
             </div>
             <div class="p-grid" style="margin-top: 30px">
               <button class="button p-grid-col5" onclick="location.href='https://docs.tosspayments.com/guides/payment/integration';">연동 문서</button>
@@ -98,10 +115,11 @@
             <div id="response"">
               <pre>
                 <%
-                Set<String> keys = jsonObject.keySet();
+                // 화면에는 필요한 필드만 보여 줘요.
+                String[] keys = {"paymentKey", "orderId", "orderName", "status", "method", "totalAmount", "approvedAt"};
                 for (String key : keys) {
                 %>
-                <%= key %>: <%= jsonObject.get(key) %>
+                <%= key %>: <%= escapeHtml(jsonObject.get(key)) %>
                 <%
                 }
                 %>
@@ -115,11 +133,11 @@
             <h2>결제를 실패했어요</h2>
             <div class="p-grid typography--p" style="margin-top: 50px">
               <div class="p-grid-col text--left"><b>에러메시지</b></div>
-              <div class="p-grid-col text--right" id="message"><%= jsonObject.get("message") %></div>
+              <div class="p-grid-col text--right" id="message"><%= escapeHtml(jsonObject.get("message")) %></div>
             </div>
             <div class="p-grid typography--p" style="margin-top: 10px">
               <div class="p-grid-col text--left"><b>에러코드</b></div>
-              <div class="p-grid-col text--right" id="code"><%= jsonObject.get("code") %></div>
+              <div class="p-grid-col text--right" id="code"><%= escapeHtml(jsonObject.get("code")) %></div>
             </div>
             <div class="p-grid">
               <button class="button p-grid-col5" onclick="location.href='https://docs.tosspayments.com/guides/payment/integration';">연동 문서</button>

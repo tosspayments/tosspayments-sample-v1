@@ -39,12 +39,11 @@ router.get('/success', function (req, res) {
       json: {
         authKey: req.query.authKey,
         customerKey: req.query.customerKey,
+        // TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요.
       },
       responseType: 'json',
     })
     .then(function (response) {
-      console.log(response.body);
-
       // billingKey를 데이터베이스에 저장하는 로직
       const billingKey = response.body.billingKey;
       const customerKey = req.query.customerKey;
@@ -101,10 +100,10 @@ cron.schedule('0 0 1 * *', function () {
           responseType: 'json',
         })
         .then(function (response) {
-          console.log(response.body);
+          console.log(response.body.orderId, response.body.status);
         })
         .catch(function (error) {
-          console.log('Error:', error);
+          console.log('Error:', error.message);
         });
     }
   );

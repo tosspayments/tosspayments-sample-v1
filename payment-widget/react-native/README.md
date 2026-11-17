@@ -22,7 +22,7 @@
 
 ## 인증하기
 
-샘플에 있는 키로 연동이 가능하지만, 내 테스트 연동 키를 사용하면 테스트 결제내역, 웹훅 기능을 사용할 수 있어요. 내 테스트 연동 키는 [개발자센터](https://developers.tosspayments.com/my/api-keys)에서 확인할 수 있습니다. 더 자세한 내용은 [API 키 가이드](https://docs.tosspayments.com/reference/using-api/api-keys)를 참고하세요.
+샘플에는 키가 들어 있지 않아요. 코드에서 `{CLIENT_KEY}`, `{SECRET_KEY}` 처럼 중괄호로 표시한 자리에 내 테스트 연동 키를 넣어 주세요. 내 테스트 연동 키는 [개발자센터](https://developers.tosspayments.com/my/api-keys)에서 확인할 수 있습니다. 더 자세한 내용은 [API 키 가이드](https://docs.tosspayments.com/reference/using-api/api-keys)를 참고하세요.
 
 - **클라이언트 키**: `App.tsx` 파일에 있는 `clientKey`를 내 결제위젯 클라이언트 키로 수정하세요.
 

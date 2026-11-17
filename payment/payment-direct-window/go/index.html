@@ -48,11 +48,11 @@
     </section>
 
     <script>
-      var clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
+      var clientKey = "{CLIENT_KEY}";
       var tossPayments = TossPayments(clientKey);
 
       var dropdown = document.getElementById("method");
-      var orderId = new Date().getTime();
+      var orderId = window.crypto.randomUUID();
 
       var jsondata = {
         amount: 100,

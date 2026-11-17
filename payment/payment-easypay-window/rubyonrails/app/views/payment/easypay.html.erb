@@ -34,7 +34,7 @@
     let amount = 50000;
     let easyPay = "TOSSPAY";
 
-    let tossPayments = TossPayments("test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq");
+    let tossPayments = TossPayments("{CLIENT_KEY}");
 
     function pay(method, requestJson) {
         console.log(requestJson);
@@ -53,7 +53,7 @@
     let path = "/";
     let successUrl = window.location.origin + path + "payment/success";
     let failUrl = window.location.origin + path + "payment/fail";
-    let orderId = new Date().getTime();
+    let orderId = window.crypto.randomUUID();
 
     let jsons = {
         "card": {

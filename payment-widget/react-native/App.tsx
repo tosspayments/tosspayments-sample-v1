@@ -19,8 +19,8 @@ export default function App() {
       {/* 스크롤이 필요한 경우 ScrollView로 감싸주세요. */}
       {/* <ScrollView> */}
       <PaymentWidgetProvider
-        clientKey={`test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm`}
-        customerKey={`JK7_wcrP9zWznigTpHtZM`}>
+        clientKey={`{WIDGET_CLIENT_KEY}`}
+        customerKey={`{CUSTOMER_KEY}`}>
         <CheckoutPage />
       </PaymentWidgetProvider>
       {/* </ScrollView> */}

@@ -35,8 +35,8 @@ $code = $_GET['code'];
         <div id="info" class="box_section" style="margin-top:30px; padding:20px">
           <div class="card-body">
             <div class="gray">
-              <p>에러메세지: <?php echo $message ?></p>
-              <p>에러코드: <?php echo $code ?></p>            
+              <p>에러메세지: <?php echo htmlspecialchars($message ?? '', ENT_QUOTES, 'UTF-8') ?></p>
+              <p>에러코드: <?php echo htmlspecialchars($code ?? '', ENT_QUOTES, 'UTF-8') ?></p>            
             </div>
           </div> <!-- .card-body -->
         </div> <!-- #info -->

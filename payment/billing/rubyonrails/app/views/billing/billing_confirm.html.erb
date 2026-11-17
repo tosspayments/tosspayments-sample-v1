@@ -19,8 +19,8 @@
     <br><br>
     
     <p>billingKey : <%= @Response["billingKey"] %></p>
-    <p>cardCompany : <%= @Response["card"]["company"] %></p>
-    <p>cardNumber : <%= @Response["card"]["number"] %></p>
+    <p>cardCompany : <%= @Response.dig("card", "company") %></p>
+    <p>cardNumber : <%= @Response.dig("card", "number") %></p>
     <br>
     
 </section> 

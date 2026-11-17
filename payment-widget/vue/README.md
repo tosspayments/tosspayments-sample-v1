@@ -14,17 +14,20 @@
 
    ```sh
    $ npm install # 의존성 패키지 다운로드
-   $ npm run dev # 서버 실행
+   $ npm run server # 결제 승인 서버 실행 (localhost:3000)
+   $ npm run dev # 다른 터미널에서 화면 서버 실행
    ```
+
+   결제 승인 서버는 전역 `fetch` 를 쓰므로 Node 18 이상에서 실행하세요.
 
 3. 로컬 환경에서 샘플 프로젝트를 확인하세요.
 
 ## 인증하기
 
-샘플에 있는 키로 연동이 가능하지만, 내 테스트 연동 키를 사용하면 테스트 결제내역, 웹훅 기능을 사용할 수 있어요. 내 테스트 연동 키는 [개발자센터](https://developers.tosspayments.com/my/api-keys)에서 확인할 수 있습니다. 더 자세한 내용은 [API 키 가이드](https://docs.tosspayments.com/reference/using-api/api-keys)를 참고하세요.
+샘플에는 키가 들어 있지 않아요. 코드에서 `{CLIENT_KEY}`, `{SECRET_KEY}` 처럼 중괄호로 표시한 자리에 내 테스트 연동 키를 넣어 주세요. 내 테스트 연동 키는 [개발자센터](https://developers.tosspayments.com/my/api-keys)에서 확인할 수 있습니다. 더 자세한 내용은 [API 키 가이드](https://docs.tosspayments.com/reference/using-api/api-keys)를 참고하세요.
 
 - **클라이언트 키**: `src/views/CheckoutView.vue` 파일에 있는 `clientKey`를 내 결제위젯 클라이언트 키로 수정하세요.
-- **시크릿 키**: `src/confirmPayment.js` 파일에 있는 `secretKey`를 내 결제위젯 시크릿 키로 수정하세요. **시크릿 키는 외부에 노출되면 안 됩니다.**
+- **시크릿 키**: `server.js` 파일에 있는 `secretKey`를 내 결제위젯 시크릿 키로 수정하세요. **시크릿 키는 외부에 노출되면 안 되니 브라우저 코드에 넣지 마세요.**
 
 ## Q. 결제 요청 후 계속 로딩 중인 화면이 보인다면?
 

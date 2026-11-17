@@ -1,4 +1,0 @@
-<p>secret : <%=secret %></p>
-<p>status : <%=status %></p>
-<p>orderId :<%=orderId %></p>
-

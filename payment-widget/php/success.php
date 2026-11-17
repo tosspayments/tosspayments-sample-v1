@@ -1,17 +1,27 @@
 <?php
 error_reporting(E_ALL);
-ini_set("display_errors", true);
+// 개발할 때만 화면에 오류를 보여 줘요(APP_DEBUG=true). 운영 환경에서는 끄세요.
+ini_set("display_errors", getenv("APP_DEBUG") === "true" ? "1" : "0");
 
 $paymentKey = $_GET['paymentKey'];
 $orderId = $_GET['orderId'];
 $amount = $_GET['amount'];
 
+// TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하고, 승인하기 전에 저장한 값과 비교하세요.
+// 값이 다르면 결제 승인 API를 호출하지 말고 실패로 처리해요.
+// 예시)
+// $savedAmount = findAmountByOrderId($orderId); // 결제 요청 전에 서버에 저장한 금액
+// if ($savedAmount === null || (int) $savedAmount !== (int) $amount) {
+//     http_response_code(400);
+//     echo '결제 금액이 주문 금액과 달라요.';
+//     exit;
+// }
 $url = 'https://api.tosspayments.com/v1/payments/confirm';
 $data = ['paymentKey' => $paymentKey, 'orderId' => $orderId, 'amount' => $amount];
 
 // TODO: 개발자센터에 로그인해서 내 결제위젯 연동 키 > 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
 // @docs https://docs.tosspayments.com/reference/using-api/api-keys
-$secretKey = 'test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6';
+$secretKey = '{WIDGET_SECRET_KEY}';
 
 // 토스페이먼츠 API는 시크릿 키를 사용자 ID로 사용하고, 비밀번호는 사용하지 않습니다.
 // 비밀번호가 없다는 것을 알리기 위해 시크릿 키 뒤에 콜론을 추가합니다.
@@ -59,15 +69,15 @@ $responseJson = json_decode($response);
 
             <div class="p-grid typography--p" style="margin-top: 50px">
                 <div class="p-grid-col text--left"><b>결제금액</b></div>
-                <div class="p-grid-col text--right" id="amount"><?php echo $responseJson->totalAmount ?></div>
+                <div class="p-grid-col text--right" id="amount"><?php echo htmlspecialchars((string) ($responseJson->totalAmount ?? ''), ENT_QUOTES, 'UTF-8') ?></div>
             </div>
             <div class="p-grid typography--p" style="margin-top: 10px">
                 <div class="p-grid-col text--left"><b>주문번호</b></div>
-                <div class="p-grid-col text--right" id="orderId"><?php echo $responseJson->orderId ?></div>
+                <div class="p-grid-col text--right" id="orderId"><?php echo htmlspecialchars((string) ($responseJson->orderId ?? ''), ENT_QUOTES, 'UTF-8') ?></div>
             </div>
             <div class="p-grid typography--p" style="margin-top: 10px">
                 <div class="p-grid-col text--left"><b>paymentKey</b></div>
-                <div class="p-grid-col text--right" id="paymentKey" style="white-space: initial; width: 250px"><?php echo $responseJson->paymentKey ?></div>
+                <div class="p-grid-col text--right" id="paymentKey" style="white-space: initial; width: 250px"><?php echo htmlspecialchars((string) ($responseJson->paymentKey ?? ''), ENT_QUOTES, 'UTF-8') ?></div>
             </div>
             <div class="p-grid" style="margin-top: 30px">
                 <button class="button p-grid-col5" onclick="location.href='https://docs.tosspayments.com/guides/payment/integration';">연동 문서</button>
@@ -77,7 +87,7 @@ $responseJson = json_decode($response);
         <div class="box_section" style="width: 600px; text-align: left">
             <b>Response Data :</b>
             <pre>
-            <?php echo trim(json_encode($responseJson,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE)); ?>
+            <?php echo htmlspecialchars(json_encode(array_intersect_key((array) $responseJson, array_flip(['paymentKey', 'orderId', 'orderName', 'status', 'method', 'totalAmount', 'approvedAt'])), JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8'); ?>
             </pre>
         </div>
 
@@ -89,11 +99,11 @@ $responseJson = json_decode($response);
 
         <div class="p-grid typography--p" style="margin-top: 50px">
             <div class="p-grid-col text--left"><b>에러메시지</b></div>
-            <div class="p-grid-col text--right" id="message"><?php echo $responseJson->message ?></div>
+            <div class="p-grid-col text--right" id="message"><?php echo htmlspecialchars((string) ($responseJson->message ?? ''), ENT_QUOTES, 'UTF-8') ?></div>
         </div>
         <div class="p-grid typography--p" style="margin-top: 10px">
             <div class="p-grid-col text--left"><b>에러코드</b></div>
-            <div class="p-grid-col text--right" id="code"><?php echo $responseJson->code ?></div>
+            <div class="p-grid-col text--right" id="code"><?php echo htmlspecialchars((string) ($responseJson->code ?? ''), ENT_QUOTES, 'UTF-8') ?></div>
         </div>
         <div class="p-grid">
             <button class="button p-grid-col5" onclick="location.href='https://docs.tosspayments.com/guides/payment/integration';">연동 문서</button>

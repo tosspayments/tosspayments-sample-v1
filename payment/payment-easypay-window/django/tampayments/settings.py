@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a%c7_r094y2a3rp)y)e)i$lcpfjs%7uxa9)rs3r#p80a7nt9w&'
+# TODO: 운영 환경에서는 환경 변수로 넣으세요.
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "{DJANGO_SECRET_KEY}")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# 개발할 때는 DJANGO_DEBUG=true 로 켜고, 운영 환경에서는 끄세요.
+DEBUG = os.environ.get("DJANGO_DEBUG", "false").lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 
 # Application definition
@@ -82,7 +85,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "postgres",
         "USER": "postgres",
-        "PASSWORD": "postgres",
+        "PASSWORD": os.environ.get("DJANGO_DB_PASSWORD", "{DB_PASSWORD}"),
         "HOST": "db",
         "PORT": 5432,
     }

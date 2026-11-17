@@ -26,13 +26,22 @@ public class PaymentController {
             @RequestParam(value = "amount") Integer amount,
             @RequestParam(value = "paymentKey") String paymentKey) throws Exception {
 
-        String secretKey = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R:";
+        // TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하고, 승인하기 전에 저장한 값과 비교하세요.
+        // 값이 다르면 결제 승인 API를 호출하지 말고 실패로 처리해요.
+        // 예시)
+        // Integer savedAmount = findAmountByOrderId(orderId); // 결제 요청 전에 서버에 저장한 금액
+        // if (savedAmount == null || !savedAmount.equals(amount)) {
+        //     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "결제 금액이 주문 금액과 달라요.");
+        // }
+        String secretKey = "{SECRET_KEY}:";
 
         Base64.Encoder encoder = Base64.getEncoder();
         byte[] encodedBytes = encoder.encode(secretKey.getBytes("UTF-8"));
         String authorizations = "Basic " + new String(encodedBytes, 0, encodedBytes.length);
 
-        URL url = new URL("https://api.tosspayments.com/v1/payments/" + paymentKey);
+        // 결제 승인 API를 호출하세요. paymentKey 는 URL 경로가 아니라 요청 본문으로 보내요.
+        // @docs https://docs.tosspayments.com/reference#결제-승인
+        URL url = new URL("https://api.tosspayments.com/v1/payments/confirm");
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("Authorization", authorizations);
@@ -40,6 +49,7 @@ public class PaymentController {
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
         JSONObject obj = new JSONObject();
+        obj.put("paymentKey", paymentKey);
         obj.put("orderId", orderId);
         obj.put("amount", amount);
 
@@ -56,8 +66,17 @@ public class PaymentController {
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(reader);
         responseStream.close();
-        model.addAttribute("responseStr", jsonObject.toJSONString());
-        System.out.println(jsonObject.toJSONString());
+        // 화면에는 승인 응답에서 필요한 필드만 보여 줘요.
+        // 성공하면 결제 필드를, 실패하면 code, message 만 보여 줘요.
+        String[] keys = new String[]{"paymentKey", "orderId", "orderName", "status", "method", "totalAmount", "approvedAt"};
+        if (jsonObject.get("code") != null) {
+            keys = new String[]{"code", "message"};
+        }
+        JSONObject picked = new JSONObject();
+        for (String key : keys) {
+            picked.put(key, jsonObject.get(key));
+        }
+        model.addAttribute("responseStr", picked.toJSONString());
 
         model.addAttribute("method", (String) jsonObject.get("method"));
         model.addAttribute("orderName", (String) jsonObject.get("orderName"));

@@ -22,6 +22,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   } = context;
 
   try {
+    // TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하고, 승인하기 전에 저장한 값과 비교하세요.
+    // 값이 다르면 결제 승인 API를 호출하지 말고 실패로 처리해요.
+    // 예시)
+    // const savedAmount = await findAmountByOrderId(orderId as string); // 결제 요청 전에 서버에 저장한 금액
+    // if (savedAmount == null || savedAmount !== Number(amount)) {
+    //   return {
+    //     redirect: {
+    //       destination: `/fail?code=INVALID_AMOUNT&message=${encodeURIComponent("결제 금액이 주문 금액과 달라요.")}`,
+    //       permanent: false,
+    //     },
+    //   };
+    // }
     // ------  결제 승인 ------
     // @docs https://docs.tosspayments.com/guides/payment-widget/integration#3-결제-승인하기
     const { data: payment } = await axios.post<Payment>(
@@ -37,12 +49,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         },
       }
     );
-    console.log(payment);
+    // 브라우저에는 화면에 필요한 필드만 내려 줘요.
     return {
-      props: { payment },
+      props: { payment: pickPaymentFields(payment) },
     };
   } catch (err: any) {
-    console.error("err", err.response.data);
+    console.error("err", err.response.data.code);
 
     return {
       redirect: {
@@ -53,8 +65,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 };
 
+// 승인 응답(Payment 객체)에서 화면에 필요한 필드만 골라요.
+function pickPaymentFields(payment: Payment) {
+  const { paymentKey, orderId, orderName, method, totalAmount, approvedAt } = payment;
+  return { paymentKey, orderId, orderName, method, totalAmount, approvedAt };
+}
+
 interface Props {
-  payment: Payment;
+  payment: ReturnType<typeof pickPaymentFields>;
 }
 
 export default function SuccessPage({ payment }: Props) {

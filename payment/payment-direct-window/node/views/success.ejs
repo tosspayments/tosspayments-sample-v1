@@ -12,11 +12,11 @@
 
     <%  if (isSuccess) { %>
     <h1>결제 성공</h1>
-    <p>결과 데이터 : <%= JSON.stringify(responseJson) %></p>
+    <p>결과 데이터 : <%= JSON.stringify(pickedJson) %></p>
     <p>orderName : <%= responseJson.orderName %></p>
     <p>method : <%= responseJson.method %></p>
     <p>
-      card -> number : <%= responseJson.card.number %> <% } %>
+      <% if (responseJson.card) { %>card -> number : <%= responseJson.card.number %><% } %>
 
     </p>
 

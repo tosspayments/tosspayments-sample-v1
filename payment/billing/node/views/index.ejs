@@ -33,7 +33,8 @@
       "card": {
         // customerKey에는 가맹점에서 가지고 있는 고객 식별키를 넣어주세요.
         // 다른 사용자가 이 값을 알게 되면 악의적으로 사용할 수 있어 자동 증가하는 숫자는 안전하지 않습니다. UUID와 같이 충분히 무작위적인 고유 값으로 생성해주세요.
-        "customerKey": "test_customer_key",
+        // 샘플에서는 브라우저의 암호학적 난수(crypto.randomUUID)로 만들어요. 실제 서비스에서는 서버가 로그인한 구매자 기준으로 정한 customerKey 를 쓰세요.
+        "customerKey": window.crypto.randomUUID(),
         "successUrl": successUrl,
         "failUrl": failUrl
       }

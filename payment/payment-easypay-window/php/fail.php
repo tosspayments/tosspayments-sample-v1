@@ -13,8 +13,8 @@ $code = $_GET['code'];
 <body>
 <section>
     <h1>결제 실패</h1>
-    <p><?php echo $message ?></p>
-    <span>에러코드: <?php echo $code ?></span>
+    <p><?php echo htmlspecialchars($message ?? '', ENT_QUOTES, 'UTF-8') ?></p>
+    <span>에러코드: <?php echo htmlspecialchars($code ?? '', ENT_QUOTES, 'UTF-8') ?></span>
 </section>
 </body>
 </html>

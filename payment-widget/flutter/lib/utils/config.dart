@@ -15,8 +15,9 @@ class LocalConfig {
   }
 
   static final UIState _live = UIState(
-    clientKey: 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq',
-    customerKey: 'aaaa',
+    // live phase: 결제위젯 연동 키 > 라이브 클라이언트 키를 넣으세요.
+    clientKey: '{WIDGET_CLIENT_KEY}',
+    customerKey: '{CUSTOMER_KEY}',
     currency: Currency.KRW,
     country: "KR",
     amount: 50000,
@@ -24,8 +25,9 @@ class LocalConfig {
   );
 
   static final UIState _staging = UIState(
-    clientKey: 'live_ck_JQbgMGZzorzj0ZnKbOjrl5E1em4d',
-    customerKey: 'a1b2c3',
+    // staging phase: 결제위젯 연동 키 > 테스트 클라이언트 키를 넣으세요.
+    clientKey: '{WIDGET_CLIENT_KEY}',
+    customerKey: '{CUSTOMER_KEY}',
     currency: Currency.KRW,
     country: "KR",
     amount: 50000,
@@ -35,8 +37,9 @@ class LocalConfig {
   );
 
   static final UIState _dev = UIState(
-    clientKey: 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm',
-    customerKey: 'CUSTOMER_KEY',
+    // dev phase: 결제위젯 연동 키 > 테스트 클라이언트 키를 넣으세요.
+    clientKey: '{WIDGET_CLIENT_KEY}',
+    customerKey: '{CUSTOMER_KEY}',
     currency: Currency.KRW,
     country: "KR",
     amount: 50000,

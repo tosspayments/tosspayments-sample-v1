@@ -40,6 +40,13 @@ public class WidgetController {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         };
+        // TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하고, 승인하기 전에 저장한 값과 비교하세요.
+        // 값이 다르면 결제 승인 API를 호출하지 말고 실패로 처리해요.
+        // 예시)
+        // Long savedAmount = findAmountByOrderId(orderId); // 결제 요청 전에 서버에 저장한 금액
+        // if (savedAmount == null || savedAmount != Long.parseLong(amount)) {
+        //     return ResponseEntity.badRequest().build();
+        // }
         JSONObject obj = new JSONObject();
         obj.put("orderId", orderId);
         obj.put("amount", amount);
@@ -47,7 +54,7 @@ public class WidgetController {
 
         // TODO: 개발자센터에 로그인해서 내 결제위젯 연동 키 > 시크릿 키를 입력하세요. 시크릿 키는 외부에 공개되면 안돼요.
         // @docs https://docs.tosspayments.com/reference/using-api/api-keys
-        String widgetSecretKey = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6";
+        String widgetSecretKey = "{WIDGET_SECRET_KEY}";
 
         // 토스페이먼츠 API는 시크릿 키를 사용자 ID로 사용하고, 비밀번호는 사용하지 않습니다.
         // 비밀번호가 없다는 것을 알리기 위해 시크릿 키 뒤에 콜론을 추가합니다.
@@ -80,7 +87,17 @@ public class WidgetController {
         JSONObject jsonObject = (JSONObject) parser.parse(reader);
         responseStream.close();
 
-        return ResponseEntity.status(code).body(jsonObject);
+        // 브라우저에는 화면에 필요한 필드만 내려 줘요.
+        String[] fields = new String[]{"code", "message"};
+        if (isSuccess) {
+            fields = new String[]{"paymentKey", "orderId", "orderName", "status", "method", "totalAmount", "approvedAt"};
+        }
+        JSONObject responseBody = new JSONObject();
+        for (String field : fields) {
+            responseBody.put(field, jsonObject.get(field));
+        }
+
+        return ResponseEntity.status(code).body(responseBody);
     }
 
     /**

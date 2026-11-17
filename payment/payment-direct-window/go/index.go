@@ -12,7 +12,7 @@ import (
 	"strconv"
 )
 
-const secretKey string = "test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R"
+const secretKey string = "{SECRET_KEY}"
 
 type Page struct {
 	Title string
@@ -46,17 +46,18 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 }
 
 func successUrlHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "%s 성공 처리.\n", r.URL.Path[1:]) // r.URL.Path 는 URL에서 도메인이나 IP주소 다음에 나오는 경로를 반환함.
-	fmt.Fprintf(w, "URL: %s\n\n", r.URL.Path[:])
-	//fmt.Fprintf(w, "Query: %s\n", r.URL.Query())
-	fmt.Fprintf(w, "paymentKey: %s\n", r.URL.Query().Get("paymentKey"))
-	fmt.Fprintf(w, "orderId: %s\n", r.URL.Query().Get("orderId"))
-	fmt.Fprintf(w, "amount: %s\n", r.URL.Query().Get("amount"))
-
 	paymentKey := r.URL.Query().Get("paymentKey")
 	orderId := r.URL.Query().Get("orderId")
 	amount, err := strconv.Atoi(r.URL.Query().Get("amount"))
 
+	// TODO: 결제를 요청하기 전에 orderId, amount를 서버에 저장하고, 승인하기 전에 저장한 값과 비교하세요.
+	// 값이 다르면 결제 승인 API를 호출하지 말고 실패로 처리해요.
+	// 예시)
+	// savedAmount, ok := findAmountByOrderId(orderId) // 결제 요청 전에 서버에 저장한 금액
+	// if !ok || savedAmount != amount {
+	// 	http.Error(w, "결제 금액이 주문 금액과 달라요.", http.StatusBadRequest)
+	// 	return
+	// }
 	// 응답 파라미터 json 형태로 셋팅
 	approval := Approval{paymentKey, orderId, amount}
 	pbytes, _ := json.Marshal(approval)
@@ -68,10 +69,6 @@ func successUrlHandler(w http.ResponseWriter, r *http.Request) {
 		Jar:       nil,
 		Timeout:   0,
 	}
-
-	fmt.Println("paymentKey = " + r.URL.Query().Get("paymentKey"))
-	fmt.Println("orderId = " + r.URL.Query().Get("orderId"))
-	fmt.Println("orderId = " + r.URL.Query().Get("amount"))
 
 	req, err := http.NewRequest("POST", "https://api.tosspayments.com/v1/payments/confirm", buff)
 	req.Header.Add("Authorization", "Basic "+basicAuth(secretKey, ""))
@@ -87,9 +84,28 @@ func successUrlHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(data))
+	// 화면에는 승인 응답에서 필요한 필드만 보여 줘요.
+	var payment map[string]interface{}
+	json.Unmarshal(data, &payment)
+	// 성공하면 결제 필드를, 실패하면 code, message 만 보여 줘요.
+	keys := []string{"paymentKey", "orderId", "orderName", "status", "method", "totalAmount", "approvedAt"}
+	if resp.StatusCode != http.StatusOK {
+		keys = []string{"code", "message"}
+		w.WriteHeader(resp.StatusCode)
+	}
+	// 상태 코드를 정한 뒤에 본문을 써야 실패 상태 코드가 그대로 전달돼요.
+	fmt.Fprintf(w, "%s 성공 처리.\n", r.URL.Path[1:]) // r.URL.Path 는 URL에서 도메인이나 IP주소 다음에 나오는 경로를 반환함.
+	fmt.Fprintf(w, "URL: %s\n\n", r.URL.Path[:])
+	fmt.Fprintf(w, "paymentKey: %s\n", paymentKey)
+	fmt.Fprintf(w, "orderId: %s\n", orderId)
+	fmt.Fprintf(w, "amount: %d\n", amount)
+	picked := map[string]interface{}{}
+	for _, key := range keys {
+		picked[key] = payment[key]
+	}
+	pickedJSON, _ := json.MarshalIndent(picked, "", "  ")
 	fmt.Fprintf(w, "\n\n== 승인 응답 결과 ==\n")
-	fmt.Fprintf(w, string(data))
+	fmt.Fprint(w, string(pickedJSON))
 }
 
 func failUrlHandler(w http.ResponseWriter, r *http.Request) {

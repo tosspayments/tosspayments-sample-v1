@@ -1,5 +1,9 @@
 # Python - Django Project
 
+## 실행하기
+
+개발할 때는 `DJANGO_DEBUG=true python manage.py runserver` 로 실행하세요. DEBUG 가 꺼져 있으면 runserver 가 정적 파일(CSS)을 내려 주지 않아요.
+
 ## 기본설명
 ```
 Python - Django 환경을 먼저 준비 해주세요.

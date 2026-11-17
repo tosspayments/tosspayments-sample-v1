@@ -70,7 +70,9 @@
         return json;
       }
       confirm().then(function (data) {
-        document.getElementById("response").innerHTML = `<pre>${JSON.stringify(data, null, 4)}</pre>`;
+        const pre = document.createElement("pre");
+        pre.textContent = JSON.stringify(data, null, 4);
+        document.getElementById("response").replaceChildren(pre);
       });
 
       const paymentKeyElement = document.getElementById("paymentKey");

@@ -21,11 +21,11 @@ $code = $_GET['code'];
 
       <div class="p-grid typography--p" style="margin-top: 50px">
         <div class="p-grid-col text--left"><b>에러메시지</b></div>
-        <div class="p-grid-col text--right" id="message"><?php echo $message ?></div>
+        <div class="p-grid-col text--right" id="message"><?php echo htmlspecialchars($message ?? '', ENT_QUOTES, 'UTF-8') ?></div>
       </div>
       <div class="p-grid typography--p" style="margin-top: 10px">
         <div class="p-grid-col text--left"><b>에러코드</b></div>
-        <div class="p-grid-col text--right" id="code"><?php echo $code ?></div>
+        <div class="p-grid-col text--right" id="code"><?php echo htmlspecialchars($code ?? '', ENT_QUOTES, 'UTF-8') ?></div>
       </div>
       <div class="p-grid">
         <button class="button p-grid-col5" onclick="location.href='https://docs.tosspayments.com/guides/payment/integration';">연동 문서</button>

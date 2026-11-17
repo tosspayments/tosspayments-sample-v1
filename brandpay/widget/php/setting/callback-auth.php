@@ -1,11 +1,12 @@
 <?php
-header('Content-Type: application/json');
+header('Content-Type: text/plain; charset=utf-8');
 include_once './var.php';
 $credential = base64_encode($secretKey . ':');
 
 
 $code = $_GET['code'];
 $customerKey = $_GET['customerKey'];
+// TODO: 요청으로 받은 customerKey 가 로그인한 구매자의 것인지 확인하세요.
 
 $curl = curl_init();
 
@@ -27,5 +28,14 @@ curl_setopt_array($curl, [
 ]);
 
 $response = curl_exec($curl);
-echo $response;
+$statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+// TODO: 발급받은 Access Token 은 서버에 저장하고, 브라우저에는 결과만 알려 주세요.
+if ($statusCode === 0) {
+    $statusCode = 500;
+} elseif ($statusCode < 400) {
+    $statusCode = 200;
+}
+http_response_code($statusCode);
+echo $statusCode === 200 ? 'OK' : 'FAIL';
 ?>
